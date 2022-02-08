@@ -26,3 +26,4 @@
 - linear scheduler
 - seq len 512がよいかも
 - OOFの分析
+- 医療BERT: https://huggingface.co/emilyalsentzer
