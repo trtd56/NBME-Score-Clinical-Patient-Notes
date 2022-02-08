@@ -10,7 +10,7 @@
 [baseline 0.790]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87259061
 [roberta-base 0.9508]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [roberta-base ]:xxx
-[bert-large-uncased ]:xxx
+[bert-large-uncased ]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87299467
 [bert-large-uncased ]:xxx
 
 
@@ -22,4 +22,3 @@
 - scheduler: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecay
 - seq len 512がよいかも
 - OOFの分析
-- 医療BERT: https://huggingface.co/emilyalsentzer
