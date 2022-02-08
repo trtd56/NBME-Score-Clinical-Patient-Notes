@@ -15,6 +15,9 @@
 [BiomedNLP-PubMedBERT 0.9369]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87270044
 [BiomedNLP-PubMedBERT 0.667]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87275267
 
+
+0.6942331204362533
+
 ## やりたいことメモ
 - RoBERTa
 - large model
