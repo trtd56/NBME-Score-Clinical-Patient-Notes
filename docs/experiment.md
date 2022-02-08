@@ -3,7 +3,7 @@
 |CV|LB|memo|
 |--|--|--|
 |[baseline 0.9542]|[baseline 0.790]|通常BERT, CVはaverageが良さそう(maxで0.785)|
-|[Bio_ClinicalBERT 0.8910]|[Bio_ClinicalBERT 0.000]|医療系用語での事前学習1|
+|[Bio_ClinicalBERT 0.8910]|[Bio_ClinicalBERT 0.000]|医療系用語での事前学習1, early stoppingが早すぎたかも|
 |[Bio_Discharge_Summary_BERT ]|[Bio_Discharge_Summary_BERT ]|医療系用語での事前学習2|
 |[BiomedNLP-PubMedBERT ]|[BiomedNLP-PubMedBERT ]|医療系用語での事前学習3|
 
