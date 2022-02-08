@@ -12,8 +12,7 @@
 [Bio_ClinicalBERT 0.8910]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87261640
 [Bio_ClinicalBERT 0.000]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87264263
 [Bio_Discharge_Summary_BERT 0.9012]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87265088
-
-[BiomedNLP-PubMedBERT ]:xxx
+[BiomedNLP-PubMedBERT ]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87269963
 [BiomedNLP-PubMedBERT ]:xxx
 
 ## やりたいことメモ
