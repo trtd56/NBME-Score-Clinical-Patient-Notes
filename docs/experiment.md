@@ -23,7 +23,7 @@
 - large model
 - debertaが効きそう？: https://www.kaggle.com/nbroad/qa-ner-hybrid-train-nbme/notebook
 - 後処理
-- linear scheduler
+- scheduler: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecay
 - seq len 512がよいかも
 - OOFの分析
 - 医療BERT: https://huggingface.co/emilyalsentzer
