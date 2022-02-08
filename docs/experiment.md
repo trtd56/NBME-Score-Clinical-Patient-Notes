@@ -23,4 +23,5 @@
 - large model
 - debertaが効きそう？: https://www.kaggle.com/nbroad/qa-ner-hybrid-train-nbme/notebook
 - 後処理
+- seq len 512がよいかも
 - OOFの分析
