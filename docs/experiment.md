@@ -22,6 +22,9 @@
 [ReduceLROnPlateau 0.9645]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87357727
 [ReduceLROnPlateau 0.851]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87360960
 
+
+0.9260552312927105
+
 ## やりたいことメモ
 - debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
 - 後処理
