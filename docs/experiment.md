@@ -19,7 +19,7 @@
 [nakamas_preprocessing 0.824]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87352776
 [roberta-large 0.9605]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87353216
 [roberta-large 0.837]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87355488
-[ReduceLROnPlateau ]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87357085
+[ReduceLROnPlateau ]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87357727
 [ReduceLROnPlateau ]:xxx
 
 ## やりたいことメモ
