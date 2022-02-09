@@ -33,6 +33,7 @@
 - seq len 512がよいかも
 - OOFの分析
 - BCEで予測
+- feature_textの追加
 
 
 ## 過去
