@@ -18,7 +18,7 @@
 [nakamas_preprocessing ]:xxx
 
 ## やりたいことメモ
-- debertaが効きそう？: https://www.kaggle.com/yasufuminakama/nbme-deberta-base-baseline-train
+- debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
 - 後処理
 - scheduler: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecay
 - seq len 512がよいかも
