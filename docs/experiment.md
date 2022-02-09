@@ -4,8 +4,8 @@
 |--|--|--|
 |[baseline 0.9542]|[baseline 0.790]|通常BERT, CVはaverageが良さそう(maxで0.785), char-F1=0.672645961766973|
 |[roberta-base 0.9508]|[roberta-base 0.799]|char-F1=0.6689833520418732|
-|[bert-large-uncased 0.9607]|[bert-large-uncased ]|char-F1=0.6687693274319445|
-|[nakamas_preprocessing 0.9591]|[nakamas_preprocessing ]|nakamaさんの前処理, char-F1=0.6713626297362645|
+|[bert-large-uncased 0.9607]|[bert-large-uncased 0.829]|char-F1=0.6687693274319445|
+|[nakamas_preprocessing 0.9591]|[nakamas_preprocessing 0.824]|nakamaさんの前処理, char-F1=0.6713626297362645|
 |[roberta-large ]|[roberta-large ]||
 
 [baseline 0.9542]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87207206
@@ -13,9 +13,9 @@
 [roberta-base 0.9508]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [roberta-base 0.799]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
 [bert-large-uncased 0.9607]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87343891
-[bert-large-uncased ]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87346757
+[bert-large-uncased 0.829]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87346757
 [nakamas_preprocessing 0.9591]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87349915
-[nakamas_preprocessing ]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87352776
+[nakamas_preprocessing 0.824]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87352776
 [roberta-large ]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87353216
 [roberta-large ]:xxx
 
