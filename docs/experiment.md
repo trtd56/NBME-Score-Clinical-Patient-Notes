@@ -30,7 +30,6 @@
 - debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
 - 後処理
 - scheduler: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecay
-- seq len 512がよいかも
 - OOFの分析
 - BCEで予測
 - feature_textの追加
