@@ -11,7 +11,8 @@
 |nakamas_preprocessing|[train03]|[infer03]|0.8119|0.824|nakamaさんの前処理|
 |roberta-large|[train04]|[infer04]|0.8280|0.837||
 |ReduceLROnPlateau|[train05]|[infer05]|0.8458|0.851|early stoppingをf1で|
-|preprocessing_fix|[train06]|[infer06]|||seq_l=448, 前処理の修正|
+|preprocessing_fix|[train06]|[infer06]|0.8431||seq_l=448, 前処理の修正|
+|add_feature_text|[train07]|[infer07]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -24,8 +25,9 @@
 [train05]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87357727
 [infer05]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87360960
 [train06]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87387152
-[infer06]:xxx
-
+[infer06]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87428373
+[train07]:xxx
+[infer07]:xxx
 
 
 ## やりたいことメモ
@@ -35,7 +37,6 @@
 - OOFの分析
   - アノテーションにばらつきがありそう
 - BCEで予測
-- feature_textの追加
 
 
 ## 過去
