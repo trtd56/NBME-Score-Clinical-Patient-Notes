@@ -7,7 +7,7 @@
 |[bert-large-uncased 0.9607]|[bert-large-uncased 0.829]|char-F1=0.6687693274319445|
 |[nakamas_preprocessing 0.9591]|[nakamas_preprocessing 0.824]|nakamaさんの前処理, char-F1=0.6713626297362645|
 |[roberta-large 0.9605]|[roberta-large 0.837]|char-F1=0.6701872630210779|
-|[ReduceLROnPlateau 0.9645]|[ReduceLROnPlateau ]|early stoppingをf1 scoreで, char-F1=0.6689132958966747|
+|[ReduceLROnPlateau 0.9645]|[ReduceLROnPlateau 0.851]|early stoppingをf1 scoreで, char-F1=0.6689132958966747|
 
 [baseline 0.9542]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87207206
 [baseline 0.790]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87259061
@@ -20,7 +20,7 @@
 [roberta-large 0.9605]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87353216
 [roberta-large 0.837]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87355488
 [ReduceLROnPlateau 0.9645]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87357727
-[ReduceLROnPlateau ]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87360960
+[ReduceLROnPlateau 0.851]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87360960
 
 ## やりたいことメモ
 - debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
