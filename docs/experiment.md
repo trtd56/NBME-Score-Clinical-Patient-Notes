@@ -20,7 +20,7 @@
 [roberta-large 0.9605]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87353216
 [roberta-large 0.837]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87355488
 [ReduceLROnPlateau 0.9645]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87357727
-[ReduceLROnPlateau ]:xxx
+[ReduceLROnPlateau ]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87360960
 
 ## やりたいことメモ
 - debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
