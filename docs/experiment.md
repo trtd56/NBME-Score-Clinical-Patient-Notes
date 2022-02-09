@@ -24,12 +24,15 @@
 [infer05]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87360960
 
 
+
+
 ## やりたいことメモ
 - debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
 - 後処理
 - scheduler: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecay
 - seq len 512がよいかも
 - OOFの分析
+- BCEで予測
 
 
 ## 過去
