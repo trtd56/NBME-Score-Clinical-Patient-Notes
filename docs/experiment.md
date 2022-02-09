@@ -11,6 +11,7 @@
 |nakamas_preprocessing|[train03]|[infer03]|0.8119|0.824|nakamaさんの前処理|
 |roberta-large|[train04]|[infer04]|0.8280|0.837||
 |ReduceLROnPlateau|[train05]|[infer05]|0.8458|0.851|early stoppingをf1で|
+|preprocessing_fix|||||seq_l=448, 前処理の修正|
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -31,6 +32,7 @@
 - 後処理
 - scheduler: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecay
 - OOFの分析
+  - アノテーションにばらつきがありそう
 - BCEで予測
 - feature_textの追加
 
