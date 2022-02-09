@@ -9,7 +9,7 @@
 |roberta-base|[train01]|[infer01]|0.7825|0.799||
 |bert-large-uncased|[train02]|[infer02]|0.8178|0.829||
 |nakamas_preprocessing|[train03]|[infer03]|0.8119|0.824|nakamaさんの前処理|
-|roberta-large|[train04]|[infer04]||0.837||
+|roberta-large|[train04]|[infer04]|0.8280|0.837||
 |ReduceLROnPlateau|[train05]|[infer05]|0.8458|0.851|early stoppingをf1で|
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
