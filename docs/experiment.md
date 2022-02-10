@@ -13,7 +13,7 @@
 |ReduceLROnPlateau|[train05]|[infer05]|0.8458|0.851|early stoppingをf1で|
 |preprocessing_fix|[train06]|[infer06]|0.8431|0.849|seq_l=448, 前処理の修正|
 |preprocessing_fix2|[train07]|[infer07]|0.8455|0.849|↑にバグがあったので修正|
-|preprocessing_fix2|[train07]|[infer07.1]|0.8458||後処理(1文字, the)|
+|preprocessing_fix2|[train07]|[infer07.1]|0.8458|0.849|後処理(1文字, the)|
 |bce_loss|[train08]||||ダメそう|
 |add_feature_text|[train09]|[infer09]|||GPU, roberta-base|
 
