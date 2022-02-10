@@ -14,7 +14,7 @@
 |preprocessing_fix|[train06]|[infer06]|0.8431|0.849|seq_l=448, 前処理の修正|
 |preprocessing_fix2|[train07]|[infer07]|0.8455|0.849|↑にバグがあったので修正|
 |bce_loss|[train08]||||ダメそう|
-|add_feature_text|[train09]|[infer09]||||
+|add_feature_text|[train09]|[infer09]|||GPU, roberta-base|
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -31,7 +31,7 @@
 [train07]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87432030
 [infer07]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87434887
 [train08]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87439974
-[train09]:xxx
+[train09]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-gpu?scriptVersionId=87473807
 [infer09]:xxx
 
 
