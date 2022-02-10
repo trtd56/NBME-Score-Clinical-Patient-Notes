@@ -13,7 +13,7 @@
 |ReduceLROnPlateau|[train05]|[infer05]|0.8458|0.851|early stoppingをf1で|
 |preprocessing_fix|[train06]|[infer06]|0.8431|0.849|seq_l=448, 前処理の修正|
 |preprocessing_fix2|[train07]|[infer07]|0.8455|0.849|↑にバグがあったので修正|
-|bce_loss|[train08]|[infer08]||||
+|bce_loss|[train08]||||ダメそう|
 |add_feature_text|[train09]|[infer09]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
@@ -31,7 +31,6 @@
 [train07]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87432030
 [infer07]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87434887
 [train08]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87439974
-[infer08]:xxx
 [train09]:xxx
 [infer09]:xxx
 
