@@ -39,7 +39,7 @@
 [infer09]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87564711
 [infer09.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87565136
 [infer09.2]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87566536
-[train10]:xxx
+[train10]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-gpu?scriptVersionId=87567134
 [infer10]:xxx
 
 ## やりたいことメモ
@@ -49,3 +49,5 @@
 - OOFの分析
   - アノテーションにばらつきがありそう
 - BART
+- 各ラベルでモデルを作る
+  - yearとかはまとめられそう
