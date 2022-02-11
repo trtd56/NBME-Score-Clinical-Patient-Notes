@@ -12,9 +12,9 @@
 |preprocessing_fix2|[train07]|[infer07]|0.8455|0.849|↑にバグがあったので修正|
 |preprocessing_fix2|[train07]|[infer07.1]|0.8458|0.849|後処理(1文字, the)|
 |bce_loss|[train08]||||ダメそう|
-|add_feature_text|[train09]|[infer09]|0.8046||GPU, roberta-base|
-|add_feature_text|[train09]|[infer09.1]|0.8046||GPU, roberta-base, CV max|
-|add_feature_text|[train09]|[infer09.2]|0.8047||GPU, roberta-base, thr=0.48|
+|add_feature_text|[train09]|[infer09]|0.8046|0.814|GPU, roberta-base|
+|add_feature_text|[train09]|[infer09.1]|0.8046|0.790|GPU, roberta-base, CV max|
+|add_feature_text|[train09]|[infer09.2]|0.8047|0.814|GPU, roberta-base, thr=0.48|
 |deberta|[train10]|[infer10]|||GPU|
 
 
