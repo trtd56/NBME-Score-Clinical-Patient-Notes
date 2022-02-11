@@ -14,7 +14,7 @@
 |bce_loss|[train08]||||ダメそう|
 |add_feature_text|[train09]|[infer09]|0.8046||GPU, roberta-base|
 |add_feature_text|[train09]|[infer09.1]|0.8046||GPU, roberta-base, CV max|
-|add_feature_text|[train09]|[infer09.2]|0.8046||GPU, roberta-base, thr=0.48|
+|add_feature_text|[train09]|[infer09.2]|0.8047||GPU, roberta-base, thr=0.48|
 |deberta|[train10]|[infer10]|||GPU|
 
 
