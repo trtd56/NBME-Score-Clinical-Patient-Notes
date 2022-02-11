@@ -14,7 +14,10 @@
 |bce_loss|[train08]||||ダメそう|
 |add_feature_text|[train09]|[infer09]|0.8046||GPU, roberta-base|
 |add_feature_text|[train09]|[infer09.1]|0.8046||GPU, roberta-base, CV max|
+|add_feature_text|[train09]|[infer09.2]|0.8046||GPU, roberta-base, thr=0.48|
 |deberta|[train10]|[infer10]|||GPU|
+
+
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -35,6 +38,7 @@
 [train09]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-gpu?scriptVersionId=87518649
 [infer09]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87564711
 [infer09.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87565136
+[infer09.2]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87566536
 [train10]:xxx
 [infer10]:xxx
 
