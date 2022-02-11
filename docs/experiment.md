@@ -32,7 +32,7 @@
 [infer07.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87474982
 [train08]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87439974
 [train09]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-gpu?scriptVersionId=87518649
-[infer09]:xxx
+[infer09]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87564711
 [train10]:xxx
 [infer10]:xxx
 
