@@ -1,9 +1,6 @@
 # 実験
 
 
-
-
-
 |exp_name|train|infer|CV|LB|memo|
 |--|--|--|--|--|--|
 |roberta-base|[train01]|[infer01]|0.7825|0.799||
@@ -16,7 +13,7 @@
 |preprocessing_fix2|[train07]|[infer07.1]|0.8458|0.849|後処理(1文字, the)|
 |bce_loss|[train08]||||ダメそう|
 |add_feature_text|[train09]|[infer09]|||GPU, roberta-base|
-|deberta|[train09]|[infer09]|||GPU, roberta-base|
+|deberta|[train10]|[infer10]|||GPU|
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -36,8 +33,8 @@
 [train08]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87439974
 [train09]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-gpu?scriptVersionId=87518649
 [infer09]:xxx
-[train09]:xxx
-[infer09]:xxx
+[train10]:xxx
+[infer10]:xxx
 
 ## やりたいことメモ
 - debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
