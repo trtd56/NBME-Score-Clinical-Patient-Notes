@@ -15,7 +15,7 @@
 |add_feature_text|[train09]|[infer09]|0.8046|0.814|GPU, roberta-base|
 |add_feature_text|[train09]|[infer09.1]|0.8046|0.790|GPU, roberta-base, CV max|
 |add_feature_text|[train09]|[infer09.2]|0.8047|0.814|GPU, roberta-base, thr=0.48|
-|deberta|[train10]|[infer10]|||GPU|
+|deberta|[train10]|[infer10]|0.7100||GPU, fold-3まで|
 |feature_text_tpu|[train11]|[infer11]|0.8311||roberta-large|
 |feature_text_tpu|[train11]|[infer11.1]|0.8314||thr=0.44|
 
