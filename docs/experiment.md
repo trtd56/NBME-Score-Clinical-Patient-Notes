@@ -18,6 +18,7 @@
 |deberta|[train10]|[infer10]|0.7100||GPU, fold-3まで|
 |feature_text_tpu|[train11]|[infer11]|0.8311|0.832|roberta-large|
 |feature_text_tpu|[train11]|[infer11.1]|0.8314|0.832|thr=0.44|
+|cos_decay|[train12]|[infer12]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -44,12 +45,11 @@
 [train11]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87603438
 [infer11]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87629479
 [infer11.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87630021
-
+[train12]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87641317
+[infer12]:xxx
 
 ## やりたいことメモ
-- debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
 - 後処理
-- scheduler: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecay
 - OOFの分析
   - アノテーションにばらつきがありそう
 - BART
