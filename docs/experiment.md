@@ -17,7 +17,7 @@
 |add_feature_text|[train09]|[infer09.2]|0.8047|0.814|GPU, roberta-base, thr=0.48|
 |deberta|[train10]|[infer10]|||GPU|
 |feature_text_tpu|[train11]|[infer11]|0.8311||roberta-large|
-|feature_text_tpu|[train11]|[infer11]|0.8311||thr=|
+|feature_text_tpu|[train11]|[infer11.1]|0.8314||thr=0.44|
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -43,6 +43,8 @@
 [infer10]:xxx
 [train11]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87603438
 [infer11]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87629479
+[infer11.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87630021
+
 
 ## やりたいことメモ
 - debertaが効きそう？: https://huggingface.co/docs/transformers/model_doc/deberta
