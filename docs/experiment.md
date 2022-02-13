@@ -19,7 +19,7 @@
 |feature_text_tpu|[train11]|[infer11]|0.8311|0.832|roberta-large|
 |feature_text_tpu|[train11]|[infer11.1]|0.8314|0.832|thr=0.44|
 |cos_decay|[train12]|[infer12]|0.8264|||
-|B**A**RT|[train13]||0.8264|||
+|B**A**RT|[train13]|[infer13]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -48,7 +48,7 @@
 [train12]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87641317
 [infer12]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87679004
 [train13]:xxx
-
+[infer13]:xxx
 
 ## やりたいことメモ
 - 後処理
