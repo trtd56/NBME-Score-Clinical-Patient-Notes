@@ -68,3 +68,4 @@
   - yearとかはまとめられそう
 - Adamax. Nadam, lr=1e-4
 - メタタグ追加
+- feature_textをラベルに
