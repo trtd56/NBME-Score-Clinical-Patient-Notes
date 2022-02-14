@@ -24,7 +24,8 @@
 |softmx_group_2layer|[train15]||0.8233||
 |earlystop_f1|[train16]||0.8422||
 |lr5e-5|[train17]||||fold-1が死んでる|
-|label_smooth|[train18]||0.84967||
+|label_smooth|[train18]|[train18]|0.84967||
+|label_smooth|[train18]|[train18.1]|0.84967|PostProcessing|
 |target_132|[train19]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
@@ -59,7 +60,9 @@
 [train16]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87786562
 [train17]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87797283
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
-[train19]:
+[infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
+[infer18.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811741
+[train19]:xxx
 
 ## やりたいことメモ
 - 後処理
