@@ -20,10 +20,10 @@
 |feature_text_tpu|[train11]|[infer11.1]|0.8314|0.832|thr=0.44|
 |cos_decay|[train12]|[infer12]|0.8264|||
 |sigmoid group feat|[train13]||||wandbはreloadになっちゃってる, 全部empty labelに分類されてる|
-|bce_v2|[train14]|||全部empty labelに分類されてる|
+|bce_v2|[train14]||||全部empty labelに分類されてる|
 |softmx_group_2layer|[train15]||0.8233||
 |earlystop_f1|[train16]||0.8422||
-|lr5e-5|[train17]|||fold-1が死んでる|
+|lr5e-5|[train17]||||fold-1が死んでる|
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
