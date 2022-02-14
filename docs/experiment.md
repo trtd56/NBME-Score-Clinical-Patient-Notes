@@ -22,7 +22,8 @@
 |sigmoid group feat|[train13]||||wandbはreloadになっちゃってる, 全部empty labelに分類されてる|
 |bce_v2|[train14]|||全部empty labelに分類されてる|
 |softmx_group_2layer|[train15]||0.8233||
-|earlystop_f1|[train16]|0.8422|||
+|earlystop_f1|[train16]||0.8422||
+|lr5e-5|[train17]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -54,6 +55,7 @@
 [train14]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87776040
 [train15]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87780647
 [train16]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87786562
+[train17]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87797283
 
 ## やりたいことメモ
 - 後処理
