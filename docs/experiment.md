@@ -24,7 +24,7 @@
 |softmx_group_2layer|[train15]||0.8233||
 |earlystop_f1|[train16]||0.8422||
 |lr5e-5|[train17]||||fold-1が死んでる|
-|label_smooth|[train18]||||
+|label_smooth|[train18]||0.84967||
 |target_132|[train19]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
