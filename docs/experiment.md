@@ -20,6 +20,7 @@
 |feature_text_tpu|[train11]|[infer11.1]|0.8314|0.832|thr=0.44|
 |cos_decay|[train12]|[infer12]|0.8264|||
 |sigmoid group feat|[train13]||||wandbはreloadになっちゃってる, 全部empty labelに分類されてる|
+|bce_v2|[train14]||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -48,6 +49,7 @@
 [train12]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87641317
 [infer12]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87679004
 [train13]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87768392
+[train14]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87775024
 
 ## やりたいことメモ
 - 後処理
