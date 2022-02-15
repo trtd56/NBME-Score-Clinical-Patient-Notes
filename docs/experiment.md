@@ -26,7 +26,8 @@
 |lr5e-5|[train17]||||fold-1が死んでる|
 |label_smooth|[train18]|[infer18]|0.8497|0.855||
 |label_smooth|[train18]|[infer18.1]||0.855|PostProcessing|
-|target_132|[train19]||0.8453||
+|target_132|[train19]||0.8453|||
+|case_tag|[train20]|||||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
@@ -63,6 +64,7 @@
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
 [infer18.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811741
 [train19]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87812374
+[train20]:xxx
 
 ## やりたいことメモ
 - 後処理
@@ -70,5 +72,4 @@
   - アノテーションにばらつきがありそう
 - 各ラベルでモデルを作る
   - yearとかはまとめられそう
-- Adamax. Nadam, lr=1e-4
-- メタタグ追加
+- Adamax. Nadam, lr=1e-4, smooth=0.2
