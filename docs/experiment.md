@@ -24,9 +24,9 @@
 |softmx_group_2layer|[train15]||0.8233||
 |earlystop_f1|[train16]||0.8422||
 |lr5e-5|[train17]||||fold-1が死んでる|
-|label_smooth|[train18]|[infer18]|0.8497||
-|label_smooth|[train18]|[infer18.1]||PostProcessing|
-|target_132|[train19]||||
+|label_smooth|[train18]|[infer18]|0.8497|0.855||
+|label_smooth|[train18]|[infer18.1]||0.855|PostProcessing|
+|target_132|[train19]||0.8453||
 
 [train01]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87293546
 [infer01]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87343942
