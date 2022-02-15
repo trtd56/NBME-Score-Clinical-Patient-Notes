@@ -16,11 +16,10 @@
 
 ## やりたいことメモ
 - 後処理
-- OOFの分析
   - アノテーションにばらつきがありそう
-- 各ラベルでモデルを作る
   - yearとかはまとめられそう
 - Adamax, Nadam, lr=1e-4, smooth=0.2
+- pytorchで実装(DeBERTaとか使いたい)
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
