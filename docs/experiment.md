@@ -6,7 +6,7 @@
 |label_smooth|[train18]|[infer18]|0.8497|0.855||
 |label_smooth|[train18]|[infer18.1]||0.855|PostProcessing|
 |target_132|[train19]||0.8453|||
-|case_tag|[train20]|||||
+|case_tag|[train20]||0.8399|||
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
