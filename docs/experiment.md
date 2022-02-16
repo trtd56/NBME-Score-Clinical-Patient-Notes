@@ -4,7 +4,7 @@
 |exp_name|train|infer|CV|LB|memo|
 |--|--|--|--|--|--|
 |label_smooth|[train18]|[infer18]|0.8497|0.855||
-|label_smooth|[train18]|[infer18.1]||0.855|PostProcessing|
+|label_smooth|[train18]|[infer18.1]|0.8493|0.855|PostProcessing|
 |target_132|[train19]||0.8453|||
 |case_tag|[train20]||0.8399|||
 
