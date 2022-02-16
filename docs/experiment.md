@@ -18,8 +18,7 @@
 - 後処理
   - アノテーションにばらつきがありそう
   - yearとかはまとめられそう
-- Adamax, Nadam, lr=1e-4, smooth=0.2
-- pytorchで実装(DeBERTaとか使いたい)
+- Adamax, Nadam, lr=1e-4, smooth=0.2, 1層
 - tagを別特徴で
 
 ## 過去Version
