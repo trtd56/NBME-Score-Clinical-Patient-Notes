@@ -7,16 +7,18 @@
 |label_smooth|[train18]|[infer18.1]|0.8493|0.855|PostProcessing|
 |target_132|[train19]||0.8453|||
 |case_tag|[train20]||0.8399|||
+|deberta|[train21]||0.8459||pytorch, GPU, wandbは無し|
+
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
 [infer18.1]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811741
 [train19]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87812374
 [train20]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87879975
+[train21]:https://www.kaggle.com/takamichitoda/nbme-train-by-pytorch?scriptVersionId=88074775
 
 ## やりたいことメモ
 - 後処理
-  - アノテーションにばらつきがありそう
   - yearとかはまとめられそう
 - Adamax, Nadam, lr=1e-4, smooth=0.2, 1層
 - case_num
