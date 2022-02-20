@@ -8,7 +8,7 @@
 |target_132|[train19]||0.8453|||
 |case_tag|[train20]||0.8399|||
 |deberta|[train21]|[infer21]|0.8675||pytorch, GPU, wandbは無し|
-|deberta|[train21]|[infer21.1]|0.8459||thr最適化|
+|deberta|[train21]|[infer21.1]|0.8678||thr最適化(0.44)|
 
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
@@ -18,7 +18,7 @@
 [train20]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87879975
 [train21]:https://www.kaggle.com/takamichitoda/nbme-train-by-pytorch?scriptVersionId=88074775
 [infer21]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=88283037
-[infer21.1]:
+[infer21.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88283349
 
 ## やりたいことメモ
 - 後処理
