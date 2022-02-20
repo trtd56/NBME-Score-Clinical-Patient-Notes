@@ -7,8 +7,8 @@
 |label_smooth|[train18]|[infer18.1]|0.8493|0.855|PostProcessing|
 |target_132|[train19]||0.8453|||
 |case_tag|[train20]||0.8399|||
-|deberta|[train21]|[infer21]|0.8675||pytorch, GPU, wandbは無し|
-|deberta|[train21]|[infer21.1]|0.8678||thr最適化(0.44)|
+|deberta|[train21]|[infer21]|0.8675|0.868|pytorch, GPU, wandbは無し|
+|deberta|[train21]|[infer21.1]|0.8678|0.870|thr最適化(0.44)|
 
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
