@@ -13,7 +13,7 @@
 |deberta-large|[train23]|[infer23]|0.8504|0.860||
 |deberta-large|[train23]|[infer23.1]|0.8509|0.861|thr最適化(0.42)|
 |focal_loss|[train24]|[infer24]|0.8672|0.865|
-|split_text|[train25]|||||
+|split_text|[train25]|[infer25]|0.8677|0.867||
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
@@ -30,7 +30,7 @@
 [train24]:https://www.kaggle.com/takamichitoda/nbme-train-by-pytorch?scriptVersionId=88344420
 [infer24]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88371620
 [train25]:https://www.kaggle.com/takamichitoda/nbme-train-by-pytorch?scriptVersionId=88379480
-
+[infer25]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=88420325
 
 
 ## やりたいことメモ
