@@ -14,7 +14,7 @@
 |deberta-large|[train23]|[infer23.1]|0.8509|0.861|thr最適化(0.42)|
 |focal_loss|[train24]|[infer24]|0.8672|0.865|
 |split_text|[train25]|[infer25]|0.8677|0.867||
-|pseudo_relabel|[train25]|[infer25]|0.8691|0.867||
+|pseudo_relabel|[train26]|[infer26]|0.8691|0.867||
 
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
@@ -33,12 +33,15 @@
 [infer24]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88371620
 [train25]:https://www.kaggle.com/takamichitoda/nbme-train-by-pytorch?scriptVersionId=88379480
 [infer25]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=88420325
-
+[train26]
+[infer26]
 
 ## やりたいことメモ
 - 後処理
   - yearとかはまとめられそう
-- focalのgamma大きく, ヘッダーだけ先に学習
+- ヘッダーだけ先に学習
+- 重みのリセット
+- ヘッダーだけ先に学習
 - case_num
   - ごとにモデルをつくる
   - 別特徴で
