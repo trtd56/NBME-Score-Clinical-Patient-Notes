@@ -20,6 +20,37 @@ with open("./drive/MyDrive/Study/config/wandb.txt", "r") as f:
 
 !wandb login {wandb_key}
 
+!cp -r ./drive/MyDrive/Study/NBME/data/deberta-v2-3-fast-tokenizer .
+
+# The following is necessary if you want to use the fast tokenizer for deberta v2 or v3
+import shutil
+from pathlib import Path
+
+transformers_path = Path("/usr/local/lib/python3.7/dist-packages/transformers")
+
+input_dir = Path("./deberta-v2-3-fast-tokenizer")
+
+convert_file = input_dir / "convert_slow_tokenizer.py"
+conversion_path = transformers_path/convert_file.name
+
+if conversion_path.exists():
+    conversion_path.unlink()
+
+shutil.copy(convert_file, transformers_path)
+deberta_v2_path = transformers_path / "models" / "deberta_v2"
+
+for filename in ['tokenization_deberta_v2.py', 'tokenization_deberta_v2_fast.py', "deberta__init__.py"]:
+    if str(filename).startswith("deberta"):
+        filepath = deberta_v2_path/str(filename).replace("deberta", "")
+    else:
+        filepath = deberta_v2_path/filename
+    if filepath.exists():
+        filepath.unlink()
+
+    shutil.copy(input_dir/filename, filepath)
+
+!pip install sentencepiece
+
 import os
 import gc
 import dill
@@ -45,6 +76,7 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from torch.utils.data import Dataset, DataLoader
+from transformers.models.deberta_v2 import DebertaV2TokenizerFast
 
 device = torch.device("cuda")
 scaler = torch.cuda.amp.GradScaler()
@@ -52,14 +84,16 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'pseudo_relabel'
+    EXP_NAME = 'deberta_v3'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
     
-    MODEL_NAME = 'microsoft/deberta-base'
-    TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME, normalization=True)
+    #MODEL_NAME = 'microsoft/deberta-base'
+    MODEL_NAME = 'microsoft/deberta-v3-large'
+    #TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME, normalization=True)
+    TOKENIZER = DebertaV2TokenizerFast.from_pretrained(MODEL_NAME)
     CONFIG = AutoConfig.from_pretrained(MODEL_NAME)
     SEQUENCE_LENGTH = 466
     
@@ -68,7 +102,7 @@ class GCF:
     
     SEED = 0
     N_FOLDS = 5
-    BS = 12
+    BS = 4
     ACCUMULATE = 1
     N_EPOCHS = 5
     WARM_UP_RATIO = 0.0
@@ -91,6 +125,7 @@ def set_seed(seed=GCF.SEED):
 
 sequences = np.load(open(f"{GCF.PREPROCESSING_DIR}/sequences.npy",'rb'))
 masks = np.load(open(f"{GCF.PREPROCESSING_DIR}/masks.npy",'rb'))
+type_ids = np.load(open(f"{GCF.PREPROCESSING_DIR}/token_ids.npy",'rb'))
 labels = np.load(open(f"{GCF.PREPROCESSING_DIR}/labels.npy",'rb'))
 
 train_df = pd.read_csv(f"{GCF.PREPROCESSING_DIR}/train_preprocessed.csv")
@@ -112,9 +147,10 @@ pseudo_labels = pseudo_labels[is_posi, :]
 print(pseudo_labels.shape)
 
 class NBMEDataset(Dataset):
-    def __init__(self, sequences, mask, target, pseudo=None):
+    def __init__(self, sequences, mask, type_ids, target, pseudo=None):
         self.sequences = sequences
         self.mask = mask
+        self.type_ids = type_ids
         self.target = target
         self.pseudo = pseudo
         
@@ -124,11 +160,13 @@ class NBMEDataset(Dataset):
     def __getitem__(self, item):
         sequences = self.sequences[item, :]
         mask = self.mask[item, :]
+        type_ids = self.type_ids[item, :]
         target = self.target[item, :]
         if self.pseudo is None:
             d = {
                 "sequences": torch.tensor(sequences).long(),
                 "mask": torch.tensor(mask).long(),
+                "type_ids": torch.tensor(type_ids).long(),
                 "target" : torch.tensor(target).float(),
             }
         else:
@@ -136,28 +174,11 @@ class NBMEDataset(Dataset):
             d = {
                 "sequences": torch.tensor(sequences).long(),
                 "mask": torch.tensor(mask).long(),
+                "type_ids": torch.tensor(type_ids).long(),
                 "pseudo": torch.tensor(pseudo).long(),
                 "target" : torch.tensor(target).float(),
             }
         return d
-
-class FocalLoss(nn.Module):
-    def __init__(self, gamma=2):
-        super().__init__()
-        self.gamma = gamma
-
-    def forward(self, logit, target):
-        target = target.float()
-        max_val = (-logit).clamp(min=0)
-        loss = logit - logit * target + max_val + \
-               ((-max_val).exp() + (-logit - max_val).exp()).log()
-
-        invprobs = F.logsigmoid(-logit * (target * 2.0 - 1.0))
-        loss = (invprobs * self.gamma).exp() * loss
-        #if len(loss.size())==2:
-        #    loss = loss.sum(dim=1)
-        #return loss.mean()
-        return loss
 
 class NBMEModel(nn.Module):
     
@@ -172,6 +193,23 @@ class NBMEModel(nn.Module):
         
         self._init_weights(self.classifier)
         
+
+        '''
+        for layer in self.transformer.encoder.layer[-1:]:
+            for module in layer.modules():
+                if isinstance(module, nn.Linear):
+                    module.weight.data.normal_(mean=0.0, std=GCF.CONFIG.initializer_range)
+                    if module.bias is not None:
+                        module.bias.data.zero_()
+                elif isinstance(module, nn.Embedding):
+                    module.weight.data.normal_(mean=0.0, std=GCF.CONFIG.initializer_range)
+                    if module.padding_idx is not None:
+                        module.weight.data[module.padding_idx].zero_()
+                elif isinstance(module, nn.LayerNorm):
+                    module.bias.data.zero_()
+                    module.weight.data.fill_(1.0)
+        '''
+    
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
             module.weight.data.normal_(mean=0.0, std=GCF.CONFIG.initializer_range)
@@ -185,10 +223,11 @@ class NBMEModel(nn.Module):
             module.bias.data.zero_()
             module.weight.data.fill_(1.0)
             
-    def forward(self, input_ids, attention_mask, target=None, pseudo=None):
+    def forward(self, input_ids, attention_mask, token_type_ids, target=None, pseudo=None):
         outputs = self.transformer(
             input_ids,
             attention_mask=attention_mask,
+            token_type_ids=token_type_ids,
         )
         h = outputs['last_hidden_state']
         h = self.fc_dropout(h)
@@ -196,9 +235,11 @@ class NBMEModel(nn.Module):
         h = h.squeeze(-1)
         if target is not None:
             loss = nn.BCEWithLogitsLoss(reduction="none")(h, target)
-            #loss = FocalLoss(gamma=4)(h, target)
             if pseudo is not None:
                 mask = (target - (torch.ones(attention_mask.shape).to(device) * pseudo.unsqueeze(1))) >= 0
+                #l0 = torch.masked_select(loss, mask == 0).mean()
+                #l1 = torch.masked_select(loss, mask == 1).mean()
+                #loss = l0 * 0.1 + l1 * 0.9
             else:
                 mask = target != -1
             loss = torch.masked_select(loss, mask).mean()
@@ -213,7 +254,8 @@ def train_loop(model, train_dloader, optimizer, scheduler):
     global_step = 0
     for idx, d in tqdm(enumerate(train_dloader), total=len(train_dloader)):
         with torch.cuda.amp.autocast(): 
-            loss, _ = model(d['sequences'].to(device), d['mask'].to(device), d['target'].to(device), d['pseudo'].to(device))
+            #loss, _ = model(d['sequences'].to(device), d['mask'].to(device), d['target'].to(device), d['pseudo'].to(device))
+            loss, _ = model(d['sequences'].to(device), d['mask'].to(device), d['type_ids'].to(device), d['target'].to(device))
         scaler.scale(loss).backward()
         grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1000)
         if global_step % GCF.ACCUMULATE == 0:
@@ -234,7 +276,8 @@ def valid_loop(model, valid_dloader):
     model.eval()
     for idx, d in tqdm(enumerate(valid_dloader), total=len(valid_dloader)):
         with torch.no_grad():
-            loss, pred = model(d['sequences'].to(device), d['mask'].to(device), d['target'].to(device))
+            #loss, pred = model(d['sequences'].to(device), d['mask'].to(device), d['target'].to(device))
+            loss, pred = model(d['sequences'].to(device), d['mask'].to(device), d['type_ids'].to(device), d['target'].to(device))
             losses.append(loss.item())
             predicts.append(pred.cpu().sigmoid())
     predicts = torch.vstack(predicts)
@@ -397,17 +440,27 @@ oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
     set_seed()
     
-    train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
+    train_sequences = sequences[pn_num_folds != fold, :]
+    #train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
     valid_sequences = sequences[pn_num_folds == fold, :]
-    train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
+
+    train_masks = masks[pn_num_folds != fold, :]
+    #train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
     valid_masks = masks[pn_num_folds == fold, :]
-    train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels])
+
+    train_type_ids = type_ids[pn_num_folds != fold, :]
+    valid_type_ids = type_ids[pn_num_folds == fold, :]
+
+    train_labels = labels[pn_num_folds != fold,:]
+    #train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels])
     valid_labels = labels[pn_num_folds == fold,:]
     
     is_pseudo = np.hstack([np.zeros((pn_num_folds != fold).sum()), np.ones(len(pseudo_labels))])
     
-    train_dset = NBMEDataset(train_sequences, train_masks, train_labels, is_pseudo)
-    valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_labels)
+    #train_dset = NBMEDataset(train_sequences, train_masks, train_labels, is_pseudo)
+    #valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_labels)
+    train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
+    valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_type_ids, valid_labels)
     train_dloader = DataLoader(train_dset, batch_size=GCF.BS,
                                pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
                                worker_init_fn=lambda x: set_seed())
