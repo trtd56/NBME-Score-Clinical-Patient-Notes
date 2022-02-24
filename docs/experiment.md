@@ -14,8 +14,8 @@
 |deberta-large|[train23]|[infer23.1]|0.8509|0.861|thr最適化(0.42)|
 |focal_loss|[train24]|[infer24]|0.8672|0.865|
 |split_text|[train25]|[infer25]|0.8677|0.867||
-|pseudo_relabel|[train26]|[infer26]|0.8691|||
-|pseudo_relabel|[train26]|[infer26.1]|||thr=0.6|
+|pseudo_relabel|[train26]|[infer26]|0.8691|0.868||
+|pseudo_relabel|[train26]|[infer26.1]||0.866|thr=0.6|
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
