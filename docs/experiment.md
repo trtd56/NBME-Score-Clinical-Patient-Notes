@@ -16,7 +16,7 @@
 |split_text|[train25]|[infer25]|0.8677|0.867||
 |pseudo_relabel|[train26]|[infer26]|0.8691|0.868||
 |pseudo_relabel|[train26]|[infer26.1]||0.866|thr=0.6|
-|deberta_v3|[train27]|[infer27]|0.8794|||
+|deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |deberta_v3|[train27]|[infer27.1]|0.8795||thr=0.54|
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
