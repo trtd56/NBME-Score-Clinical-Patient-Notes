@@ -12,15 +12,15 @@ Original file is located at
 from google.colab import drive
 drive.mount('/content/drive')
 
-!pip install -U wandb transformers 1> log
+!pip install -U wandb transformers sentencepiece 1> log
+
+!cp -r ./drive/MyDrive/Study/NBME/data/deberta-v2-3-fast-tokenizer .
 
 with open("./drive/MyDrive/Study/config/wandb.txt", "r") as f:
     for line in f:
         wandb_key = line.replace("\n", "")
 
 !wandb login {wandb_key}
-
-!cp -r ./drive/MyDrive/Study/NBME/data/deberta-v2-3-fast-tokenizer .
 
 # The following is necessary if you want to use the fast tokenizer for deberta v2 or v3
 import shutil
@@ -48,8 +48,6 @@ for filename in ['tokenization_deberta_v2.py', 'tokenization_deberta_v2_fast.py'
         filepath.unlink()
 
     shutil.copy(input_dir/filename, filepath)
-
-!pip install sentencepiece
 
 import os
 import gc
@@ -84,18 +82,16 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'deberta_v3'
+    EXP_NAME = 'v3_pseudo_50'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
     
-    #MODEL_NAME = 'microsoft/deberta-base'
     MODEL_NAME = 'microsoft/deberta-v3-large'
-    #TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME, normalization=True)
     TOKENIZER = DebertaV2TokenizerFast.from_pretrained(MODEL_NAME)
     CONFIG = AutoConfig.from_pretrained(MODEL_NAME)
-    SEQUENCE_LENGTH = 466
+    SEQUENCE_LENGTH = 384
     
     LR = 2e-5
     WEIGHT_DECAY = 0.01
@@ -135,14 +131,26 @@ print(labels.shape)
 
 pseudo_sequences = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo.npy",'rb'))
 pseudo_masks = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo.npy",'rb'))
+pseudo_type_ids = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo.npy",'rb'))
 pseudo_labels = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo.npy",'rb'))
+labels_check_best_model = np.load(open(f"{GCF.PSEUDO_DIR}/labels_check_best_model.npy",'rb'))
 
 print(pseudo_labels.shape)
 
-is_posi = [l[l != -1].sum() > 0 for l in pseudo_labels]
+new_labels = []
+for p, l in zip(labels_check_best_model, pseudo_labels):
+    new_label = np.array([-1 if i == -1 else int(i == j == 1) for i, j in zip(l, p)])
+    new_labels.append(new_label)
+new_labels = np.stack(new_labels)
+new_labels.shape
+
+is_posi = [l[l != -1].sum() > 0 for l in new_labels]
+
 pseudo_sequences = pseudo_sequences[is_posi, :]
 pseudo_masks = pseudo_masks[is_posi, :]
-pseudo_labels = pseudo_labels[is_posi, :]
+pseudo_type_ids = pseudo_type_ids[is_posi, :]
+#pseudo_labels = pseudo_labels[is_posi, :]
+pseudo_labels = new_labels[is_posi, :]
 
 print(pseudo_labels.shape)
 
@@ -192,23 +200,6 @@ class NBMEModel(nn.Module):
         self.classifier = nn.Linear(GCF.CONFIG.hidden_size, 1)
         
         self._init_weights(self.classifier)
-        
-
-        '''
-        for layer in self.transformer.encoder.layer[-1:]:
-            for module in layer.modules():
-                if isinstance(module, nn.Linear):
-                    module.weight.data.normal_(mean=0.0, std=GCF.CONFIG.initializer_range)
-                    if module.bias is not None:
-                        module.bias.data.zero_()
-                elif isinstance(module, nn.Embedding):
-                    module.weight.data.normal_(mean=0.0, std=GCF.CONFIG.initializer_range)
-                    if module.padding_idx is not None:
-                        module.weight.data[module.padding_idx].zero_()
-                elif isinstance(module, nn.LayerNorm):
-                    module.bias.data.zero_()
-                    module.weight.data.fill_(1.0)
-        '''
     
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
@@ -237,9 +228,6 @@ class NBMEModel(nn.Module):
             loss = nn.BCEWithLogitsLoss(reduction="none")(h, target)
             if pseudo is not None:
                 mask = (target - (torch.ones(attention_mask.shape).to(device) * pseudo.unsqueeze(1))) >= 0
-                #l0 = torch.masked_select(loss, mask == 0).mean()
-                #l1 = torch.masked_select(loss, mask == 1).mean()
-                #loss = l0 * 0.1 + l1 * 0.9
             else:
                 mask = target != -1
             loss = torch.masked_select(loss, mask).mean()
@@ -254,8 +242,13 @@ def train_loop(model, train_dloader, optimizer, scheduler):
     global_step = 0
     for idx, d in tqdm(enumerate(train_dloader), total=len(train_dloader)):
         with torch.cuda.amp.autocast(): 
-            #loss, _ = model(d['sequences'].to(device), d['mask'].to(device), d['target'].to(device), d['pseudo'].to(device))
-            loss, _ = model(d['sequences'].to(device), d['mask'].to(device), d['type_ids'].to(device), d['target'].to(device))
+            loss, _ = model(
+                d['sequences'].to(device),
+                d['mask'].to(device),
+                d['type_ids'].to(device),
+                d['target'].to(device),
+                d['pseudo'].to(device),
+            )
         scaler.scale(loss).backward()
         grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1000)
         if global_step % GCF.ACCUMULATE == 0:
@@ -276,7 +269,6 @@ def valid_loop(model, valid_dloader):
     model.eval()
     for idx, d in tqdm(enumerate(valid_dloader), total=len(valid_dloader)):
         with torch.no_grad():
-            #loss, pred = model(d['sequences'].to(device), d['mask'].to(device), d['target'].to(device))
             loss, pred = model(d['sequences'].to(device), d['mask'].to(device), d['type_ids'].to(device), d['target'].to(device))
             losses.append(loss.item())
             predicts.append(pred.cpu().sigmoid())
@@ -438,28 +430,30 @@ def get_optimizer_params(model):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
+    if fold < 4:
+        continue
     set_seed()
     
-    train_sequences = sequences[pn_num_folds != fold, :]
-    #train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
+    #train_sequences = sequences[pn_num_folds != fold, :]
+    train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
     valid_sequences = sequences[pn_num_folds == fold, :]
 
-    train_masks = masks[pn_num_folds != fold, :]
-    #train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
+    #train_masks = masks[pn_num_folds != fold, :]
+    train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
     valid_masks = masks[pn_num_folds == fold, :]
 
-    train_type_ids = type_ids[pn_num_folds != fold, :]
+    #train_type_ids = type_ids[pn_num_folds != fold, :]
+    train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids])
     valid_type_ids = type_ids[pn_num_folds == fold, :]
 
-    train_labels = labels[pn_num_folds != fold,:]
-    #train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels])
+    #train_labels = labels[pn_num_folds != fold,:]
+    train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels])
     valid_labels = labels[pn_num_folds == fold,:]
     
     is_pseudo = np.hstack([np.zeros((pn_num_folds != fold).sum()), np.ones(len(pseudo_labels))])
     
-    #train_dset = NBMEDataset(train_sequences, train_masks, train_labels, is_pseudo)
-    #valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_labels)
-    train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
+    #train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
+    train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels, is_pseudo)
     valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_type_ids, valid_labels)
     train_dloader = DataLoader(train_dset, batch_size=GCF.BS,
                                pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
@@ -529,6 +523,34 @@ for fold in range(GCF.N_FOLDS):
     wandb.finish()
     
     #break #only one fold
+
+#wandb.finish()
+
+'''oof = np.zeros(labels.shape)
+for fold in range(GCF.N_FOLDS):
+    print(fold)
+    set_seed()
+    
+    valid_sequences = sequences[pn_num_folds == fold, :]
+    valid_masks = masks[pn_num_folds == fold, :]
+    valid_type_ids = type_ids[pn_num_folds == fold, :]
+    valid_labels = labels[pn_num_folds == fold,:]
+    
+    is_pseudo = np.hstack([np.zeros((pn_num_folds != fold).sum()), np.ones(len(pseudo_labels))])
+    
+    valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_type_ids, valid_labels)
+    valid_dloader = DataLoader(valid_dset, batch_size=GCF.BS,
+                               pin_memory=True, shuffle=False, drop_last=False, num_workers=os.cpu_count())
+    
+    model = NBMEModel()
+    model.to(device)
+    model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model.bin'))
+    
+    valid_loss, valid_predicts = valid_loop(model, valid_dloader)
+    oof[pn_num_folds == fold, :] = valid_predicts
+
+    torch.cuda.empty_cache()
+    gc.collect()'''
 
 np.save(open(f"{GCF.OUTPUT_DIR}/oof.npy",'wb'), oof)
 
