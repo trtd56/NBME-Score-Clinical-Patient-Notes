@@ -18,7 +18,8 @@
 |pseudo_relabel|[train26]|[infer26.1]||0.866|thr=0.6|
 |deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |deberta_v3|[train27]|[infer27.1]|0.8795|0.880|thr=0.54|
-|v3_pseudo_50|[train28]|[infer28]|||fold-3, 4epochまで|
+|v3_pseudo_50|[train28]|[infer28]|0.8819||fold-3, 4epochまで|
+|v3_pseudo_50|[train28]|[infer28.1]|0.8819||fold-3, 4epochまで, thr=|
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
@@ -44,6 +45,7 @@
 [infer27.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=88683503
 [train28]:xxx
 [infer28]:xxx
+
 
 ## やりたいことメモ
 - 後処理
