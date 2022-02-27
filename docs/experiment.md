@@ -19,7 +19,8 @@
 |deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |deberta_v3|[train27]|[infer27.1]|0.8795|0.880|thr=0.54|
 |v3_pseudo_50|[train28]|[infer28]|0.8819|0.882|fold-3, 4epochまで|
-|pseudo_mcdrop|[train29]|[infer29]||||
+|pseudo_mcdrop|[train29]|[infer29]|0.8878|||
+|pseudo_mcdrop|[train29]|[infer29.1]|0.8879||thr=0.6|
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
