@@ -82,7 +82,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'v3_pseudo_50'
+    EXP_NAME = 'pseudo_mcdrop'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -134,12 +134,23 @@ pseudo_masks = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo.npy",'rb'))
 pseudo_type_ids = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo.npy",'rb'))
 pseudo_labels = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo.npy",'rb'))
 labels_check_best_model = np.load(open(f"{GCF.PSEUDO_DIR}/labels_check_best_model.npy",'rb'))
+labels_check_mc_dropout = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout.npy','rb'))
 
 print(pseudo_labels.shape)
 
+def pseudo_to_target(pred):
+    if pred == 1:
+        return 1
+    elif pred == 0:
+        return 0
+    else:
+        return -1
+
 new_labels = []
-for p, l in zip(labels_check_best_model, pseudo_labels):
-    new_label = np.array([-1 if i == -1 else int(i == j == 1) for i, j in zip(l, p)])
+#for p, l in zip(labels_check_best_model, pseudo_labels):
+#    new_label = np.array([-1 if i == -1 else int(i == j == 1) for i, j in zip(l, p)])
+for p, l in zip(labels_check_mc_dropout, pseudo_labels):
+    new_label = np.array([-1 if i == -1 else pseudo_to_target(j) for i, j in zip(l, p)])
     new_labels.append(new_label)
 new_labels = np.stack(new_labels)
 new_labels.shape
@@ -247,7 +258,7 @@ def train_loop(model, train_dloader, optimizer, scheduler):
                 d['mask'].to(device),
                 d['type_ids'].to(device),
                 d['target'].to(device),
-                d['pseudo'].to(device),
+                #d['pseudo'].to(device),
             )
         scaler.scale(loss).backward()
         grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1000)
@@ -430,7 +441,7 @@ def get_optimizer_params(model):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    if fold < 4:
+    if fold < 3:
         continue
     set_seed()
     
@@ -452,8 +463,8 @@ for fold in range(GCF.N_FOLDS):
     
     is_pseudo = np.hstack([np.zeros((pn_num_folds != fold).sum()), np.ones(len(pseudo_labels))])
     
-    #train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
-    train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels, is_pseudo)
+    train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
+    #train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels, is_pseudo)
     valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_type_ids, valid_labels)
     train_dloader = DataLoader(train_dset, batch_size=GCF.BS,
                                pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
@@ -526,7 +537,7 @@ for fold in range(GCF.N_FOLDS):
 
 #wandb.finish()
 
-'''oof = np.zeros(labels.shape)
+oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
     print(fold)
     set_seed()
@@ -550,7 +561,7 @@ for fold in range(GCF.N_FOLDS):
     oof[pn_num_folds == fold, :] = valid_predicts
 
     torch.cuda.empty_cache()
-    gc.collect()'''
+    gc.collect()
 
 np.save(open(f"{GCF.OUTPUT_DIR}/oof.npy",'wb'), oof)
 
