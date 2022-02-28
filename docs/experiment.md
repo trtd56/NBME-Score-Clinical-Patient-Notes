@@ -54,11 +54,9 @@
 [infer30]:xxx
 
 ## やりたいことメモ
-- 後処理
-- ヘッダーだけ先に学習
-- case_num
-  - ごとにモデルをつくる
-  - 別特徴で
+- 後処理を考える
+- case_numごとにモデルをつくる
+
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
