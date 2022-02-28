@@ -6,8 +6,8 @@
 |deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |deberta_v3|[train27]|[infer27.1]|0.8795|0.880|thr=0.54|
 |v3_pseudo_50|[train28]|[infer28]|0.8819|0.882|fold-3, 4epochまで|
-|pseudo_mcdrop|[train29]|[infer29]|0.8878|||
-|pseudo_mcdrop|[train29]|[infer29.1]|0.8879||thr=0.6|
+|pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
+|pseudo_mcdrop|[train29]|[infer29.1]|0.8879|0.882|thr=0.6|
 |pseudo_v2|[train30]|[infer30]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
