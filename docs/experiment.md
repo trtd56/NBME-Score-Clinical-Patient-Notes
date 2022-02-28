@@ -21,6 +21,7 @@
 |v3_pseudo_50|[train28]|[infer28]|0.8819|0.882|fold-3, 4epochまで|
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|||
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8879||thr=0.6|
+|pseudo_v2|[train30]|[infer30]||||
 
 [train18]:https://www.kaggle.com/takamichitoda/nbme-train-transformer-on-tpu?scriptVersionId=87806343
 [infer18]:https://www.kaggle.com/takamichitoda/nbme-infer-transformer-on-gpu?scriptVersionId=87811578
@@ -47,7 +48,10 @@
 [train28]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/3149c94b3cbb86227803ce8313ed9b9449e86dc9/src/nbme_train_by_pytorch.py
 [infer28]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88787914
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
-[infer29]:xxx
+[infer29]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88894891
+[infer29.1]:xxx
+[train30]:xxx
+[infer30]:xxx
 
 ## やりたいことメモ
 - 後処理
