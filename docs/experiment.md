@@ -9,6 +9,8 @@
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8879|0.882|thr=0.6|
 |pseudo_v2|[train30]|[infer30]|0.8928|||
+|pseudo_v2|[train30]|[infer30.1]|0.8929||thr=0.6|
+
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
