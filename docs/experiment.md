@@ -21,7 +21,8 @@
 [infer29]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88894891
 [infer29.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88895387
 [train30]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/651157065960402b2618939e88727770d7210801/src/nbme_train_by_pytorch.py
-[infer30]:xxx
+[infer30]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89065280
+[infer30.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89065441
 
 ## やりたいことメモ
 - 後処理を考える
