@@ -31,7 +31,7 @@
 [infer30.3]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89077062
 [infer30.4]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89077246
 [infer30.5]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89077448
-[infer30.6]:xxx
+[infer30.6]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89078255
 
 ## やりたいことメモ
 - 後処理を考える
