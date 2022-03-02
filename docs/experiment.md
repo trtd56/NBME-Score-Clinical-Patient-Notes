@@ -10,9 +10,9 @@
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8879|0.882|thr=0.6|
 |pseudo_v2|[train30]|[infer30]|0.89280|0.881||
 |pseudo_v2|[train30]|[infer30.1]|0.89290|0.880|thr=0.6|
-|pseudo_v2|[train30]|[infer30.2]|0.89283||thr=0.48|
-|pseudo_v2|[train30]|[infer30.3]|0.89277||thr=0.46|
-|pseudo_v2|[train30]|[infer30.4]|0.89275||thr=0.44|
+|pseudo_v2|[train30]|[infer30.2]|0.89283|0.882|thr=0.48|
+|pseudo_v2|[train30]|[infer30.3]|0.89277|0.882|thr=0.46|
+|pseudo_v2|[train30]|[infer30.4]|0.89275|0.882|thr=0.44|
 |pseudo_v2|[train30]|[infer30.5]|0.892624||thr=0.42|
 |pseudo_v2|[train30]|[infer30.6]|0.892423||thr=0.40|
 
