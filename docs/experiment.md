@@ -13,8 +13,8 @@
 |pseudo_v2|[train30]|[infer30.2]|0.89283|0.882|thr=0.48|
 |pseudo_v2|[train30]|[infer30.3]|0.89277|0.882|thr=0.46|
 |pseudo_v2|[train30]|[infer30.4]|0.89275|0.882|thr=0.44|
-|pseudo_v2|[train30]|[infer30.5]|0.892624||thr=0.42|
-|pseudo_v2|[train30]|[infer30.6]|0.892423||thr=0.40|
+|pseudo_v2|[train30]|[infer30.5]|0.892624|0.882|thr=0.42|
+|pseudo_v2|[train30]|[infer30.6]|0.892423|0.883|thr=0.40|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
