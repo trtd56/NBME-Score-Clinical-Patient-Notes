@@ -82,7 +82,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'pseudo_v2'
+    EXP_NAME = 'pseudo_v3'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -145,11 +145,19 @@ labels_check_mc_dropout_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dro
 
 print(pseudo_labels_v2.shape)
 
-pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2])
-pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2])
-pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2])
-pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2])
-labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v1, labels_check_mc_dropout_v2])
+pseudo_sequences_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v3.npy",'rb'))
+pseudo_masks_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v3.npy",'rb'))
+pseudo_type_ids_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v3.npy",'rb'))
+pseudo_labels_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v3.npy",'rb'))
+labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v3.npy','rb'))
+
+print(pseudo_labels_v3.shape)
+
+pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3])
+pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2, pseudo_masks_v3])
+pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2, pseudo_type_ids_v3])
+pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2, pseudo_labels_v3])
+labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v1, labels_check_mc_dropout_v2, labels_check_mc_dropout_v3])
 
 print(pseudo_labels.shape)
 
@@ -442,8 +450,10 @@ def get_optimizer_params(model):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    if fold < 3:
+    if fold in [0, 1, 2]:
+        print(f'### skip Fold-{fold} ###')
         continue
+    print(f'### start Fold-{fold} ###')
     set_seed()
     
     train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
@@ -467,7 +477,7 @@ for fold in range(GCF.N_FOLDS):
                                worker_init_fn=lambda x: set_seed())
     valid_dloader = DataLoader(valid_dset, batch_size=GCF.BS,
                                pin_memory=True, shuffle=False, drop_last=False, num_workers=os.cpu_count())
-    
+
     model = NBMEModel()
     model.to(device)
     
@@ -489,9 +499,31 @@ for fold in range(GCF.N_FOLDS):
         num_training_steps=max_train_steps
     )
     
-    best_score = 0
+    if os.path.exists(f"{GCF.OUTPUT_DIR}/checkpoint.bin"):
+        print('load prev model')
+        checkpoint = torch.load(f"{GCF.OUTPUT_DIR}/checkpoint.bin") 
+        model.load_state_dict(checkpoint["model"])
+        optimizer.load_state_dict(checkpoint["optimizer"])
+        scheduler.load_state_dict(checkpoint["scheduler"])
+        random.setstate(checkpoint["random"])
+        np.random.set_state(checkpoint["np_random"])
+        torch.set_rng_state(checkpoint["torch"])
+        torch.random.set_rng_state(checkpoint["torch_random"])
+        torch.cuda.set_rng_state(checkpoint["cuda_random"])
+        is_load = True
+        best_score = 0.8935377296154354
+        del checkpoint
+    else:
+        is_load = False
+        best_score = 0
+    torch.cuda.empty_cache()
+    gc.collect()
+    
     train_losses, train_lrs = [], []
     for epoch in range(GCF.N_EPOCHS):
+        #if is_load and epoch < 4:
+        #    print(f'skip epoch-{epoch}')
+        #    continue
         _losses, _lrs = train_loop(model, train_dloader, optimizer, scheduler)
         valid_loss, valid_predicts = valid_loop(model, valid_dloader)
         
@@ -510,9 +542,13 @@ for fold in range(GCF.N_FOLDS):
         train_lrs += _lrs
         oof[pn_num_folds == fold, :] = valid_predicts
         if best_score < f1score:
+            print('save best model')
             best_score = f1score
-            torch.save(model.state_dict(), f"{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model.bin")
-        
+            if is_load:
+                torch.save(model.state_dict(), f"{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model_rerun.bin")
+            else:
+                torch.save(model.state_dict(), f"{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model.bin")
+                
         wandb.log({
                 "train_loss": np.mean(_losses),
                 "valid_loss": valid_loss,
@@ -521,13 +557,27 @@ for fold in range(GCF.N_FOLDS):
                 "learning_rate": np.mean(_lrs),
         })
 
+        checkpoint = {
+            "model": model.state_dict(),
+            "optimizer": optimizer.state_dict(),
+            "scheduler": scheduler.state_dict(),
+            "random": random.getstate(),
+            "np_random": np.random.get_state(),
+            "torch": torch.get_rng_state(),
+            "torch_random": torch.random.get_rng_state(),
+            "cuda_random": torch.cuda.get_rng_state(),
+        }
+        torch.save(checkpoint, f"{GCF.OUTPUT_DIR}/checkpoint.bin")
             
     plt.plot(train_losses);plt.show()
     plt.plot(train_lrs);plt.show()
-    
+
+    os.remove(f"{GCF.OUTPUT_DIR}/checkpoint.bin")
+    del checkpoint
     torch.cuda.empty_cache()
     gc.collect()
     wandb.finish()
+
     
     #break #only one fold
 
@@ -551,7 +601,10 @@ for fold in range(GCF.N_FOLDS):
     
     model = NBMEModel()
     model.to(device)
-    model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model.bin'))
+    if fold in [-1]:
+        model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model_rerun.bin'))
+    else:
+        model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model.bin'))
     
     valid_loss, valid_predicts = valid_loop(model, valid_dloader)
     oof[pn_num_folds == fold, :] = valid_predicts
