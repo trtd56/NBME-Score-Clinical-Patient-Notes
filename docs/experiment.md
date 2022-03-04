@@ -19,8 +19,11 @@
 |pseudo_v2|[train30]|[infer30.8]||0.882|thr=0.36|
 |pseudo_v2|[train30]|[infer30.9]||0.882|thr=0.34|
 |pseudo_v2|[train30]|[infer30.10]||0.882|thr=0.32|
-|pseudo_v3|[train31]|[infer31]|0.89483|||
-|pseudo_v3|[train31]|[infer31.1]|0.89486||thr=0.48|
+|pseudo_v3|[train31]|[infer31]|0.89483|0.883||
+|pseudo_v3|[train31]|[infer31.1]|0.89486|0.883|thr=0.48|
+|pseudo_v3|[train31]|[infer31.2]|||only fold-0|
+|pseudo_v3|[train31]|[infer31.3]|||only fold-1|
+|pseudo_v3|[train31]|[infer31.4]|||only fold-2|
 |pseudo_v3_sampling|[train32]|[infer32]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
@@ -46,6 +49,9 @@
 [train31]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/06cb1583ac097a90d983638dc54e737311c68f5a/src/nbme_train_by_pytorch.py
 [infer31]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89234865
 [infer31.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/log?scriptVersionId=89235168
+[infer31.2]:xxx
+[infer31.3]:xxx
+[infer31.4]:xxx
 [train32]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/460f2d3fbba9c6d0859b5044be6f61a6da28b0f7/src/nbme_train_by_pytorch.py
 [infer32]:xxx
 
