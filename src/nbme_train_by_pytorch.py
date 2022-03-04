@@ -82,7 +82,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'pseudo_v3'
+    EXP_NAME = 'pseudo_v3_sampling'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -447,28 +447,30 @@ def get_optimizer_params(model):
     ]
     return optimizer_parameters
 
+from sklearn.model_selection import KFold
+kf = KFold(n_splits=GCF.N_FOLDS, random_state=GCF.SEED, shuffle=True).split(pseudo_sequences)
+pseudo_idx = [vi for ti, vi in kf]
+
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    if fold in [0, 1, 2]:
-        print(f'### skip Fold-{fold} ###')
-        continue
+    #if fold in [0, 1, 2]:
+    #    print(f'### skip Fold-{fold} ###')
+    #    continue
     print(f'### start Fold-{fold} ###')
     set_seed()
     
-    train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
+    train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx[fold], :]])
     valid_sequences = sequences[pn_num_folds == fold, :]
 
-    train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
+    train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx[fold], :]])
     valid_masks = masks[pn_num_folds == fold, :]
 
-    train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids])
+    train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx[fold], :]])
     valid_type_ids = type_ids[pn_num_folds == fold, :]
 
-    train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels])
+    train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels[pseudo_idx[fold], :]])
     valid_labels = labels[pn_num_folds == fold,:]
-    
-    is_pseudo = np.hstack([np.zeros((pn_num_folds != fold).sum()), np.ones(len(pseudo_labels))])
     
     train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
     valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_type_ids, valid_labels)
@@ -592,8 +594,6 @@ for fold in range(GCF.N_FOLDS):
     valid_masks = masks[pn_num_folds == fold, :]
     valid_type_ids = type_ids[pn_num_folds == fold, :]
     valid_labels = labels[pn_num_folds == fold,:]
-    
-    is_pseudo = np.hstack([np.zeros((pn_num_folds != fold).sum()), np.ones(len(pseudo_labels))])
     
     valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_type_ids, valid_labels)
     valid_dloader = DataLoader(valid_dset, batch_size=GCF.BS,
