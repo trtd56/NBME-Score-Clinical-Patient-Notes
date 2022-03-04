@@ -46,7 +46,7 @@
 [train31]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/06cb1583ac097a90d983638dc54e737311c68f5a/src/nbme_train_by_pytorch.py
 [infer31]:xxx
 [infer31.1]:xxx
-[train32]:xxx
+[train32]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/460f2d3fbba9c6d0859b5044be6f61a6da28b0f7/src/nbme_train_by_pytorch.py
 [infer32]:xxx
 
 ## やりたいことメモ
