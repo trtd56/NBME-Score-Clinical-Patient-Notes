@@ -21,9 +21,9 @@
 |pseudo_v2|[train30]|[infer30.10]||0.882|thr=0.32|
 |pseudo_v3|[train31]|[infer31]|0.89483|0.883||
 |pseudo_v3|[train31]|[infer31.1]|0.89486|0.883|thr=0.48|
-|pseudo_v3|[train31]|[infer31.2]|||only fold-0|
-|pseudo_v3|[train31]|[infer31.3]|||only fold-1|
-|pseudo_v3|[train31]|[infer31.4]|||only fold-2|
+|pseudo_v3|[train31]|[infer31.2]||0.875|only fold-0|
+|pseudo_v3|[train31]|[infer31.3]||0.880|only fold-1|
+|pseudo_v3|[train31]|[infer31.4]||0.881|only fold-2|
 |pseudo_v3_sampling|[train32]|[infer32]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
