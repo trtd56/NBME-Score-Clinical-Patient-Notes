@@ -25,7 +25,7 @@
 |pseudo_v3|[train31]|[infer31.3]||0.880|only fold-1|
 |pseudo_v3|[train31]|[infer31.4]||0.881|only fold-2|
 |pseudo_v3_sampling|[train32]|[infer32]|0.8847|0.884||
-|pseudo_v5_sampling|[train33]|[infer33]|0.8897|||
+|pseudo_v5_sampling|[train33]|[infer33]|0.8897|0.884||
 |v5_sampling_rev|[train34]|[infer34]||||
 
 
