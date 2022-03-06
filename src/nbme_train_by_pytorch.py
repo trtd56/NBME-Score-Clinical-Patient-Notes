@@ -76,6 +76,7 @@ import torch.nn as nn
 from torch.nn import functional as F
 from torch.utils.data import Dataset, DataLoader
 from transformers.models.deberta_v2 import DebertaV2TokenizerFast
+from sklearn.model_selection import StratifiedKFold
 
 device = torch.device("cuda")
 scaler = torch.cuda.amp.GradScaler()
@@ -83,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'pseudo_v5_sampling'
+    EXP_NAME = 'v5_sampling_rev'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -135,7 +136,7 @@ pseudo_masks_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v1.npy",'rb'))
 pseudo_type_ids_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v1.npy",'rb'))
 pseudo_labels_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v1.npy",'rb'))
 labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v1.npy','rb'))
-
+pn_num_and_case_num_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v1.npy','rb'))
 print(pseudo_labels_v1.shape)
 
 pseudo_sequences_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v2.npy",'rb'))
@@ -143,6 +144,7 @@ pseudo_masks_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v2.npy",'rb'))
 pseudo_type_ids_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v2.npy",'rb'))
 pseudo_labels_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v2.npy",'rb'))
 labels_check_mc_dropout_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v2.npy','rb'))
+pn_num_and_case_num_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v2.npy','rb'))
 
 print(pseudo_labels_v2.shape)
 
@@ -151,6 +153,7 @@ pseudo_masks_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v3.npy",'rb'))
 pseudo_type_ids_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v3.npy",'rb'))
 pseudo_labels_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v3.npy",'rb'))
 labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v3.npy','rb'))
+pn_num_and_case_num_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v3.npy','rb'))
 
 print(pseudo_labels_v3.shape)
 
@@ -159,6 +162,7 @@ pseudo_masks_v4 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v4.npy",'rb'))
 pseudo_type_ids_v4 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v4.npy",'rb'))
 pseudo_labels_v4 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v4.npy",'rb'))
 labels_check_mc_dropout_v4 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v4.npy','rb'))
+pn_num_and_case_num_v4 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v4.npy','rb'))
 
 print(pseudo_labels_v4.shape)
 
@@ -167,6 +171,7 @@ pseudo_masks_v5 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v5.npy",'rb'))
 pseudo_type_ids_v5 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v5.npy",'rb'))
 pseudo_labels_v5 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v5.npy",'rb'))
 labels_check_mc_dropout_v5 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v5.npy','rb'))
+pn_num_and_case_num_v5 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v5.npy','rb'))
 
 print(pseudo_labels_v5.shape)
 
@@ -176,7 +181,8 @@ pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2, pseudo_type
 pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2, pseudo_labels_v3, pseudo_labels_v4, pseudo_labels_v5])
 labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v1, labels_check_mc_dropout_v2,
                                      labels_check_mc_dropout_v3, labels_check_mc_dropout_v4, labels_check_mc_dropout_v5])
-
+pseudo_case_num = np.vstack([pn_num_and_case_num_v1, pn_num_and_case_num_v2,
+                                     pn_num_and_case_num_v3, pn_num_and_case_num_v4, pn_num_and_case_num_v5])[:, 1]
 print(pseudo_labels.shape)
 
 def pseudo_to_target(pred):
@@ -201,24 +207,14 @@ pseudo_sequences = pseudo_sequences[is_posi, :]
 pseudo_masks = pseudo_masks[is_posi, :]
 pseudo_type_ids = pseudo_type_ids[is_posi, :]
 pseudo_labels = new_labels[is_posi, :]
+pseudo_case_num = pseudo_case_num[is_posi]
 
 print(pseudo_labels.shape)
 
-kfold_index_v1_to_v5 = pickle.load(open(f'{GCF.PSEUDO_DIR}/kfold_index_v1_to_v5.pkl', 'rb'))
-
-re_index = {v: i for i, v in enumerate(np.array(range(len(new_labels)))[is_posi])}
-
-pseudo_fold_index = []
-for fold in range(GCF.N_FOLDS):
-    kf_idx = kfold_index_v1_to_v5[fold]
-    lst = []
-    for i in kf_idx:
-        try:
-            new_i = re_index[i]
-        except KeyError:
-            continue
-        lst.append(new_i)
-    pseudo_fold_index.append(np.array(lst))
+kf = StratifiedKFold(n_splits=GCF.N_FOLDS, random_state=GCF.SEED, shuffle=True)
+splits = list(kf.split(X=pseudo_case_num , y=pseudo_case_num))
+pseudo_fold_index = [train_idx for train_idx, valid_idx in splits]
+pseudo_fold_index
 
 class NBMEDataset(Dataset):
     def __init__(self, sequences, mask, type_ids, target):
@@ -481,14 +477,10 @@ def get_optimizer_params(model):
     ]
     return optimizer_parameters
 
-#from sklearn.model_selection import KFold
-#kf = KFold(n_splits=GCF.N_FOLDS, random_state=GCF.SEED, shuffle=True).split(pseudo_sequences)
-#pseudo_idx = [vi for ti, vi in kf]
-
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    #if fold in [0, 1, 2]:
+    #if fold in [0, 1, 2, 3]:
     #    print(f'### skip Fold-{fold} ###')
     #    continue
     print(f'### start Fold-{fold} ###')
