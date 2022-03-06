@@ -59,7 +59,7 @@
 [infer32]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89312814
 [train33]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/d230eb1f016b211103df5ae30e3a45c5ad7bad89/src/nbme_train_by_pytorch.py
 [infer33]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89312814
-[train34]:xxx
+[train34]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/dbf0b12ef0c54533e49b42171c4e97efbe68ce4e/src/nbme_train_by_pytorch.py
 [infer34]:xxx
 
 ## やりたいことメモ
