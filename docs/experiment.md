@@ -27,6 +27,8 @@
 |pseudo_v3_sampling|[train32]|[infer32]|0.8847|0.884||
 |pseudo_v5_sampling|[train33]|[infer33]|0.8897|0.883||
 |v5_sampling_rev|[train34]|[infer34]||||
+|v5_sampling_rev|[train34]|[infer34.1]||0.880|fold-0|
+
 
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
@@ -61,6 +63,8 @@
 [infer33]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89312814
 [train34]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/dbf0b12ef0c54533e49b42171c4e97efbe68ce4e/src/nbme_train_by_pytorch.py
 [infer34]:xxx
+[infer34.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89474747
+
 
 ## やりたいことメモ
 - 後処理を考える
