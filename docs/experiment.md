@@ -64,7 +64,7 @@
 [train34]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/dbf0b12ef0c54533e49b42171c4e97efbe68ce4e/src/nbme_train_by_pytorch.py
 [infer34]:xxx
 [infer34.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89474747
-[infer34.2]:xxx
+[infer34.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89535923
 
 ## やりたいことメモ
 - 後処理を考える
