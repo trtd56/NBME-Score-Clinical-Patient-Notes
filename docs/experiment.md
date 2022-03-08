@@ -28,7 +28,7 @@
 |pseudo_v5_sampling|[train33]|[infer33]|0.8897|0.883||
 |v5_sampling_rev|[train34]|[infer34]||||
 |v5_sampling_rev|[train34]|[infer34.1]||0.880|fold-0|
-|v5_sampling_rev|[train34]|[infer34.2]|||fold-1|
+|v5_sampling_rev|[train34]|[infer34.2]||0.879|fold-1|
 
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
