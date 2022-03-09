@@ -30,7 +30,7 @@
 |v5_sampling_rev|[train34]|[infer34.1]||0.880|fold-0|
 |v5_sampling_rev|[train34]|[infer34.2]||0.879|fold-1|
 |v5_sampling_rev|[train34]|[infer34.3]||0.880|fold-2|
-|v5_sampling_rev|[train34]|[infer34.4]|||fold-3|
+|v5_sampling_rev|[train34]|[infer34.4]||0.880|fold-3|
 |v5_sampling_rev|[train34]|[infer34.5]|||fold-4|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
