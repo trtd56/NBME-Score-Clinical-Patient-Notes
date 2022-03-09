@@ -29,7 +29,7 @@
 |v5_sampling_rev|[train34]|[infer34]||||
 |v5_sampling_rev|[train34]|[infer34.1]||0.880|fold-0|
 |v5_sampling_rev|[train34]|[infer34.2]||0.879|fold-1|
-|v5_sampling_rev|[train34]|[infer34.3]|||fold-2|
+|v5_sampling_rev|[train34]|[infer34.3]||0.880|fold-2|
 |v5_sampling_rev|[train34]|[infer34.4]|||fold-3|
 |v5_sampling_rev|[train34]|[infer34.5]|||fold-4|
 
