@@ -47,10 +47,10 @@
 [infer29]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88894891
 [infer29.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88895387
 [infer29.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89713328
-[infer29.3]:xxx
-[infer29.4]:xxx
-[infer29.5]:xxx
-[infer29.6]:xxx
+[infer29.3]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89713497
+[infer29.4]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89713511
+[infer29.5]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89713757
+[infer29.6]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89713767
 [train30]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/651157065960402b2618939e88727770d7210801/src/nbme_train_by_pytorch.py
 [infer30]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89065280
 [infer30.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89065441
