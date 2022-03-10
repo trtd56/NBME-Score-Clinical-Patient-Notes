@@ -8,6 +8,11 @@
 |v3_pseudo_50|[train28]|[infer28]|0.8819|0.882|fold-3, 4epochまで|
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8879|0.882|thr=0.6|
+|pseudo_mcdrop|[train29]|[infer29.2]|||fold-0|
+|pseudo_mcdrop|[train29]|[infer29.3]|||fold-1|
+|pseudo_mcdrop|[train29]|[infer29.4]|||fold-2|
+|pseudo_mcdrop|[train29]|[infer29.5]|||fold-3|
+|pseudo_mcdrop|[train29]|[infer29.6]|||fold-4|
 |pseudo_v2|[train30]|[infer30]|0.89280|0.881||
 |pseudo_v2|[train30]|[infer30.1]|0.89290|0.880|thr=0.6|
 |pseudo_v2|[train30]|[infer30.2]|0.89283|0.882|thr=0.48|
@@ -26,12 +31,12 @@
 |pseudo_v3|[train31]|[infer31.4]||0.881|only fold-2|
 |pseudo_v3_sampling|[train32]|[infer32]|0.8847|0.884||
 |pseudo_v5_sampling|[train33]|[infer33]|0.8897|0.883||
-|v5_sampling_rev|[train34]|[infer34]||||
+|v5_sampling_rev|[train34]|[infer34]|0.8953|0.883||
 |v5_sampling_rev|[train34]|[infer34.1]||0.880|fold-0|
 |v5_sampling_rev|[train34]|[infer34.2]||0.879|fold-1|
 |v5_sampling_rev|[train34]|[infer34.3]||0.880|fold-2|
 |v5_sampling_rev|[train34]|[infer34.4]||0.880|fold-3|
-|v5_sampling_rev|[train34]|[infer34.5]|||fold-4|
+|v5_sampling_rev|[train34]|[infer34.5]||0.878|fold-4|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
@@ -41,6 +46,11 @@
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88894891
 [infer29.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88895387
+[infer29.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89713328
+[infer29.3]:xxx
+[infer29.4]:xxx
+[infer29.5]:xxx
+[infer29.6]:xxx
 [train30]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/651157065960402b2618939e88727770d7210801/src/nbme_train_by_pytorch.py
 [infer30]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89065280
 [infer30.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89065441
