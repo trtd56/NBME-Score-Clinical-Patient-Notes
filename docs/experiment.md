@@ -8,10 +8,10 @@
 |v3_pseudo_50|[train28]|[infer28]|0.8819|0.882|fold-3, 4epochまで|
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8879|0.882|thr=0.6|
-|pseudo_mcdrop|[train29]|[infer29.2]|||fold-0|
-|pseudo_mcdrop|[train29]|[infer29.3]|||fold-1|
-|pseudo_mcdrop|[train29]|[infer29.4]|||fold-2|
-|pseudo_mcdrop|[train29]|[infer29.5]|||fold-3|
+|pseudo_mcdrop|[train29]|[infer29.2]||0.877|fold-0|
+|pseudo_mcdrop|[train29]|[infer29.3]||0.879|fold-1|
+|pseudo_mcdrop|[train29]|[infer29.4]||0.878|fold-2|
+|pseudo_mcdrop|[train29]|[infer29.5]||0.879|fold-3|
 |pseudo_mcdrop|[train29]|[infer29.6]|||fold-4|
 |pseudo_v2|[train30]|[infer30]|0.89280|0.881||
 |pseudo_v2|[train30]|[infer30.1]|0.89290|0.880|thr=0.6|
