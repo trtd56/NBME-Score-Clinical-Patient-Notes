@@ -39,7 +39,7 @@
 |v5_sampling_rev|[train34]|[infer34.5]||0.878|fold-4|
 |v6_sampling|[train35]|[infer35]||||
 |v6_sampling|[train35]|[infer35.1]||0.880|fold-0|
-|v6_sampling|[train35]|[infer35.2]|||fold-1|
+|v6_sampling|[train35]|[infer35.2]||0.879|fold-1|
 |v6_sampling|[train35]|[infer35.3]|||fold-2|
 |v6_sampling|[train35]|[infer35.4]|||fold-3|
 |v6_sampling|[train35]|[infer35.5]|||fold-4|
