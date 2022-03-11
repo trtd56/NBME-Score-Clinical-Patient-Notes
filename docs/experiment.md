@@ -38,8 +38,11 @@
 |v5_sampling_rev|[train34]|[infer34.4]||0.880|fold-3|
 |v5_sampling_rev|[train34]|[infer34.5]||0.878|fold-4|
 |v6_sampling|[train35]|[infer35]||||
-|v6_sampling|[train35]|[infer35.1]||0.880||
-|v6_sampling|[train35]|[infer35.2]||||
+|v6_sampling|[train35]|[infer35.1]||0.880|fold-0|
+|v6_sampling|[train35]|[infer35.2]|||fold-1|
+|v6_sampling|[train35]|[infer35.3]|||fold-2|
+|v6_sampling|[train35]|[infer35.4]|||fold-3|
+|v6_sampling|[train35]|[infer35.5]|||fold-4|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
@@ -87,7 +90,9 @@
 [infer35]:xxx
 [infer35.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89792661
 [infer35.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89812170
-
+[infer35.3]:xxx
+[infer35.4]:xxx
+[infer35.5]:xxx
 
 ## やりたいことメモ
 - 後処理を考える
