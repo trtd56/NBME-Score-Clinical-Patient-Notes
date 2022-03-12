@@ -37,11 +37,11 @@
 |v5_sampling_rev|[train34]|[infer34.3]||0.880|fold-2|
 |v5_sampling_rev|[train34]|[infer34.4]||0.880|fold-3|
 |v5_sampling_rev|[train34]|[infer34.5]||0.878|fold-4|
-|v6_sampling|[train35]|[infer35]||||
+|v6_sampling|[train35]|[infer35]|0.8974|||
 |v6_sampling|[train35]|[infer35.1]||0.880|fold-0|
 |v6_sampling|[train35]|[infer35.2]||0.879|fold-1|
-|v6_sampling|[train35]|[infer35.3]|||fold-2|
-|v6_sampling|[train35]|[infer35.4]|||fold-3|
+|v6_sampling|[train35]|[infer35.3]||0.878|fold-2|
+|v6_sampling|[train35]|[infer35.4]||0.880|fold-3|
 |v6_sampling|[train35]|[infer35.5]|||fold-4|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
