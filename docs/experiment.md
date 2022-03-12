@@ -90,8 +90,8 @@
 [infer35]:xxx
 [infer35.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89792661
 [infer35.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89812170
-[infer35.3]:xxx
-[infer35.4]:xxx
+[infer35.3]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89902918
+[infer35.4]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89902937
 [infer35.5]:xxx
 
 ## やりたいことメモ
