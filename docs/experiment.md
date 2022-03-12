@@ -42,7 +42,7 @@
 |v6_sampling|[train35]|[infer35.2]||0.879|fold-1|
 |v6_sampling|[train35]|[infer35.3]||0.878|fold-2|
 |v6_sampling|[train35]|[infer35.4]||0.880|fold-3|
-|v6_sampling|[train35]|[infer35.5]|||fold-4|
+|v6_sampling|[train35]|[infer35.5]||0.880|fold-4|
 |v2_relabel|[train36]|[infer36]||||
 
 
