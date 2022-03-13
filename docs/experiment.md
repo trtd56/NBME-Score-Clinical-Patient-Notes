@@ -37,7 +37,7 @@
 |v5_sampling_rev|[train34]|[infer34.3]||0.880|fold-2|
 |v5_sampling_rev|[train34]|[infer34.4]||0.880|fold-3|
 |v5_sampling_rev|[train34]|[infer34.5]||0.878|fold-4|
-|v6_sampling|[train35]|[infer35]|0.8974|||
+|v6_sampling|[train35]|[infer35]|0.8974|0.883||
 |v6_sampling|[train35]|[infer35.1]||0.880|fold-0|
 |v6_sampling|[train35]|[infer35.2]||0.879|fold-1|
 |v6_sampling|[train35]|[infer35.3]||0.878|fold-2|
