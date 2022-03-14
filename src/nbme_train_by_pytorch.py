@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'v2_relabel'
+    EXP_NAME = 'v2_relabel_3rd'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -132,21 +132,21 @@ pn_num_folds = train_df['fold']
 
 print(labels.shape)
 
-pseudo_sequences_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v1.npy",'rb'))
+'''pseudo_sequences_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v1.npy",'rb'))
 pseudo_masks_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v1.npy",'rb'))
 pseudo_type_ids_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v1.npy",'rb'))
 pseudo_labels_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v1.npy",'rb'))
-#labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v1.npy','rb'))
-labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_v2_DIR}/labels_check_mc_dropout_v1.npy','rb'))
+labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v1.npy','rb'))
+#labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_v2_DIR}/labels_check_mc_dropout_v1.npy','rb'))
 pn_num_and_case_num_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v1.npy','rb'))
-print(pseudo_labels_v1.shape)
+print(pseudo_labels_v1.shape)'''
 
-"""
 pseudo_sequences_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v2.npy",'rb'))
 pseudo_masks_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v2.npy",'rb'))
 pseudo_type_ids_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v2.npy",'rb'))
 pseudo_labels_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v2.npy",'rb'))
-labels_check_mc_dropout_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v2.npy','rb'))
+#labels_check_mc_dropout_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v2.npy','rb'))
+labels_check_mc_dropout_v2 = np.load(open(f'{GCF.PSEUDO_v2_DIR}/labels_check_mc_dropout_v2.npy','rb'))
 pn_num_and_case_num_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v2.npy','rb'))
 
 print(pseudo_labels_v2.shape)
@@ -155,11 +155,12 @@ pseudo_sequences_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v3.npy",'
 pseudo_masks_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v3.npy",'rb'))
 pseudo_type_ids_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v3.npy",'rb'))
 pseudo_labels_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v3.npy",'rb'))
-labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v3.npy','rb'))
+#labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v3.npy','rb'))
+labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_v2_DIR}/labels_check_mc_dropout_v3.npy','rb'))
 pn_num_and_case_num_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v3.npy','rb'))
 
 print(pseudo_labels_v3.shape)
-
+'''
 pseudo_sequences_v4 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v4.npy",'rb'))
 pseudo_masks_v4 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v4.npy",'rb'))
 pseudo_type_ids_v4 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v4.npy",'rb'))
@@ -185,8 +186,7 @@ pseudo_labels_v6 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v6.npy",'rb'))
 labels_check_mc_dropout_v6 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v6.npy','rb'))
 pn_num_and_case_num_v6 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v6.npy','rb'))
 
-print(pseudo_labels_v6.shape)
-"""
+print(pseudo_labels_v6.shape)'''
 
 '''pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3, pseudo_sequences_v4, pseudo_sequences_v5, pseudo_sequences_v6])
 pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2, pseudo_masks_v3, pseudo_masks_v4, pseudo_masks_v5, pseudo_masks_v6])
@@ -198,12 +198,12 @@ pseudo_case_num = np.vstack([pn_num_and_case_num_v1, pn_num_and_case_num_v2,
                                      pn_num_and_case_num_v3, pn_num_and_case_num_v4, pn_num_and_case_num_v5, pn_num_and_case_num_v6])[:, 1]
 print(pseudo_labels.shape)'''
 
-pseudo_sequences = pseudo_sequences_v1
-pseudo_masks = pseudo_masks_v1
-pseudo_type_ids = pseudo_type_ids_v1
-pseudo_labels = pseudo_labels_v1
-labels_check_mc_dropout = labels_check_mc_dropout_v1
-pseudo_case_num = pn_num_and_case_num_v1[:, 1]
+pseudo_sequences = np.vstack([pseudo_sequences_v2, pseudo_sequences_v3])
+pseudo_masks = np.vstack([pseudo_masks_v2, pseudo_masks_v3])
+pseudo_type_ids = np.vstack([pseudo_type_ids_v2, pseudo_type_ids_v3])
+pseudo_labels = np.vstack([pseudo_labels_v2, pseudo_labels_v3])
+labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v2, labels_check_mc_dropout_v3])
+pseudo_case_num = np.vstack([pn_num_and_case_num_v2, pn_num_and_case_num_v3])[:, 1]
 
 print(pseudo_labels.shape)
 
