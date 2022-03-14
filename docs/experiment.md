@@ -47,6 +47,8 @@
 |v2_relabel|[train36]|[infer36.1]||0.879|fold-0|
 |v2_relabel|[train36]|[infer36.2]||0.876|fold-1|
 |v2_relabel|[train36]|[infer36.3]||0.875|fold-2|
+|v2_relabel_3rd|[train37]|[infer37]||||
+
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
@@ -102,6 +104,8 @@
 [infer36.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90028256
 [infer36.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90028559
 [infer36.3]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90029341
+[train37]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/d5c9be3756ac8bd91aa97fef23493aa074c1e808/src/nbme_train_by_pytorch.py
+[infer37]:xxx
 
 ## やりたいことメモ
 - 後処理を考える
@@ -112,3 +116,4 @@
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
 - [02/27](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/6e420a8282d95a2217b18d9c562dc9ee26e22e96/docs/experiment.md): train28まで
+- [03/14]
