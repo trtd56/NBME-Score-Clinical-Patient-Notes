@@ -6,7 +6,7 @@
 |deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
 |v6_sampling|[train35]|[infer35]|0.8974|0.883||
-|v2_relabel|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
+|v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]||||
 
 
