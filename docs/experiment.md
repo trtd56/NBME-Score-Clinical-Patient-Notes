@@ -24,7 +24,7 @@
 [infer37]:xxx
 [infer37.1]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90138567
 [infer37.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90138620
-[infer37.3]:xxx
+[infer37.3]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90138713
 
 
 ## やりたいことメモ
