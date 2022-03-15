@@ -8,9 +8,9 @@
 |v6_sampling|[train35]|[infer35]|0.8974|0.883||
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]||||
-|v2_relabel_3rd|[train37]|[infer37.1]|||fold-0|
-|v2_relabel_3rd|[train37]|[infer37.2]|||fold-1|
-|v2_relabel_3rd|[train37]|[infer37.3]|||fold-2|
+|v2_relabel_3rd|[train37]|[infer37.1]||0.877|fold-0|
+|v2_relabel_3rd|[train37]|[infer37.2]||0.876|fold-1|
+|v2_relabel_3rd|[train37]|[infer37.3]||0.873|fold-2|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
