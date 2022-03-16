@@ -6,12 +6,15 @@
 |deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
 |v6_sampling|[train35]|[infer35]|0.8974|0.883||
+|v6_sampling|[train35]|[infer35.6]|0.8974||max_pool|
+|v6_sampling|[train35]|[infer35.7]|0.8974||0.5以上を先に計算|
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]|0.8903|0.882|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37.1]||0.877|fold-0|
 |v2_relabel_3rd|[train37]|[infer37.2]||0.876|fold-1|
 |v2_relabel_3rd|[train37]|[infer37.3]||0.873|fold-2|
-|harf_of_2nd|[train38]|[infer38]||||
+|harf_of_2nd|[train38]|X|||めちゃ低い|
+|random_sample|[train39]|[infer39]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
@@ -19,6 +22,8 @@
 [infer29]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88894891
 [train35]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/db94a53a6337f0ba5df97235b2097065959db48a/src/nbme_train_by_pytorch.py
 [infer35]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89943923
+[infer35.6]:xxx
+[infer35.7]:xxx
 [train36]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/4c29f4dd4c82c92162b997ef37dbbd9cd9131e50/src/nbme_train_by_pytorch.py
 [infer36]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90041987
 [train37]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/d5c9be3756ac8bd91aa97fef23493aa074c1e808/src/nbme_train_by_pytorch.py
@@ -27,7 +32,8 @@
 [infer37.2]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90138620
 [infer37.3]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90138713
 [train38]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/bab8b2d4a4668853b556b2b5850c42e9684cba4c/src/nbme_train_by_pytorch.py
-[infer38]:xxx
+[train39]:xxx
+[infer39]:xxx
 
 
 ## 過去Version
