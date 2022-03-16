@@ -29,11 +29,6 @@
 [train38]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/bab8b2d4a4668853b556b2b5850c42e9684cba4c/src/nbme_train_by_pytorch.py
 [infer38]:xxx
 
-## やりたいことメモ
-- 後処理を考える
-- case_numごとにモデルをつくる
-- DeBERTa以外のモデル検討
-
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
