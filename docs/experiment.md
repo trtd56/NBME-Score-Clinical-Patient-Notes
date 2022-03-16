@@ -6,7 +6,7 @@
 |deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
 |v6_sampling|[train35]|[infer35]|0.8974|0.883||
-|v6_sampling|[train35]|[infer35.6]|0.8974||max_pool|
+|v6_sampling|[train35]|[infer35.6]|0.8974|0.877|max_pool|
 |v6_sampling|[train35]|[infer35.7]|0.8974||0.5以上を先に計算, 2個以上|
 |v6_sampling|[train35]|[infer35.8]|0.8974||0.5以上を先に計算, 3個以上|
 |v6_sampling|[train35]|[infer35.9]|0.8974||0.5以上を先に計算, 4個以上|
