@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'harf_of_2nd'
+    EXP_NAME = 'random_sample'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -137,7 +137,6 @@ pseudo_masks_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v1.npy",'rb'))
 pseudo_type_ids_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v1.npy",'rb'))
 pseudo_labels_v1 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v1.npy",'rb'))
 labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v1.npy','rb'))
-#labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_v2_DIR}/labels_check_mc_dropout_v1.npy','rb'))
 pn_num_and_case_num_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v1.npy','rb'))
 print(pseudo_labels_v1.shape)
 
@@ -146,18 +145,16 @@ pseudo_masks_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v2.npy",'rb'))
 pseudo_type_ids_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v2.npy",'rb'))
 pseudo_labels_v2 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v2.npy",'rb'))
 labels_check_mc_dropout_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v2.npy','rb'))
-#labels_check_mc_dropout_v2 = np.load(open(f'{GCF.PSEUDO_v2_DIR}/labels_check_mc_dropout_v2.npy','rb'))
 pn_num_and_case_num_v2 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v2.npy','rb'))
 
 print(pseudo_labels_v2.shape)
 
-'''
+
 pseudo_sequences_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v3.npy",'rb'))
 pseudo_masks_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v3.npy",'rb'))
 pseudo_type_ids_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v3.npy",'rb'))
 pseudo_labels_v3 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v3.npy",'rb'))
-#labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v3.npy','rb'))
-labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_v2_DIR}/labels_check_mc_dropout_v3.npy','rb'))
+labels_check_mc_dropout_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v3.npy','rb'))
 pn_num_and_case_num_v3 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v3.npy','rb'))
 
 print(pseudo_labels_v3.shape)
@@ -187,9 +184,9 @@ pseudo_labels_v6 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v6.npy",'rb'))
 labels_check_mc_dropout_v6 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v6.npy','rb'))
 pn_num_and_case_num_v6 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v6.npy','rb'))
 
-print(pseudo_labels_v6.shape)'''
+print(pseudo_labels_v6.shape)
 
-'''pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3, pseudo_sequences_v4, pseudo_sequences_v5, pseudo_sequences_v6])
+pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3, pseudo_sequences_v4, pseudo_sequences_v5, pseudo_sequences_v6])
 pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2, pseudo_masks_v3, pseudo_masks_v4, pseudo_masks_v5, pseudo_masks_v6])
 pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2, pseudo_type_ids_v3, pseudo_type_ids_v4, pseudo_type_ids_v5, pseudo_type_ids_v6])
 pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2, pseudo_labels_v3, pseudo_labels_v4, pseudo_labels_v5, pseudo_labels_v6])
@@ -197,23 +194,6 @@ labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v1, labels_check_mc
                                      labels_check_mc_dropout_v3, labels_check_mc_dropout_v4, labels_check_mc_dropout_v5, labels_check_mc_dropout_v6])
 pseudo_case_num = np.vstack([pn_num_and_case_num_v1, pn_num_and_case_num_v2,
                                      pn_num_and_case_num_v3, pn_num_and_case_num_v4, pn_num_and_case_num_v5, pn_num_and_case_num_v6])[:, 1]
-print(pseudo_labels.shape)'''
-
-
-'''pseudo_sequences = np.vstack([pseudo_sequences_v2, pseudo_sequences_v3])
-pseudo_masks = np.vstack([pseudo_masks_v2, pseudo_masks_v3])
-pseudo_type_ids = np.vstack([pseudo_type_ids_v2, pseudo_type_ids_v3])
-pseudo_labels = np.vstack([pseudo_labels_v2, pseudo_labels_v3])
-labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v2, labels_check_mc_dropout_v3])
-pseudo_case_num = np.vstack([pn_num_and_case_num_v2, pn_num_and_case_num_v3])[:, 1]'''
-
-pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2])
-pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2])
-pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2])
-pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2])
-labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v1, labels_check_mc_dropout_v2])
-pseudo_case_num = np.vstack([pn_num_and_case_num_v1, pn_num_and_case_num_v2])[:, 1]
-
 print(pseudo_labels.shape)
 
 def pseudo_to_target(pred):
@@ -242,18 +222,12 @@ pseudo_case_num = pseudo_case_num[is_posi]
 
 print(pseudo_labels.shape)
 
-'''kf = StratifiedKFold(n_splits=GCF.N_FOLDS, random_state=GCF.SEED, shuffle=True)
+n_pseudo_data = pseudo_labels.shape[0]
+
+kf = StratifiedKFold(n_splits=GCF.N_FOLDS, random_state=GCF.SEED, shuffle=True)
 splits = list(kf.split(X=pseudo_case_num , y=pseudo_case_num))
 pseudo_fold_index = [train_idx for train_idx, valid_idx in splits]
-pseudo_fold_index'''
-
-use_data = (len(pseudo_sequences) // 4 * 3)  # 75%
-pseudo_sequences = pseudo_sequences[:use_data, :]
-pseudo_masks = pseudo_masks[:use_data, :]
-pseudo_type_ids = pseudo_type_ids[:use_data, :]
-pseudo_labels = new_labels[:use_data, :]
-pseudo_case_num = pseudo_case_num[:use_data]
-print(pseudo_labels.shape)
+pseudo_fold_index
 
 class NBMEDataset(Dataset):
     def __init__(self, sequences, mask, type_ids, target):
@@ -525,29 +499,32 @@ for fold in range(GCF.N_FOLDS):
     print(f'### start Fold-{fold} ###')
     set_seed()
     
-    #train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_fold_index[fold], :]])
-    train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
     valid_sequences = sequences[pn_num_folds == fold, :]
-
-    #train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_fold_index[fold], :]])
-    train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
     valid_masks = masks[pn_num_folds == fold, :]
-
-    #train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_fold_index[fold], :]])
-    train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids])
     valid_type_ids = type_ids[pn_num_folds == fold, :]
-
-    #train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels[pseudo_fold_index[fold], :]])
-    train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels])
     valid_labels = labels[pn_num_folds == fold,:]
-    
-    train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
     valid_dset = NBMEDataset(valid_sequences, valid_masks, valid_type_ids, valid_labels)
+    valid_dloader = DataLoader(valid_dset, batch_size=GCF.BS,
+                               pin_memory=True, shuffle=False, drop_last=False, num_workers=os.cpu_count())
+
+    #train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_fold_index[fold], :]])
+    #train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_fold_index[fold], :]])
+    #train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_fold_index[fold], :]])
+    #train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels[pseudo_fold_index[fold], :]])
+    #train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
+    #train_dloader = DataLoader(train_dset, batch_size=GCF.BS,
+    #                           pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
+    #                           worker_init_fn=lambda x: set_seed())
+
+    pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6000))
+    train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
+    train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
+    train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
+    train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels[pseudo_idx, :]])
+    train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
     train_dloader = DataLoader(train_dset, batch_size=GCF.BS,
                                pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
                                worker_init_fn=lambda x: set_seed())
-    valid_dloader = DataLoader(valid_dset, batch_size=GCF.BS,
-                               pin_memory=True, shuffle=False, drop_last=False, num_workers=os.cpu_count())
 
     model = NBMEModel()
     model.to(device)
@@ -569,7 +546,7 @@ for fold in range(GCF.N_FOLDS):
         num_warmup_steps=warmup_steps,
         num_training_steps=max_train_steps
     )
-    
+
     if os.path.exists(f"{GCF.OUTPUT_DIR}/checkpoint.bin"):
         print('load prev model')
         checkpoint = torch.load(f"{GCF.OUTPUT_DIR}/checkpoint.bin") 
@@ -639,6 +616,17 @@ for fold in range(GCF.N_FOLDS):
             "cuda_random": torch.cuda.get_rng_state(),
         }
         torch.save(checkpoint, f"{GCF.OUTPUT_DIR}/checkpoint.bin")
+
+        # train dataの再サンプリング
+        pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6000))
+        train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
+        train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
+        train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
+        train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels[pseudo_idx, :]])
+        train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
+        train_dloader = DataLoader(train_dset, batch_size=GCF.BS,
+                                pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
+                                worker_init_fn=lambda x: set_seed())
             
     plt.plot(train_losses);plt.show()
     plt.plot(train_lrs);plt.show()
