@@ -25,7 +25,7 @@
 [train35]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/db94a53a6337f0ba5df97235b2097065959db48a/src/nbme_train_by_pytorch.py
 [infer35]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89943923
 [infer35.6]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90243712
-[infer35.7]:xxx
+[infer35.7]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90260146
 [infer35.8]:xxx
 [infer35.9]:xxx
 [train36]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/4c29f4dd4c82c92162b997ef37dbbd9cd9131e50/src/nbme_train_by_pytorch.py
