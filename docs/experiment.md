@@ -17,7 +17,7 @@
 |v2_relabel_3rd|[train37]|[infer37.2]||0.876|fold-1|
 |v2_relabel_3rd|[train37]|[infer37.3]||0.873|fold-2|
 |harf_of_2nd|[train38]|X|||めちゃ低い|
-|random_sample|[train39]|[infer39]||||
+|random_sample|[train39]|[infer39]|0.8905|||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
