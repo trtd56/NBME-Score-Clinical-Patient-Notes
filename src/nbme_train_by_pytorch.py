@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'random_sample'
+    EXP_NAME = 'fold_4'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -100,7 +100,7 @@ class GCF:
     WEIGHT_DECAY = 0.01
     
     SEED = 0
-    N_FOLDS = 5
+    N_FOLDS = 4
     BS = 4
     ACCUMULATE = 1
     N_EPOCHS = 5
@@ -493,7 +493,7 @@ def get_optimizer_params(model):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    #if fold in [0,1,2]:
+    #if fold in [0,1,2,3]:
     #    print(f'### skip Fold-{fold} ###')
     #    continue
     print(f'### start Fold-{fold} ###')
