@@ -4,3 +4,4 @@
 
 - [コンペページ](https://www.kaggle.com/c/nbme-score-clinical-patient-notes/overview)
 - [wandb](https://wandb.ai/trtd56/NBME?workspace=user-trtd56)
+- [EDA in colab](https://colab.research.google.com/drive/1lYF89HHfHbhWGXG2Q_lKuTPCpgnj8o_9?usp=sharing)
