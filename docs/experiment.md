@@ -52,8 +52,8 @@
 [infer39]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90330363
 [infer39.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90409030
 [train40]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/edc2ed5691f842ae8769f33dd1010a817e6a5eca
-[infer40]:xxx
-[train41]:xxx
+[infer40]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90438527
+[train41]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/8e0d68fb0c02c591b8835976a3b0e0a33d459424/src/nbme_train_by_pytorch.py
 [infer41]:xxx
 
 ## 過去Version
