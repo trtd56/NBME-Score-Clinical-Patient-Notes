@@ -11,7 +11,7 @@
 |v6_sampling|[train35]|[infer35.8]|0.8974|0.883|0.5以上を先に計算, 3個以上|
 |v6_sampling|[train35]|[infer35.9]|0.8974|0.881|0.5以上を先に計算, 4個以上|
 |v6_sampling|[train35]|[infer35.10]|0.8974|0.877|0.5以上を先に計算, 1個以上|
-|v6_sampling|[train35]|[infer35.11]|0.8997||先頭文字の後処理|
+|v6_sampling|[train35]|[infer35.11]|0.8997|0.886|先頭文字の後処理|
 |v6_sampling|[train35]|[infer35.12]|0.8919||↑+同じ単語の後処理|
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]|0.8903|0.882|fold-4, 3epochまで|
