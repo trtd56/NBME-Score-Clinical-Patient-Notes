@@ -5,6 +5,7 @@
 |--|--|--|--|--|--|
 |deberta_v3|[train27]|[infer27]|0.8794|0.881||
 |pseudo_mcdrop|[train29]|[infer29]|0.8878|0.885||
+|pseudo_mcdrop|[train29]|[infer29.1]|0.8900||先頭文字の後処理|
 |v6_sampling|[train35]|[infer35]|0.8974|0.883||
 |v6_sampling|[train35]|[infer35.6]|0.8974|0.877|max_pool|
 |v6_sampling|[train35]|[infer35.7]|0.8974|0.883|0.5以上を先に計算, 2個以上|
@@ -12,7 +13,9 @@
 |v6_sampling|[train35]|[infer35.9]|0.8974|0.881|0.5以上を先に計算, 4個以上|
 |v6_sampling|[train35]|[infer35.10]|0.8974|0.877|0.5以上を先に計算, 1個以上|
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886|先頭文字の後処理|
-|v6_sampling|[train35]|[infer35.12]|0.8919||↑+同じ単語の後処理|
+|v6_sampling|[train35]||0.8996||先頭文字+同じ単語の後処理|
+|v6_sampling|[train35]||0.8919||先頭文字+1個飛ばしの連結の後処理|
+|v6_sampling|[train35]||0.6323||先頭文字+trainに無い単語除外の後処理|
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]|0.8903|0.882|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37.1]||0.877|fold-0|
@@ -26,6 +29,7 @@
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88894891
+[infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
 [train35]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/db94a53a6337f0ba5df97235b2097065959db48a/src/nbme_train_by_pytorch.py
 [infer35]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=89943923
 [infer35.6]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90243712
@@ -34,7 +38,6 @@
 [infer35.9]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/notebook?scriptVersionId=90328111
 [infer35.10]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90338922
 [infer35.11]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90397794
-[infer35.12]:xxx
 [train36]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/4c29f4dd4c82c92162b997ef37dbbd9cd9131e50/src/nbme_train_by_pytorch.py
 [infer36]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90041987
 [train37]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/d5c9be3756ac8bd91aa97fef23493aa074c1e808/src/nbme_train_by_pytorch.py
