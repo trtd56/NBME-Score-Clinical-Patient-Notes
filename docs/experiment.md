@@ -11,8 +11,8 @@
 |v6_sampling|[train35]|[infer35.8]|0.8974|0.883|0.5以上を先に計算, 3個以上|
 |v6_sampling|[train35]|[infer35.9]|0.8974|0.881|0.5以上を先に計算, 4個以上|
 |v6_sampling|[train35]|[infer35.10]|0.8974||0.5以上を先に計算, 1個以上|
-|v6_sampling|[train35]|[infer35.11]|0.8979||thr=0.58|
-|v6_sampling|[train35]|[infer35.12]|0.8974||先頭1文字の後処理|
+|v6_sampling|[train35]|[infer35.11]|0.8997||先頭文字の後処理|
+|v6_sampling|[train35]|[infer35.12]|||↑+同じ単語の後処理|
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]|0.8903|0.882|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37.1]||0.877|fold-0|
@@ -33,7 +33,7 @@
 [infer35.8]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90318169
 [infer35.9]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/notebook?scriptVersionId=90328111
 [infer35.10]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90338922
-[infer35.11]:xxx
+[infer35.11]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90397794
 [infer35.12]:xxx
 [train36]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/4c29f4dd4c82c92162b997ef37dbbd9cd9131e50/src/nbme_train_by_pytorch.py
 [infer36]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90041987
