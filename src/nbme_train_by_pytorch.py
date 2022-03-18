@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'fold_4'
+    EXP_NAME = 'epoch6'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -103,7 +103,7 @@ class GCF:
     N_FOLDS = 4
     BS = 4
     ACCUMULATE = 1
-    N_EPOCHS = 5
+    N_EPOCHS = 6
     WARM_UP_RATIO = 0.0
     
     NOT_WATCH_PARAM = ["TOKENIZER", "CONFIG", "INPUT_PATH", "PREPROCESSING_DIR", 'NOT_WATCH_PARAM']
@@ -569,7 +569,7 @@ for fold in range(GCF.N_FOLDS):
     
     train_losses, train_lrs = [], []
     for epoch in range(GCF.N_EPOCHS):
-        #if is_load and epoch < 4:
+        #if is_load and epoch < 3:
         #    print(f'skip epoch-{epoch}')
         #    continue
         _losses, _lrs = train_loop(model, train_dloader, optimizer, scheduler)
@@ -671,6 +671,28 @@ for fold in range(GCF.N_FOLDS):
 
 np.save(open(f"{GCF.OUTPUT_DIR}/oof.npy",'wb'), oof)
 
+def postprocessing(predicts, pn_histories):
+    new_p = []
+    for pred, txt in zip(predicts, pn_histories):
+        _p = []
+        for pp in pred:
+            h, t = pp[0], pp[1]
+            if h == t:
+                continue
+            if txt[h-1] == ' ':
+                _p.append([h, t])
+                continue
+            elif txt[h] in '\r\n':
+                if txt[h+1] in '\r\n':
+                    h = min(h + 2, t - 1)
+                else:
+                    h = min(h + 1, t - 1)
+            else:
+                h = max(0, h - 1)
+            _p.append([h, t])
+        new_p.append(_p)
+    return new_p
+
 scores = []
 for fold in range(GCF.N_FOLDS):
     print("Fold", fold)
@@ -678,10 +700,14 @@ for fold in range(GCF.N_FOLDS):
     valid_texts = train_df[train_df['fold'] == fold]['pn_history']
     valid_df = train_df[train_df['fold'] == fold].reset_index(drop=True)
     valid_df['location'] = valid_df['location'].apply(ast.literal_eval)
+
     valid_labels = create_labels_for_scoring(valid_df)
     char_probs = get_char_probs(valid_texts, predictions, GCF.TOKENIZER)
     results = get_results(char_probs, th=0.5)
     preds = get_predictions(results)
+
+    preds = postprocessing(preds, valid_df['pn_history'].tolist())
+
     score = get_score(valid_labels, preds)
     scores.append(score)
     print(score)
