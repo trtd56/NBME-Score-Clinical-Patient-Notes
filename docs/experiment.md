@@ -23,7 +23,7 @@
 |v2_relabel_3rd|[train37]|[infer37.3]||0.873|fold-2|
 |harf_of_2nd|[train38]||||めちゃ低い|
 |random_sample|[train39]|[infer39]|0.8905|0.883||
-|random_sample|[train39]|[infer39.1]|0.8927|||
+|random_sample|[train39]|[infer39.1]|0.8927|0.886||
 |fold_4|[train40]|[infer40]|||ここから後処理デフォルト|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
