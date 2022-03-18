@@ -13,8 +13,8 @@
 |v6_sampling|[train35]|[infer35.9]|0.8974|0.881|0.5以上を先に計算, 4個以上|
 |v6_sampling|[train35]|[infer35.10]|0.8974|0.877|0.5以上を先に計算, 1個以上|
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886|先頭文字の後処理|
-|v6_sampling|[train35]||0.8996||先頭文字+同じ単語の後処理|
-|v6_sampling|[train35]||0.8919||先頭文字+1個飛ばしの連結の後処理|
+|v6_sampling|[train35]||0.8919||先頭文字+同じ単語の後処理|
+|v6_sampling|[train35]||0.8996||先頭文字+1個飛ばしの連結の後処理|
 |v6_sampling|[train35]||0.6323||先頭文字+trainに無い単語除外の後処理|
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]|0.8903|0.882|fold-4, 3epochまで|
@@ -24,7 +24,7 @@
 |harf_of_2nd|[train38]||||めちゃ低い|
 |random_sample|[train39]|[infer39]|0.8905|0.883||
 |random_sample|[train39]|[infer39.1]|0.8927|0.886||
-|fold_4|[train40]|[infer40]|||ここから後処理デフォルト|
+|fold_4|[train40]|[infer40]|0.8933||ここから後処理デフォルト(後処理なし0.8910)|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
