@@ -14,8 +14,10 @@
 |v6_sampling|[train35]|[infer35.10]|0.8974|0.877|0.5以上を先に計算, 1個以上|
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886|先頭文字の後処理|
 |v6_sampling|[train35]||0.8919||先頭文字+同じ単語の後処理|
-|v6_sampling|[train35]||0.8996||先頭文字+1個飛ばしの連結の後処理|
+|v6_sampling|[train35]|[infer35.12]|0.8996||先頭文字+1個飛ばしの連結の後処理|
+|v6_sampling|[train35]|[infer35.13]|||先頭文字+2個飛ばしの連結の後処理|
 |v6_sampling|[train35]||0.6323||先頭文字+trainに無い単語除外の後処理|
+|v6_sampling|[train35]|[infer35.14]|0.8997||thr=0.52(0.5より0.00002改善)|
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]|0.8903|0.882|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37.1]||0.877|fold-0|
@@ -24,7 +26,7 @@
 |harf_of_2nd|[train38]||||めちゃ低い|
 |random_sample|[train39]|[infer39]|0.8905|0.883||
 |random_sample|[train39]|[infer39.1]|0.8927|0.886||
-|fold_4|[train40]|[infer40]|0.8933||ここから後処理デフォルト(後処理なし0.8910)|
+|fold_4|[train40]|[infer40]|0.8933|0.885|ここから後処理デフォルト(後処理なし0.8910)|
 |epoch6|[train41]|[infer41]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
@@ -40,6 +42,9 @@
 [infer35.9]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch/notebook?scriptVersionId=90328111
 [infer35.10]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90338922
 [infer35.11]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90397794
+[infer35.12]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90540873
+[infer35.13]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90541014
+[infer35.14]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90541211
 [train36]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/4c29f4dd4c82c92162b997ef37dbbd9cd9131e50/src/nbme_train_by_pytorch.py
 [infer36]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90041987
 [train37]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/d5c9be3756ac8bd91aa97fef23493aa074c1e808/src/nbme_train_by_pytorch.py
