@@ -27,7 +27,8 @@
 |random_sample|[train39]|[infer39]|0.8905|0.883||
 |random_sample|[train39]|[infer39.1]|0.8927|0.886||
 |fold_4|[train40]|[infer40]|0.8933|0.885|ここから後処理デフォルト(後処理なし0.8910)|
-|epoch6|[train41]|[infer41]||||
+|epoch6|[train41]|[infer41]|||後処理なし0.8924|
+|accum_2|[train42]|[infer42]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
@@ -59,7 +60,11 @@
 [train40]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/edc2ed5691f842ae8769f33dd1010a817e6a5eca
 [infer40]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90438527
 [train41]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/8e0d68fb0c02c591b8835976a3b0e0a33d459424/src/nbme_train_by_pytorch.py
-[infer41]:xxx
+[infer41]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90626258
+[train42]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/378fb66e64ce11bd0476e99781dac98e1485e36a/src/nbme_train_by_pytorch.py
+[infer42]:xxx
+
+
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
