@@ -62,10 +62,9 @@
 [train41]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/8e0d68fb0c02c591b8835976a3b0e0a33d459424/src/nbme_train_by_pytorch.py
 [infer41]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90626258
 [train42]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/378fb66e64ce11bd0476e99781dac98e1485e36a/src/nbme_train_by_pytorch.py
-[infer42]:xxx
-[train43]:xxx
-[infer43]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/1097adffb50326ec04aa46a1edd6140debec123f/src/nbme_train_by_pytorch.py
-
+[infer42]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90674931
+[train43]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/1097adffb50326ec04aa46a1edd6140debec123f/src/nbme_train_by_pytorch.py
+[infer43]:xxx
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
