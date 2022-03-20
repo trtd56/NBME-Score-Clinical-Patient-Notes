@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'epoch6'
+    EXP_NAME = 'accum_2'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -96,14 +96,14 @@ class GCF:
     CONFIG = AutoConfig.from_pretrained(MODEL_NAME)
     SEQUENCE_LENGTH = 384
     
-    LR = 2e-5
+    LR = 3e-5
     WEIGHT_DECAY = 0.01
     
     SEED = 0
     N_FOLDS = 4
     BS = 4
-    ACCUMULATE = 1
-    N_EPOCHS = 6
+    ACCUMULATE = 2
+    N_EPOCHS = 5
     WARM_UP_RATIO = 0.0
     
     NOT_WATCH_PARAM = ["TOKENIZER", "CONFIG", "INPUT_PATH", "PREPROCESSING_DIR", 'NOT_WATCH_PARAM']
@@ -186,14 +186,23 @@ pn_num_and_case_num_v6 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v6.
 
 print(pseudo_labels_v6.shape)
 
-pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3, pseudo_sequences_v4, pseudo_sequences_v5, pseudo_sequences_v6])
-pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2, pseudo_masks_v3, pseudo_masks_v4, pseudo_masks_v5, pseudo_masks_v6])
-pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2, pseudo_type_ids_v3, pseudo_type_ids_v4, pseudo_type_ids_v5, pseudo_type_ids_v6])
-pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2, pseudo_labels_v3, pseudo_labels_v4, pseudo_labels_v5, pseudo_labels_v6])
+pseudo_sequences_v7 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v7.npy",'rb'))
+pseudo_masks_v7 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v7.npy",'rb'))
+pseudo_type_ids_v7 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v7.npy",'rb'))
+pseudo_labels_v7 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v7.npy",'rb'))
+labels_check_mc_dropout_v7 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v7.npy','rb'))
+pn_num_and_case_num_v7 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v7.npy','rb'))
+
+print(pseudo_labels_v7.shape)
+
+pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3, pseudo_sequences_v4, pseudo_sequences_v5, pseudo_sequences_v6, pseudo_sequences_v7])
+pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2, pseudo_masks_v3, pseudo_masks_v4, pseudo_masks_v5, pseudo_masks_v6, pseudo_masks_v7])
+pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2, pseudo_type_ids_v3, pseudo_type_ids_v4, pseudo_type_ids_v5, pseudo_type_ids_v6, pseudo_type_ids_v7])
+pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2, pseudo_labels_v3, pseudo_labels_v4, pseudo_labels_v5, pseudo_labels_v6, pseudo_labels_v7])
 labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v1, labels_check_mc_dropout_v2,
-                                     labels_check_mc_dropout_v3, labels_check_mc_dropout_v4, labels_check_mc_dropout_v5, labels_check_mc_dropout_v6])
+                                     labels_check_mc_dropout_v3, labels_check_mc_dropout_v4, labels_check_mc_dropout_v5, labels_check_mc_dropout_v6, labels_check_mc_dropout_v7])
 pseudo_case_num = np.vstack([pn_num_and_case_num_v1, pn_num_and_case_num_v2,
-                                     pn_num_and_case_num_v3, pn_num_and_case_num_v4, pn_num_and_case_num_v5, pn_num_and_case_num_v6])[:, 1]
+                                     pn_num_and_case_num_v3, pn_num_and_case_num_v4, pn_num_and_case_num_v5, pn_num_and_case_num_v6, pn_num_and_case_num_v7])[:, 1]
 print(pseudo_labels.shape)
 
 def pseudo_to_target(pred):
@@ -490,6 +499,28 @@ def get_optimizer_params(model):
     ]
     return optimizer_parameters
 
+def postprocessing(predicts, pn_histories):
+    new_p = []
+    for pred, txt in zip(predicts, pn_histories):
+        _p = []
+        for pp in pred:
+            h, t = pp[0], pp[1]
+            if h == t:
+                continue
+            if txt[h-1] == ' ':
+                _p.append([h, t])
+                continue
+            elif txt[h] in '\r\n':
+                if txt[h+1] in '\r\n':
+                    h = min(h + 2, t - 1)
+                else:
+                    h = min(h + 1, t - 1)
+            else:
+                h = max(0, h - 1)
+            _p.append([h, t])
+        new_p.append(_p)
+    return new_p
+
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
@@ -516,7 +547,7 @@ for fold in range(GCF.N_FOLDS):
     #                           pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
     #                           worker_init_fn=lambda x: set_seed())
 
-    pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6000))
+    pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6500))
     train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
     train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
     train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
@@ -583,6 +614,9 @@ for fold in range(GCF.N_FOLDS):
         char_probs = get_char_probs(valid_texts, valid_predicts, GCF.TOKENIZER)
         results = get_results(char_probs, th=0.5)
         preds = get_predictions(results)
+
+        preds = postprocessing(preds, valid_df['pn_history'].tolist())
+
         f1score = get_score(valid_labels, preds)
         
         print(f"epoch-{epoch}: valid_loss={valid_loss}, valid_f1_score={f1score}")
@@ -618,7 +652,7 @@ for fold in range(GCF.N_FOLDS):
         torch.save(checkpoint, f"{GCF.OUTPUT_DIR}/checkpoint.bin")
 
         # train dataの再サンプリング
-        pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6000))
+        pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6500))
         train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
         train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
         train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
@@ -670,28 +704,6 @@ for fold in range(GCF.N_FOLDS):
     gc.collect()
 
 np.save(open(f"{GCF.OUTPUT_DIR}/oof.npy",'wb'), oof)
-
-def postprocessing(predicts, pn_histories):
-    new_p = []
-    for pred, txt in zip(predicts, pn_histories):
-        _p = []
-        for pp in pred:
-            h, t = pp[0], pp[1]
-            if h == t:
-                continue
-            if txt[h-1] == ' ':
-                _p.append([h, t])
-                continue
-            elif txt[h] in '\r\n':
-                if txt[h+1] in '\r\n':
-                    h = min(h + 2, t - 1)
-                else:
-                    h = min(h + 1, t - 1)
-            else:
-                h = max(0, h - 1)
-            _p.append([h, t])
-        new_p.append(_p)
-    return new_p
 
 scores = []
 for fold in range(GCF.N_FOLDS):
