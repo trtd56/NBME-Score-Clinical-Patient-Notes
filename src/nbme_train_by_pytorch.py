@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'accum_2'
+    EXP_NAME = 'warmup5'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -104,7 +104,7 @@ class GCF:
     BS = 4
     ACCUMULATE = 2
     N_EPOCHS = 5
-    WARM_UP_RATIO = 0.0
+    WARM_UP_RATIO = 0.05
     
     NOT_WATCH_PARAM = ["TOKENIZER", "CONFIG", "INPUT_PATH", "PREPROCESSING_DIR", 'NOT_WATCH_PARAM']
     
