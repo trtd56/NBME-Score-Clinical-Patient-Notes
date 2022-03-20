@@ -14,10 +14,10 @@
 |v6_sampling|[train35]|[infer35.10]|0.8974|0.877|0.5以上を先に計算, 1個以上|
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886|先頭文字の後処理|
 |v6_sampling|[train35]||0.8919||先頭文字+同じ単語の後処理|
-|v6_sampling|[train35]|[infer35.12]|0.8996||先頭文字+1個飛ばしの連結の後処理|
-|v6_sampling|[train35]|[infer35.13]|||先頭文字+2個飛ばしの連結の後処理|
+|v6_sampling|[train35]|[infer35.12]|0.8996|0.885|先頭文字+1個飛ばしの連結の後処理|
+|v6_sampling|[train35]|[infer35.13]||0.884|先頭文字+2個飛ばしの連結の後処理|
 |v6_sampling|[train35]||0.6323||先頭文字+trainに無い単語除外の後処理|
-|v6_sampling|[train35]|[infer35.14]|0.8997||thr=0.52(0.5より0.00002改善)|
+|v6_sampling|[train35]|[infer35.14]|0.8997|0.885|thr=0.52(0.5より0.00002改善)|
 |v2_relabel_2nd|[train36]|[infer36]|0.8868|0.884|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37]|0.8903|0.882|fold-4, 3epochまで|
 |v2_relabel_3rd|[train37]|[infer37.1]||0.877|fold-0|
