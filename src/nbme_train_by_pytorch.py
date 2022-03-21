@@ -322,7 +322,7 @@ def train_loop(model, train_dloader, optimizer, scheduler):
                 d['target'].to(device),
             )
         scaler.scale(loss).backward()
-        grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1000)
+        grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         if global_step % GCF.ACCUMULATE == 0:
             scaler.step(optimizer) 
             scaler.update() 
@@ -524,9 +524,9 @@ def postprocessing(predicts, pn_histories):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    #if fold in [0,1,2,3]:
-    #    print(f'### skip Fold-{fold} ###')
-    #    continue
+    if fold in [0, 1]:
+        print(f'### skip Fold-{fold} ###')
+        continue
     print(f'### start Fold-{fold} ###')
     set_seed()
     
@@ -673,8 +673,6 @@ for fold in range(GCF.N_FOLDS):
 
     
     #break #only one fold
-
-#wandb.finish()
 
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
