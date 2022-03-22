@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'warmup5'
+    EXP_NAME = 'clip2000'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -105,6 +105,8 @@ class GCF:
     ACCUMULATE = 2
     N_EPOCHS = 5
     WARM_UP_RATIO = 0.05
+    GRAD_CLIP = 2000.0
+    N_PSEUDO = 6500
     
     NOT_WATCH_PARAM = ["TOKENIZER", "CONFIG", "INPUT_PATH", "PREPROCESSING_DIR", 'NOT_WATCH_PARAM']
     
@@ -310,7 +312,7 @@ class NBMEModel(nn.Module):
         return loss, h
 
 def train_loop(model, train_dloader, optimizer, scheduler):
-    lrs, losses = [], []
+    lrs, losses, grads = [], [], []
     model.train()
     global_step = 0
     for idx, d in tqdm(enumerate(train_dloader), total=len(train_dloader)):
@@ -322,7 +324,11 @@ def train_loop(model, train_dloader, optimizer, scheduler):
                 d['target'].to(device),
             )
         scaler.scale(loss).backward()
-        grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), GCF.GRAD_CLIP)
+        grad_norm = grad_norm.item()
+        if grad_norm == float('inf') or grad_norm == float('-inf') or np.isnan(grad_norm):
+            grad_norm = 0
+
         if global_step % GCF.ACCUMULATE == 0:
             scaler.step(optimizer) 
             scaler.update() 
@@ -332,8 +338,9 @@ def train_loop(model, train_dloader, optimizer, scheduler):
         lr = np.array([param_group["lr"] for param_group in optimizer.param_groups]).mean()
         lrs.append(lr.item())
         losses.append(loss.item())
+        grads.append(grad_norm)
         global_step += 1
-    return losses, lrs
+    return losses, lrs, grads
 
 
 def valid_loop(model, valid_dloader):
@@ -524,9 +531,9 @@ def postprocessing(predicts, pn_histories):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    if fold in [0, 1]:
-        print(f'### skip Fold-{fold} ###')
-        continue
+    #if fold in [0, 1, 3]:
+    #    print(f'### skip Fold-{fold} ###')
+    #    continue
     print(f'### start Fold-{fold} ###')
     set_seed()
     
@@ -538,16 +545,7 @@ for fold in range(GCF.N_FOLDS):
     valid_dloader = DataLoader(valid_dset, batch_size=GCF.BS,
                                pin_memory=True, shuffle=False, drop_last=False, num_workers=os.cpu_count())
 
-    #train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_fold_index[fold], :]])
-    #train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_fold_index[fold], :]])
-    #train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_fold_index[fold], :]])
-    #train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels[pseudo_fold_index[fold], :]])
-    #train_dset = NBMEDataset(train_sequences, train_masks, train_type_ids, train_labels)
-    #train_dloader = DataLoader(train_dset, batch_size=GCF.BS,
-    #                           pin_memory=True, shuffle=True, drop_last=True, num_workers=os.cpu_count(),
-    #                           worker_init_fn=lambda x: set_seed())
-
-    pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6500))
+    pseudo_idx = np.array(random.sample(range(n_pseudo_data), GCF.N_PSEUDO))
     train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
     train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
     train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
@@ -590,7 +588,7 @@ for fold in range(GCF.N_FOLDS):
         torch.random.set_rng_state(checkpoint["torch_random"])
         torch.cuda.set_rng_state(checkpoint["cuda_random"])
         is_load = True
-        best_score = 0.8941
+        best_score = 0
         del checkpoint
     else:
         is_load = False
@@ -598,12 +596,12 @@ for fold in range(GCF.N_FOLDS):
     torch.cuda.empty_cache()
     gc.collect()
     
-    train_losses, train_lrs = [], []
+    train_losses, train_lrs, train_grads = [], [], []
     for epoch in range(GCF.N_EPOCHS):
         #if is_load and epoch < 3:
         #    print(f'skip epoch-{epoch}')
         #    continue
-        _losses, _lrs = train_loop(model, train_dloader, optimizer, scheduler)
+        _losses, _lrs, _grads = train_loop(model, train_dloader, optimizer, scheduler)
         valid_loss, valid_predicts = valid_loop(model, valid_dloader)
         
         predictions = oof[train_df['fold'] == fold]
@@ -614,14 +612,13 @@ for fold in range(GCF.N_FOLDS):
         char_probs = get_char_probs(valid_texts, valid_predicts, GCF.TOKENIZER)
         results = get_results(char_probs, th=0.5)
         preds = get_predictions(results)
-
         preds = postprocessing(preds, valid_df['pn_history'].tolist())
-
         f1score = get_score(valid_labels, preds)
         
         print(f"epoch-{epoch}: valid_loss={valid_loss}, valid_f1_score={f1score}")
         train_losses += _losses
         train_lrs += _lrs
+        train_grads += _grads
         oof[pn_num_folds == fold, :] = valid_predicts
         if best_score < f1score:
             print('save best model')
@@ -637,6 +634,7 @@ for fold in range(GCF.N_FOLDS):
                 "valid_score": f1score,
                 "valid_best_score": best_score,
                 "learning_rate": np.mean(_lrs),
+                "grad_norm": np.mean(_grads),
         })
 
         checkpoint = {
@@ -652,7 +650,7 @@ for fold in range(GCF.N_FOLDS):
         torch.save(checkpoint, f"{GCF.OUTPUT_DIR}/checkpoint.bin")
 
         # train dataの再サンプリング
-        pseudo_idx = np.array(random.sample(range(n_pseudo_data), 6500))
+        pseudo_idx = np.array(random.sample(range(n_pseudo_data), GCF.N_PSEUDO))
         train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
         train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
         train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
@@ -664,15 +662,13 @@ for fold in range(GCF.N_FOLDS):
             
     plt.plot(train_losses);plt.show()
     plt.plot(train_lrs);plt.show()
+    plt.plot(train_grads);plt.show()
 
     os.remove(f"{GCF.OUTPUT_DIR}/checkpoint.bin")
     del checkpoint
     torch.cuda.empty_cache()
     gc.collect()
     wandb.finish()
-
-    
-    #break #only one fold
 
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
@@ -723,25 +719,4 @@ for fold in range(GCF.N_FOLDS):
     print(score)
     
 print('CV', np.mean(scores))
-
-def optim_thr(thr):
-    scores = []
-    for fold in range(GCF.N_FOLDS):
-        predictions = oof[train_df['fold'] == fold]
-        valid_texts = train_df[train_df['fold'] == fold]['pn_history']
-        valid_df = train_df[train_df['fold'] == fold].reset_index(drop=True)
-        valid_df['location'] = valid_df['location'].apply(ast.literal_eval)
-        valid_labels = create_labels_for_scoring(valid_df)
-        char_probs = get_char_probs(valid_texts, predictions, GCF.TOKENIZER)
-        results = get_results(char_probs, th=thr)
-        preds = get_predictions(results)
-        score = get_score(valid_labels, preds)
-        scores.append(score)
-    return np.mean(scores)
-
-for i in range(11):
-    thr = round(i*0.02 + 0.4, 2)
-    print(thr)
-    s = optim_thr(thr)
-    print('  ->', s)
 
