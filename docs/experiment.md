@@ -33,7 +33,7 @@
 |epoch6|[train41]|[infer41]||0.886|fold-4 3epoch, 後処理なし0.8924|
 |accum_2|[train42]|[infer42]|0.8931|0.886|ここからvalidも後処理|
 |warmup5|[train43]|[infer43]|0.8952|||
-|clip5000|[train44]|[infer44]||||
+|clip2000|[train44]|[infer44]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
@@ -73,7 +73,7 @@
 [infer42]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90674931
 [train43]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9fca0a49d0589619d2b71b17dd9a1b68b51c0ef2/src/nbme_train_by_pytorch.py
 [infer43]:xxx
-[train44]:xxx
+[train44]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/24b4fd78f6658d2da95588835ee52e6afcc2f71d/src/nbme_train_by_pytorch.py
 [infer44]:xxx
 
 ## 過去Version
