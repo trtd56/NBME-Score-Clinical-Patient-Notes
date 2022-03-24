@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'clip2000'
+    EXP_NAME = 'under_sample_samle'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -105,13 +105,13 @@ class GCF:
     ACCUMULATE = 2
     N_EPOCHS = 5
     WARM_UP_RATIO = 0.05
-    GRAD_CLIP = 2000.0
+    GRAD_CLIP = 1000.0
     N_PSEUDO = 6500
     
     NOT_WATCH_PARAM = ["TOKENIZER", "CONFIG", "INPUT_PATH", "PREPROCESSING_DIR", 'NOT_WATCH_PARAM']
     
-GCF.TOKENIZER.save_pretrained('nbme_tokenizer')
-GCF.CONFIG.save_pretrained('nbme_tokenizer')
+#GCF.TOKENIZER.save_pretrained('nbme_tokenizer')
+#GCF.CONFIG.save_pretrained('nbme_tokenizer')
 !mkdir -p {GCF.OUTPUT_DIR}
 
 def set_seed(seed=GCF.SEED):
@@ -197,14 +197,27 @@ pn_num_and_case_num_v7 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v7.
 
 print(pseudo_labels_v7.shape)
 
-pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3, pseudo_sequences_v4, pseudo_sequences_v5, pseudo_sequences_v6, pseudo_sequences_v7])
-pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2, pseudo_masks_v3, pseudo_masks_v4, pseudo_masks_v5, pseudo_masks_v6, pseudo_masks_v7])
-pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2, pseudo_type_ids_v3, pseudo_type_ids_v4, pseudo_type_ids_v5, pseudo_type_ids_v6, pseudo_type_ids_v7])
-pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2, pseudo_labels_v3, pseudo_labels_v4, pseudo_labels_v5, pseudo_labels_v6, pseudo_labels_v7])
+pseudo_sequences_v8 = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v8.npy",'rb'))
+pseudo_masks_v8 = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v8.npy",'rb'))
+pseudo_type_ids_v8 = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v8.npy",'rb'))
+pseudo_labels_v8 = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v8.npy",'rb'))
+labels_check_mc_dropout_v8 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v8.npy','rb'))
+pn_num_and_case_num_v8 = np.load(open(f'{GCF.PSEUDO_DIR}/pn_num_and_case_num_v8.npy','rb'))
+
+print(pseudo_labels_v8.shape)
+
+pseudo_sequences = np.vstack([pseudo_sequences_v1, pseudo_sequences_v2, pseudo_sequences_v3, pseudo_sequences_v4,
+                              pseudo_sequences_v5, pseudo_sequences_v6, pseudo_sequences_v7, pseudo_sequences_v8])
+pseudo_masks = np.vstack([pseudo_masks_v1, pseudo_masks_v2, pseudo_masks_v3, pseudo_masks_v4, pseudo_masks_v5, pseudo_masks_v6, pseudo_masks_v7, pseudo_masks_v8])
+pseudo_type_ids = np.vstack([pseudo_type_ids_v1, pseudo_type_ids_v2, pseudo_type_ids_v3, pseudo_type_ids_v4,
+                             pseudo_type_ids_v5, pseudo_type_ids_v6, pseudo_type_ids_v7, pseudo_type_ids_v8])
+pseudo_labels = np.vstack([pseudo_labels_v1, pseudo_labels_v2, pseudo_labels_v3, pseudo_labels_v4, pseudo_labels_v5, pseudo_labels_v6, pseudo_labels_v7, pseudo_labels_v8])
 labels_check_mc_dropout = np.vstack([labels_check_mc_dropout_v1, labels_check_mc_dropout_v2,
-                                     labels_check_mc_dropout_v3, labels_check_mc_dropout_v4, labels_check_mc_dropout_v5, labels_check_mc_dropout_v6, labels_check_mc_dropout_v7])
+                                     labels_check_mc_dropout_v3, labels_check_mc_dropout_v4, 
+                                     labels_check_mc_dropout_v5, labels_check_mc_dropout_v6, labels_check_mc_dropout_v7, labels_check_mc_dropout_v8])
 pseudo_case_num = np.vstack([pn_num_and_case_num_v1, pn_num_and_case_num_v2,
-                                     pn_num_and_case_num_v3, pn_num_and_case_num_v4, pn_num_and_case_num_v5, pn_num_and_case_num_v6, pn_num_and_case_num_v7])[:, 1]
+                                     pn_num_and_case_num_v3, pn_num_and_case_num_v4,
+                             pn_num_and_case_num_v5, pn_num_and_case_num_v6, pn_num_and_case_num_v7, pn_num_and_case_num_v8])[:, 1]
 print(pseudo_labels.shape)
 
 def pseudo_to_target(pred):
@@ -528,6 +541,13 @@ def postprocessing(predicts, pn_histories):
         new_p.append(_p)
     return new_p
 
+!pip install -U imbalanced-learn
+
+from imblearn.under_sampling import RandomUnderSampler
+#strategy = {i: 650 for i in range(10)}
+strategy = (train_df['case_num'].value_counts()//2).to_dict()
+strategy
+
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
@@ -545,7 +565,11 @@ for fold in range(GCF.N_FOLDS):
     valid_dloader = DataLoader(valid_dset, batch_size=GCF.BS,
                                pin_memory=True, shuffle=False, drop_last=False, num_workers=os.cpu_count())
 
-    pseudo_idx = np.array(random.sample(range(n_pseudo_data), GCF.N_PSEUDO))
+    #pseudo_idx = np.array(random.sample(range(n_pseudo_data), GCF.N_PSEUDO))
+    rus = RandomUnderSampler(random_state=GCF.SEED, sampling_strategy = strategy)
+    X_resampled, y_resampled = rus.fit_resample(np.array([list(range(n_pseudo_data))]).T, pseudo_case_num)
+    pseudo_idx = X_resampled[:, 0]
+
     train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
     train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
     train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
@@ -650,7 +674,11 @@ for fold in range(GCF.N_FOLDS):
         torch.save(checkpoint, f"{GCF.OUTPUT_DIR}/checkpoint.bin")
 
         # train dataの再サンプリング
-        pseudo_idx = np.array(random.sample(range(n_pseudo_data), GCF.N_PSEUDO))
+        #pseudo_idx = np.array(random.sample(range(n_pseudo_data), GCF.N_PSEUDO))
+        rus = RandomUnderSampler(random_state=GCF.SEED+epoch, sampling_strategy = strategy)
+        X_resampled, y_resampled = rus.fit_resample(np.array([list(range(n_pseudo_data))]).T, pseudo_case_num)
+        pseudo_idx = X_resampled[:, 0]
+        
         train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences[pseudo_idx, :]])
         train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks[pseudo_idx, :]])
         train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids[pseudo_idx, :]])
