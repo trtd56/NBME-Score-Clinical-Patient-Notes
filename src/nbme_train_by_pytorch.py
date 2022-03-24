@@ -12,7 +12,7 @@ Original file is located at
 from google.colab import drive
 drive.mount('/content/drive')
 
-!pip install -U wandb transformers sentencepiece 1> log
+!pip install -U wandb transformers sentencepiece imbalanced-learn 1> log
 
 !cp -r ./drive/MyDrive/Study/NBME/data/deberta-v2-3-fast-tokenizer .
 
@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'under_sample_samle'
+    EXP_NAME = 'diff2000'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
     PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
@@ -541,11 +541,11 @@ def postprocessing(predicts, pn_histories):
         new_p.append(_p)
     return new_p
 
-!pip install -U imbalanced-learn
-
 from imblearn.under_sampling import RandomUnderSampler
-#strategy = {i: 650 for i in range(10)}
-strategy = (train_df['case_num'].value_counts()//2).to_dict()
+
+#strategy = (train_df['case_num'].value_counts()//2).to_dict()
+strategy = (2000 - train_df['case_num'].value_counts()).to_dict()
+print(sum(strategy.values()))
 strategy
 
 all_scores = []
