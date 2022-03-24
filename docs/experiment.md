@@ -12,7 +12,7 @@
 |pseudo_mcdrop|[train29]|[infer29.2]|0.8900|0.886|先頭文字の後処理, 0.5以上を先に計算, 2個以上|
 |pseudo_mcdrop|[train29]|[infer29.3]|0.8900|0.887|先頭文字の後処理, 0.5以上を先に計算, 3個以上, 平均のほうが若干良さそう|
 |pseudo_mcdrop|[train29]|[infer29.4]|0.8900|0.883|先頭文字の後処理, 0.5以上を先に計算, 4個以上|
-|pseudo_mcdrop|[train29]|[infer29.5]|0.8900||先頭文字の後処理, WBF|
+|pseudo_mcdrop|[train29]|[infer29.5]|0.8900|error|先頭文字の後処理, WBF|
 |v6_sampling|[train35]|[infer35]|0.8974|0.883||
 |v6_sampling|[train35]|[infer35.6]|0.8974|0.877|max_pool|
 |v6_sampling|[train35]|[infer35.7]|0.8974|0.883|0.5以上を先に計算, 2個以上|
