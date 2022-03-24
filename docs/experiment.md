@@ -39,6 +39,14 @@
 |warmup5|[train43]|[infer43]|0.8952|0.886||
 |clip2000|[train44]|[infer44]||||
 
+
+## 途中で止めた
+- pseudo7000: 明らかに低い
+- add_v8: 悪くないけど変わらない
+- add_v8_thr0109: 悪くないけど変わらない
+- under_sample: 明らかに低い
+- smooth0802: score 0
+
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=88683264
 [infer27.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90909168
