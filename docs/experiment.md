@@ -5,20 +5,19 @@
 |--|--|--|--|--|--|
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8900|0.887||
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886||
-|warmup5|[train43]|[infer43]|0.8952|0.886||
+|warmup5|[train43]|[infer43]|0.8952|0.886|fold-3まで|
+|warmup5|[train43]|[infer43.1]|0.8940||all 5 fold|
 |under_sample_samle|[train45]|[infer45]|0.8936|0.885||
 |diff2000|[train46]|[infer46]|0.8799||fold-2が勾配消失|
+|fold4_fix|[train47]|[infer47]|||fold-2が勾配消失|
 
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
 [train35]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/db94a53a6337f0ba5df97235b2097065959db48a/src/nbme_train_by_pytorch.py
 [infer35.11]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90397794
-[train40]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/edc2ed5691f842ae8769f33dd1010a817e6a5eca
-[infer40]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90438527
-[train41]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/8e0d68fb0c02c591b8835976a3b0e0a33d459424/src/nbme_train_by_pytorch.py
-[infer41]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90626258
 [train43]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9fca0a49d0589619d2b71b17dd9a1b68b51c0ef2/src/nbme_train_by_pytorch.py
 [infer43]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90917387
+[infer43.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91272956
 [train45]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/d52f5ab90564dae8a5bbc9e0640f475a0809bdb7/src/nbme_train_by_pytorch.py
 [infer45]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91164988
 [train46]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/b7e71e1a85ece787cb7dc94205fcbc2883a8bcc7/src/nbme_train_by_pytorch.py
