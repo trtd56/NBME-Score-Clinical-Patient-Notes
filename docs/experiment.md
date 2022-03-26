@@ -7,7 +7,7 @@
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886||
 |warmup5|[train43]|[infer43]|0.8952|0.886||
 |under_sample_samle|[train45]|[infer45]|0.8936|0.885||
-|diff2000|[train46]|[infer46]||||
+|diff2000|[train46]|[infer46]|0.8799||fold-2が勾配消失|
 
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
