@@ -26,7 +26,7 @@
 [train47]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/2c286901f63e223ea1c8375ed4be399e34ceba78/src/nbme_train_by_pytorch.py
 [infer47]:xxx
 [train48]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/55abc1ea393f55b866b53f3891faa715df7924e2/src/nbme_train_by_pytorch_all_pseudo.py
-[infer48]:xxx
+[infer48]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91355562
 
 ## 気になること
 - accumulation、1か3か
