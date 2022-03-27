@@ -33,6 +33,7 @@
 - 周辺単語のロスをmask
 - smoothing
 - LSTM head
+- pseudoを確率で与える
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
