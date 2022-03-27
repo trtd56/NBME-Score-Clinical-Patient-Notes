@@ -25,6 +25,10 @@
 [train47]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/2c286901f63e223ea1c8375ed4be399e34ceba78/src/nbme_train_by_pytorch.py
 [infer47]:xxx
 
+## 気になること
+- accumulation、1か3か
+- ただ単純にデータ増やしたらよいか
+- 
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
