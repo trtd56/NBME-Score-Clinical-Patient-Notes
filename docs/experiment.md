@@ -10,6 +10,7 @@
 |under_sample_samle|[train45]|[infer45]|0.8936|0.885||
 |diff2000|[train46]|[infer46]|0.8799||fold-2が勾配消失|
 |fold4_fix|[train47]|[infer47]|0.8924|||
+|pseudo_all|[train48]|[infer48]||||
 
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
@@ -24,6 +25,8 @@
 [infer46]:xxx
 [train47]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/2c286901f63e223ea1c8375ed4be399e34ceba78/src/nbme_train_by_pytorch.py
 [infer47]:xxx
+[train48]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/55abc1ea393f55b866b53f3891faa715df7924e2/src/nbme_train_by_pytorch_all_pseudo.py
+[infer48]:xxx
 
 ## 気になること
 - accumulation、1か3か
