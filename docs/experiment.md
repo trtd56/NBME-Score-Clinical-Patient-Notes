@@ -12,9 +12,11 @@
 |fold4_fix|[train47]|[infer47]|0.8924|0.883|fold-3 4 epochまで|
 |pseudo_all|[train48]|[infer48]|0.8665|0.841||
 |pseudo_all|[train48]|[infer48.1]|0.8840|0.859|MC dropout 8回中8回以上|
-|pseudo_all|[train48]|[infer48.2]|||MC dropout 20回中20回以上|
-|pseudo_all|[train48]|[infer48.3]|||MC dropout 20回中18回以上|
-|pseudo_all|[train48]|[infer48.4]|||MC dropout 20回中16回以上|
+|pseudo_all|[train48]|[infer48.2]|||MC dropout 20回中18回以上|
+|pseudo_all|[train48]|[infer48.3]|||MC dropout 20回中16回以上|
+|fixed_2nd_labels|[train49]|[infer49]||||
+
+
 
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
@@ -31,9 +33,11 @@
 [train48]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/55abc1ea393f55b866b53f3891faa715df7924e2/src/nbme_train_by_pytorch_all_pseudo.py
 [infer48]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415154
 [infer48.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415339
-[infer48.2]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415339
-[infer48.3]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415448
-[infer48.4]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415603
+[infer48.2]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415448
+[infer48.3]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415603
+[train49]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/19670cbb3ca650f392c13d9bb7873afda2b4a022/src/nbme_train_by_pytorch.py
+[infer49]:xxx
+
 
 ## 気になること
 - パラメータ、アーキテクチャ関係。後回しでOK。
