@@ -9,8 +9,8 @@
 |warmup5|[train43]|[infer43.1]|0.8940||all 5 fold|
 |under_sample_samle|[train45]|[infer45]|0.8936|0.885||
 |diff2000|[train46]||0.8799||fold-2が勾配消失|
-|fold4_fix|[train47]|[infer47]|0.8924||fold-3 4 epochまで|
-|pseudo_all|[train48]|[infer48]||||
+|fold4_fix|[train47]|[infer47]|0.8924|0.883|fold-3 4 epochまで|
+|pseudo_all|[train48]|[infer48]|0.8665|||
 
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
