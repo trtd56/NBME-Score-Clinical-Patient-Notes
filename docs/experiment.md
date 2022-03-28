@@ -11,7 +11,7 @@
 |diff2000|[train46]||0.8799||fold-2が勾配消失|
 |fold4_fix|[train47]|[infer47]|0.8924|0.883|fold-3 4 epochまで|
 |pseudo_all|[train48]|[infer48]|0.8665|0.841||
-|pseudo_all|[train48]|[infer48.1]|0.8840||MC dropout 8回中8回以上|
+|pseudo_all|[train48]|[infer48.1]|0.8840|0.859|MC dropout 8回中8回以上|
 |pseudo_all|[train48]|[infer48.2]|||MC dropout 20回中20回以上|
 |pseudo_all|[train48]|[infer48.3]|||MC dropout 20回中18回以上|
 |pseudo_all|[train48]|[infer48.4]|||MC dropout 20回中16回以上|
