@@ -12,6 +12,8 @@
 |fold4_fix|[train47]|[infer47]|0.8924|0.883|fold-3 4 epochまで|
 |pseudo_all|[train48]|[infer48]|0.8665|||
 
+8 times all :0.8840
+
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
 [train35]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/db94a53a6337f0ba5df97235b2097065959db48a/src/nbme_train_by_pytorch.py
