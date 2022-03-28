@@ -11,8 +11,8 @@
 |diff2000|[train46]||0.8799||fold-2が勾配消失|
 |fold4_fix|[train47]|[infer47]|0.8924|0.883|fold-3 4 epochまで|
 |pseudo_all|[train48]|[infer48]|0.8665|||
+|pseudo_all|[train48]|[infer48]|0.8840||MC dropout 8回中8回以上|
 
-8 times all :0.8840
 
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
