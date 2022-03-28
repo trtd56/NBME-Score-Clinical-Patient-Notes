@@ -34,6 +34,7 @@
 - smoothing
 - LSTM head
 - pseudoを確率で与える
+- pseudo allで学習した重みを読み込む
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
