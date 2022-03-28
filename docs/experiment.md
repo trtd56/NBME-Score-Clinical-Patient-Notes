@@ -36,13 +36,13 @@
 [infer48.4]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91415603
 
 ## 気になること
-- accumulation、1か3か
-- ただ単純にデータ増やしたらよいか
-- 周辺単語のロスをmask
-- smoothing
-- LSTM head
-- pseudoを確率で与える
-- pseudo allで学習した重みを読み込む
+- パラメータ、アーキテクチャ関係。後回しでOK。
+  - accumulation、1か3か
+  - LSTM head
+- loss関係
+  - 周辺単語のロスをmask
+  - smoothing
+  - pseudoを確率で与える
 
 ## 過去Version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
