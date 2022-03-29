@@ -12,8 +12,8 @@
 |fold4_fix|[train47]|[infer47]|0.8924|0.883|fold-3 4 epochまで|
 |pseudo_all|[train48]|[infer48]|0.8665|0.841||
 |pseudo_all|[train48]|[infer48.1]|0.8840|0.859|MC dropout 8回中8回以上|
-|pseudo_all|[train48]|[infer48.2]|||MC dropout 20回中18回以上|
-|pseudo_all|[train48]|[infer48.3]|||MC dropout 20回中16回以上|
+|pseudo_all|[train48]|[infer48.2]||Timeout|MC dropout 20回中18回以上|
+|pseudo_all|[train48]|[infer48.3]||Timeout|MC dropout 20回中16回以上|
 |fixed_2nd_labels|[train49]|[infer49]||||
 
 
