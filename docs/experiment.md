@@ -7,7 +7,7 @@
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8900|0.887||
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886||
 |fixed_2nd_labels|[train49]|[infer49]|0.8858|0.884||
-|pseudo10000|[train50]|[infer50]|0.8883|0.884|このあと20000に増やしたけど微妙だった|
+|pseudo10000|[train50]|[infer50]|0.8883|0.884||
 |re_pseudo|[train51]|[infer51]||||
 
 
