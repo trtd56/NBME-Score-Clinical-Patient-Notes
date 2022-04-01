@@ -84,11 +84,10 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'pseudo10000'
+    EXP_NAME = 're_pseudo'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
-    PSEUDO_DIR = "./drive/MyDrive/Study/NBME/data/pseudo"
-    PSEUDO_DIR_V3 = "./drive/MyDrive/Study/NBME/data/pseudo_relabel_v3"
+    PSEUDO_DIR_V4 = './drive/MyDrive/Study/NBME/data/pseudo_relabel_mcdropout'
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
     
     MODEL_NAME = 'microsoft/deberta-v3-large'
@@ -108,8 +107,7 @@ class GCF:
     WARM_UP_RATIO = 0.0
     GRAD_CLIP = 1000.0
 
-    PSEUDO_VERSION = [2, 3, 4, 5, 6, 7, 8]
-    N_PSEUDO = 10000
+    PSEUDO_VERSION = [1, 2]
     
     NOT_WATCH_PARAM = ["TOKENIZER", "CONFIG", "INPUT_PATH", "PREPROCESSING_DIR", 'NOT_WATCH_PARAM']
     
@@ -147,23 +145,19 @@ pseudo_type_ids = np.vstack([
 pseudo_labels = np.vstack([
                               np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v{i}.npy",'rb')) for i in GCF.PSEUDO_VERSION
 ])
+
+labels_check_mc_dropout = np.hstack([np.array([np.load(open(f'{GCF.PSEUDO_DIR_V4}/labels_check_mc_dropout_v{v}_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)]) for v in GCF.PSEUDO_VERSION])
+
 print(pseudo_sequences.shape)
 print(pseudo_masks.shape)
 print(pseudo_type_ids.shape)
 print(pseudo_labels.shape)
-
-#labels_check_mc_dropout_v1 = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v1.npy','rb'))
-#labels_check_mc_dropout_v1 = np.stack([labels_check_mc_dropout_v1 for _ in range(GCF.N_FOLDS)])
-
-#labels_check_mc_dropout = np.array([np.load(open(f'{GCF.PSEUDO_DIR_V3}/labels_check_mc_dropout_v2_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)])
-labels_check_mc_dropout = np.hstack([np.array([np.load(open(f'{GCF.PSEUDO_DIR_V3}/labels_check_mc_dropout_v{v}_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)]) for v in ['2', '3to8']])
-
 print(labels_check_mc_dropout.shape)
 
 def pseudo_to_target(pred):
-    if pred >= 0.9:
+    if pred == 1:
         return 1
-    elif pred <= 0.1:
+    elif pred == 0:
         return 0
     else:
         return -1
@@ -188,13 +182,6 @@ pseudo_masks = pseudo_masks[is_posi, :]
 pseudo_type_ids = pseudo_type_ids[is_posi, :]
 pseudo_labels = new_labels[is_posi, :, :]
 
-print(pseudo_labels.shape)
-
-print(pseudo_labels.shape)
-pseudo_sequences = pseudo_sequences[:GCF.N_PSEUDO, :]
-pseudo_masks = pseudo_masks[:GCF.N_PSEUDO, :]
-pseudo_type_ids = pseudo_type_ids[:GCF.N_PSEUDO, :]
-pseudo_labels = pseudo_labels[:GCF.N_PSEUDO, :, :]
 print(pseudo_labels.shape)
 
 class NBMEDataset(Dataset):
@@ -488,7 +475,7 @@ def postprocessing(predicts, pn_histories):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    #if fold in [0, 1, 2, 3]:
+    #if fold in [0,1,3]:
     #    print(f'### skip Fold-{fold} ###')
     #    continue
     print(f'### start Fold-{fold} ###')
@@ -615,7 +602,6 @@ for fold in range(GCF.N_FOLDS):
     gc.collect()
     wandb.finish()
 
-#oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
     print(fold)
     if oof[pn_num_folds == fold, :].sum() != 0:
@@ -634,7 +620,7 @@ for fold in range(GCF.N_FOLDS):
     
     model = NBMEModel()
     model.to(device)
-    if fold in [4]:
+    if fold in [-1]:
         model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model_rerun.bin'))
     else:
         model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model.bin'))
