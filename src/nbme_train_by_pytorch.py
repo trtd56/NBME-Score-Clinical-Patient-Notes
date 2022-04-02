@@ -84,9 +84,10 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 're_pseudo'
+    EXP_NAME = 'v1_only'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed"
+    PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo'
     PSEUDO_DIR_V4 = './drive/MyDrive/Study/NBME/data/pseudo_relabel_mcdropout'
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
     
@@ -107,7 +108,7 @@ class GCF:
     WARM_UP_RATIO = 0.0
     GRAD_CLIP = 1000.0
 
-    PSEUDO_VERSION = [1, 2]
+    PSEUDO_VERSION = [1]
     
     NOT_WATCH_PARAM = ["TOKENIZER", "CONFIG", "INPUT_PATH", "PREPROCESSING_DIR", 'NOT_WATCH_PARAM']
     
@@ -475,9 +476,9 @@ def postprocessing(predicts, pn_histories):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    #if fold in [0,1,3]:
-    #    print(f'### skip Fold-{fold} ###')
-    #    continue
+    if fold in [0,1,2,3]:
+        print(f'### skip Fold-{fold} ###')
+        continue
     print(f'### start Fold-{fold} ###')
     set_seed()
     
@@ -542,9 +543,9 @@ for fold in range(GCF.N_FOLDS):
     
     train_losses, train_lrs, train_grads = [], [], []
     for epoch in range(GCF.N_EPOCHS):
-        #if is_load and epoch < 1:
-        #    print(f'skip epoch-{epoch}')
-        #    continue
+        if is_load and epoch < 1:
+            print(f'skip epoch-{epoch}')
+            continue
         _losses, _lrs, _grads = train_loop(model, train_dloader, optimizer, scheduler)
         valid_loss, valid_predicts = valid_loop(model, valid_dloader)
         
@@ -653,4 +654,3 @@ for fold in range(GCF.N_FOLDS):
     print(score)
     
 print('CV', np.mean(scores))
-
