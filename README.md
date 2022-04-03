@@ -19,7 +19,7 @@
 |fixed_2nd_labels|[train49]|[infer49]|0.8858|0.884||
 |pseudo10000|[train50]|[infer50]|0.8883|0.884||
 |re_pseudo|[train51]|[infer51]|0.8844|0.884||
-|v1_only|[train52]|[infer52]|0.8825|||
+|v1_only|[train52]|[infer52]|0.8825|0.886||
 |v1_accum2|[train53]|[infer53]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
