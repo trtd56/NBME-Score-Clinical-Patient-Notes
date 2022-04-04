@@ -84,11 +84,10 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'v1_accum3'
+    EXP_NAME = 'tfidf_pseudo'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed/deberta-v3-large"
-    PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo'
-    PSEUDO_DIR_V4 = './drive/MyDrive/Study/NBME/data/pseudo_relabel_mcdropout'
+    PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo_from_tfidf_v1'
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
     
     MODEL_NAME = 'microsoft/deberta-v3-large'
@@ -103,7 +102,7 @@ class GCF:
     
     LR = 2e-5
     WEIGHT_DECAY = 0.01
-    ACCUMULATE = 3
+    ACCUMULATE = 2
     N_EPOCHS = 5
     WARM_UP_RATIO = 0.0
     GRAD_CLIP = 1000.0
@@ -134,26 +133,14 @@ pn_num_folds = train_df['fold']
 
 print(labels.shape)
 
-pseudo_sequences = np.vstack([
-                              np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v{i}.npy",'rb')) for i in GCF.PSEUDO_VERSION
-])
-pseudo_masks = np.vstack([
-                              np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v{i}.npy",'rb')) for i in GCF.PSEUDO_VERSION
-])
-pseudo_type_ids = np.vstack([
-                              np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v{i}.npy",'rb')) for i in GCF.PSEUDO_VERSION
-])
-pseudo_labels = np.vstack([
-                              np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v{i}.npy",'rb')) for i in GCF.PSEUDO_VERSION
-])
-
-labels_check_mc_dropout = np.hstack([np.array([np.load(open(f'{GCF.PSEUDO_DIR_V4}/labels_check_mc_dropout_v{v}_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)]) for v in GCF.PSEUDO_VERSION])
-
+pseudo_sequences = np.load(open(f"{GCF.PSEUDO_DIR}/sequences.npy",'rb'))
+pseudo_masks = np.load(open(f"{GCF.PSEUDO_DIR}/masks.npy",'rb'))
+pseudo_type_ids = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids.npy",'rb')) 
+pseudo_labels = np.array([np.load(open(f'{GCF.PSEUDO_DIR}/pseudo_from_tfidf_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)])
 print(pseudo_sequences.shape)
 print(pseudo_masks.shape)
 print(pseudo_type_ids.shape)
 print(pseudo_labels.shape)
-print(labels_check_mc_dropout.shape)
 
 def pseudo_to_target(pred):
     if pred == 1:
@@ -167,22 +154,20 @@ def pseudo_to_target_all_fold(preds):
     return np.array([pseudo_to_target(p) for p in preds])
 
 new_labels = []
-for idx in tqdm(range(len(pseudo_labels))):
-    true_lab = pseudo_labels[idx, :]
-    pseudo_lab = labels_check_mc_dropout[:, idx, :]
-    new_label = np.vstack([np.ones(GCF.N_FOLDS) * -1 if t == -1 else pseudo_to_target_all_fold(pseudo_lab[:, i]) for i, t in enumerate(true_lab)])
-    new_labels.append(new_label)
-new_labels = np.stack(new_labels)
-
+for idx in tqdm(range(pseudo_labels.shape[1])):
+    _lab = np.array([[pseudo_to_target(p) for p in pseudo_labels[f, idx, :]] for f in range(GCF.N_FOLDS)])
+    new_labels.append(_lab)
+new_labels = np.array(new_labels)
 print(new_labels.shape)
 
 is_posi = [new_labels[i, :, :][new_labels[i, :, :] > -1].sum() > 0 for i in range(len(new_labels))]
-
 pseudo_sequences = pseudo_sequences[is_posi, :]
 pseudo_masks = pseudo_masks[is_posi, :]
 pseudo_type_ids = pseudo_type_ids[is_posi, :]
 pseudo_labels = new_labels[is_posi, :, :]
+print(pseudo_labels.shape)
 
+pseudo_labels = pseudo_labels.swapaxes(1, 2)
 print(pseudo_labels.shape)
 
 class NBMEDataset(Dataset):
