@@ -21,7 +21,7 @@
 |re_pseudo|[train51]|[infer51]|0.8844|0.884||
 |v1_only|[train52]|[infer52]|0.8825|0.886||
 |v1_accum2||[infer53]|0.8853|0.885||
-|v1_accum2||[infer53.1]|||f0,4=re_pseudo, f1=tfidf_pseudo|
+|v1_accum2||[infer53.1]|0.8861||f0,4=re_pseudo, f1=tfidf_pseudo|
 |v1_sift|[train54]||||時間とメモリ食うのでNG|
 |v1_accum3|[train55]||||accum2とそんなに変わらない|
 |tfidf_pseudo|[train56]|[infer56]||||
