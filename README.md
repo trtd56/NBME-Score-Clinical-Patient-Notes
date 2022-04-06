@@ -24,7 +24,7 @@
 |v1_accum2||[infer53.1]|0.8861|0.885|f0,4=re_pseudo, f1=tfidf_pseudo|
 |v1_sift|[train54]||||時間とメモリ食うのでNG|
 |v1_accum3|[train55]||||accum2とそんなに変わらない|
-|tfidf_pseudo|[train56]||0.8846||fold-4途中|
+|tfidf_pseudo|[train56]||0.8846|0.884|fold-4途中|
 |v1_lr5r5||||良くない|
 |v1_warmup5|[train58]|[infer58]||||
 
