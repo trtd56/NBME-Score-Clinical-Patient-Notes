@@ -27,7 +27,7 @@
 |tfidf_pseudo|[train56]||0.8846|0.884|fold-4途中|
 |v1_lr5r5|||||良くない|
 |v1_warmup5||[infer58]|0.8860|||
-|v1_warmup5||[infer58.1]|0.8862||f4=re_pseudo|
+|v1_warmup5||[infer58.1]|0.8862|0.885|f4=re_pseudo|
 |tfidf_v2|[train59]|[infer59]||||
 |pseudo_ratio|[train60]|[infer60]||||
 
