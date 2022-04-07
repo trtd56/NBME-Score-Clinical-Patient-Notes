@@ -50,7 +50,7 @@
 [train55]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/fe690887384cdddd7bcbbfabe2583d70f10d788f/nbme_train_by_pytorch.py
 [train56]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/15160e9d11454122e5e6132bd777268e139dfa9e/nbme_train_by_pytorch.py
 [infer56]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92224929
-[infer58]:xxx
+[infer58]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92344058
 [infer58.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92336730
 [train59]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/24c418741cd25072e269dec3543c30f88fb612a9/nbme_train_by_pytorch.py
 [infer59]:xxx
