@@ -84,10 +84,12 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'tfidf_pseudo'
+    EXP_NAME = 'tfidf_v2'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed/deberta-v3-large"
-    PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo_from_tfidf_v1'
+    PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo_from_tfidf/v2'
+    #PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo'
+    #PSEUDO_DIR_V4 = './drive/MyDrive/Study/NBME/data/pseudo_relabel_mcdropout'
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
     
     MODEL_NAME = 'microsoft/deberta-v3-large'
@@ -104,7 +106,7 @@ class GCF:
     WEIGHT_DECAY = 0.01
     ACCUMULATE = 2
     N_EPOCHS = 5
-    WARM_UP_RATIO = 0.0
+    WARM_UP_RATIO = 0.05
     GRAD_CLIP = 1000.0
 
     PSEUDO_VERSION = [1]
@@ -152,6 +154,7 @@ def pseudo_to_target(pred):
 
 def pseudo_to_target_all_fold(preds):
     return np.array([pseudo_to_target(p) for p in preds])
+
 
 new_labels = []
 for idx in tqdm(range(pseudo_labels.shape[1])):
@@ -462,7 +465,7 @@ def postprocessing(predicts, pn_histories):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    #if fold in [0, 1, 2]:
+    #if fold in [0, 1, 2, 3]:
     #    print(f'### skip Fold-{fold} ###')
     #    continue
     print(f'### start Fold-{fold} ###')
