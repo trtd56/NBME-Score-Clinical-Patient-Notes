@@ -29,6 +29,8 @@
 |v1_warmup5||[infer58]|0.8860|||
 |v1_warmup5||[infer58.1]|0.8862||f4=re_pseudo|
 |tfidf_v2|[train59]|[infer59]||||
+|pseudo_ratio|[train60]|[infer60]||||
+
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
