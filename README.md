@@ -25,10 +25,10 @@
 |v1_sift|[train54]||||時間とメモリ食うのでNG|
 |v1_accum3|[train55]||||accum2とそんなに変わらない|
 |tfidf_pseudo|[train56]||0.8846|0.884|fold-4途中|
-|v1_lr5r5||||良くない|
+|v1_lr5r5|||||良くない|
 |v1_warmup5||[infer58]||||
 |v1_warmup5||[infer58.1]|0.8862||f4=re_pseudo|
-|tfidf_v2|[train59]|[infer59]||良くない|
+|tfidf_v2|[train59]|[infer59]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
