@@ -26,7 +26,8 @@
 |v1_accum3|[train55]||||accum2とそんなに変わらない|
 |tfidf_pseudo|[train56]||0.8846|0.884|fold-4途中|
 |v1_lr5r5||||良くない|
-|v1_warmup5|[train58]|[infer58]||||
+|v1_warmup5||[infer58]||||
+|v1_warmup5||[infer58.1]|||f4=re_pseudo|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
@@ -48,8 +49,8 @@
 [train55]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/fe690887384cdddd7bcbbfabe2583d70f10d788f/nbme_train_by_pytorch.py
 [train56]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/15160e9d11454122e5e6132bd777268e139dfa9e/nbme_train_by_pytorch.py
 [infer56]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92224929
-[train58]:xxx
 [infer58]:xxx
+[infer58.1]:xxx
 
 
 ## past version
