@@ -84,7 +84,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'near_mask'
+    EXP_NAME = 'near_mask_org'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed/deberta-v3-large"
     #PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo_from_tfidf/v2'
@@ -199,6 +199,16 @@ for idx in tqdm(range(pseudo_labels.shape[0])):
 pseudo_labels = np.stack(lst)
 print(pseudo_labels.shape)
 
+lst = []
+for idx in tqdm(range(labels.shape[0])):
+    mask = (labels[idx, :] > 0).astype(int)
+    back_mask = (np.hstack([np.zeros(1), mask[:-1]]) - mask > 0).astype(int) * -1
+    front_mask = (np.hstack([mask[1:], np.zeros(1)]) - mask > 0).astype(int) * -1
+    both_mask = front_mask + back_mask
+    lst.append(labels[idx, :] + both_mask)
+labels = np.stack(lst)
+print(labels.shape)
+
 class NBMEDataset(Dataset):
     def __init__(self, sequences, mask, type_ids, target):
         self.sequences = sequences
@@ -263,7 +273,7 @@ class NBMEModel(nn.Module):
             if pseudo is not None:
                 mask = (target - (torch.ones(attention_mask.shape).to(device) * pseudo.unsqueeze(1))) >= 0
             else:
-                mask = target != -1
+                mask = target >= 0
             loss = torch.masked_select(loss, mask).mean()
         else:
             loss = 0
