@@ -29,11 +29,11 @@
 |v1_warmup5||[infer58]|0.8860|0.885||
 |v1_warmup5||[infer58.1]|0.8862|0.885|f4=re_pseudo|
 |v1_warmup5||[infer58.2]|0.8863|0.885|f0=pseudo_ratio, f4=re_pseudo|
-|v1_warmup5||[infer58.3]|||f0=pseudo_ratio, f1=near_mask_f4, f4=re_pseudo|
+|v1_warmup5||[infer58.3]|0.8865||f0=pseudo_ratio, f1=near_mask_f4, f4=re_pseudo|
 |tfidf_v2|[train59]||||全体的に微妙|
 |pseudo_ratio|||||f0は改善したけど残りは微妙|
 |near_mask|[train61]||||f0,1は改善したけど残りは微妙|
-|near_mask|[train62]|||||
+|near_mask_org|[train62]|||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
