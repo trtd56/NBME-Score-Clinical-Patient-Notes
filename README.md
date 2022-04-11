@@ -31,8 +31,9 @@
 |v1_warmup5||[infer58.2]|0.8863|0.885|f0=pseudo_ratio, f4=re_pseudo|
 |v1_warmup5||[infer58.3]|||f0=pseudo_ratio, f1=near_mask_f4, f4=re_pseudo|
 |tfidf_v2|[train59]||||全体的に微妙|
-|pseudo_ratio|||||0は改善したけど残りは微妙|
-|near_mask|[train61]|||||
+|pseudo_ratio|||||f0は改善したけど残りは微妙|
+|near_mask|[train61]||||f0,1は改善したけど残りは微妙|
+|near_mask|[train62]|||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
@@ -57,10 +58,10 @@
 [infer58]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92344058
 [infer58.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92336730
 [infer58.2]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92662315
-[infer58.3]:xxx
+[infer58.3]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=92677929
 [train59]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/24c418741cd25072e269dec3543c30f88fb612a9/nbme_train_by_pytorch.py
 [train61]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/0dea60f5d85a1da78c48b7edb4e2b7510c591d82/nbme_train_by_pytorch.py
-
+[train62]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/a49284499c019c0dfa9612cd296647ac5e39713f/nbme_train_by_pytorch.py
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
