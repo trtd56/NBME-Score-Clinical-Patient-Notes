@@ -66,7 +66,7 @@
 ## todo 
 - v3のf3
 - v2 fc dropoutあり
-
+- 0.2, 0.1も0としてラベル付け
 
 ## Best Model
 - f0: v1~3
