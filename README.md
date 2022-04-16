@@ -67,6 +67,8 @@
 - v3のf3
 - v2 fc dropoutあり
 
+
+## Best Model
 - f0: v1~3
 - f1: v2 only
 - f2: v3 only
