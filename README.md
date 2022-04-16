@@ -63,10 +63,15 @@
 [train61]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/0dea60f5d85a1da78c48b7edb4e2b7510c591d82/nbme_train_by_pytorch.py
 [train62]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/a49284499c019c0dfa9612cd296647ac5e39713f/nbme_train_by_pytorch.py
 
-## todo
-- v3
-- v4
+## todo 
+- v3のf3
 - v2 fc dropoutあり
+
+- f0: v1~3
+- f1: v2 only
+- f2: v3 only
+- f3: relabel1
+- f4: v1~2
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
