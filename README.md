@@ -70,11 +70,14 @@
 - ↑に加えて0.8, 0.9を1としてラベル付け
 
 ## Best Model
-- f0: v1~3
-- f1: v2 only
-- f2: v3 only
-- f3: relabel1
-- f4: v1~2
+- f0: v1~3 -> 0.8910563644114874
+- f1: v2 only -> 0.8840555718269684
+- f2: v3 only -> 0.8879230870538654
+- f3: relabel1 -> 0.8876611896838602
+- f4: v1~2 -> 0.8856293463598622
+
+https://www.kaggle.com/code/takamichitoda/nbme-cv-check?scriptVersionId=93153987
+https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93154008
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
