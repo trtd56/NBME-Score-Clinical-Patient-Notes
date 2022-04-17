@@ -76,6 +76,9 @@
 - f3: relabel1 -> 0.8876611896838602
 - f4: v1~2 -> 0.8856293463598622
 
+CV 0.8872651118672087
+LB 0.883 
+
 https://www.kaggle.com/code/takamichitoda/nbme-cv-check?scriptVersionId=93153987
 https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93154008
 
