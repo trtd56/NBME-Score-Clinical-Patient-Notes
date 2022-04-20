@@ -66,7 +66,7 @@
 [train59]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/24c418741cd25072e269dec3543c30f88fb612a9/nbme_train_by_pytorch.py
 [train61]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/0dea60f5d85a1da78c48b7edb4e2b7510c591d82/nbme_train_by_pytorch.py
 [train62]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/a49284499c019c0dfa9612cd296647ac5e39713f/nbme_train_by_pytorch.py
-[infer64]:xxx
+[infer63]:xxx
 [train64]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/506a3bae787f21146407746a5060876f29562dd0
 [infer64]:xxx
 
