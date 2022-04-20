@@ -84,10 +84,9 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'near_mask_org'
+    EXP_NAME = 'fp_fn_mask'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed/deberta-v3-large"
-    #PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo_from_tfidf/v2'
     PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo'
     PSEUDO_DIR_V4 = './drive/MyDrive/Study/NBME/data/pseudo_relabel_mcdropout'
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
@@ -102,12 +101,16 @@ class GCF:
     N_FOLDS = 5
     BS = 4
     
+    CONFIG.attention_probs_dropout_prob = 0.2
+    CONFIG.hidden_dropout_prob = 0.2
+    CONFIG.output_hidden_states = True
+    
     LR = 2e-5
     WEIGHT_DECAY = 0.01
     ACCUMULATE = 2
     N_EPOCHS = 5
     WARM_UP_RATIO = 0.05
-    GRAD_CLIP = 1000.0
+    GRAD_CLIP = 10000.0
 
     PSEUDO_VERSION = [1]
     
@@ -128,7 +131,8 @@ def set_seed(seed=GCF.SEED):
 sequences = np.load(open(f"{GCF.PREPROCESSING_DIR}/sequences.npy",'rb'))
 masks = np.load(open(f"{GCF.PREPROCESSING_DIR}/masks.npy",'rb'))
 type_ids = np.load(open(f"{GCF.PREPROCESSING_DIR}/token_ids.npy",'rb'))
-labels = np.load(open(f"{GCF.PREPROCESSING_DIR}/labels.npy",'rb'))
+#labels = np.load(open(f"{GCF.PREPROCESSING_DIR}/labels.npy",'rb'))
+labels = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5.npy",'rb'))
 
 train_df = pd.read_csv(f"{GCF.PREPROCESSING_DIR}/train_preprocessed.csv")
 pn_num_folds = train_df['fold']
@@ -148,8 +152,10 @@ pseudo_labels = np.vstack([
                               np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v{i}.npy",'rb')) for i in GCF.PSEUDO_VERSION
 ])
 
-labels_check_mc_dropout = np.hstack([np.array([np.load(open(f'{GCF.PSEUDO_DIR_V4}/labels_check_mc_dropout_v{v}_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)]) for v in GCF.PSEUDO_VERSION])
-#labels_check_mc_dropout = np.hstack([np.array([np.load(open(f'{GCF.PSEUDO_DIR_V4}/relabels1_mc_dropout_v{v}_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)]) for v in GCF.PSEUDO_VERSION])
+labels_check_mc_dropout_v1 = np.hstack([np.array([np.load(open(f'{GCF.PSEUDO_DIR_V4}/labels_check_mc_dropout_v{v}_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)]) for v in GCF.PSEUDO_VERSION])
+labels_check_mc_dropout_v2 = np.array([np.load(open(f'./drive/MyDrive/Study/NBME/data/pseudo_relabel_v2/labels_check_mc_dropout_v1_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)])
+labels_check_mc_dropout_v3 = np.array([np.load(open(f'./drive/MyDrive/Study/NBME/data/pseudo_relabel_v3/labels_check_mc_dropout_v1_f{f}.npy','rb')) for f in range(GCF.N_FOLDS)])
+labels_check_mc_dropout = (labels_check_mc_dropout_v1 + labels_check_mc_dropout_v2 + labels_check_mc_dropout_v3) / 3
 
 print(pseudo_sequences.shape)
 print(pseudo_masks.shape)
@@ -158,7 +164,6 @@ print(pseudo_labels.shape)
 print(labels_check_mc_dropout.shape)
 
 def pseudo_to_target(pred):
-    #return pred
     if pred == 1:
         return 1
     elif pred == 0:
@@ -171,15 +176,18 @@ def pseudo_to_target_all_fold(preds):
 
 new_labels = []
 for idx in tqdm(range(len(pseudo_labels))):
-    true_lab = pseudo_labels[idx, :]
-    pseudo_lab = labels_check_mc_dropout[:, idx, :]
-    new_label = np.vstack([np.ones(GCF.N_FOLDS) * -1 if t == -1 else pseudo_to_target_all_fold(pseudo_lab[:, i]) for i, t in enumerate(true_lab)])
+    #true_lab = pseudo_labels[idx, :]
+    #pseudo_lab = labels_check_mc_dropout[:, idx, :]
+    #new_label = np.vstack([np.ones(GCF.N_FOLDS) * -1 if t == -1 else pseudo_to_target_all_fold(pseudo_lab[:, i]) for i, t in enumerate(true_lab)])
+    new_label = np.vstack([np.ones(GCF.N_FOLDS) * -1 if t == -1 else labels_check_mc_dropout[:, idx, i] for i, t in enumerate(pseudo_labels[idx, :])])
+    assert (new_label > -1).sum() > 0
     new_labels.append(new_label)
 new_labels = np.stack(new_labels)
 
 print(new_labels.shape)
 
-is_posi = [new_labels[i, :, :][new_labels[i, :, :] > -1].sum() > 0 for i in range(len(new_labels))]
+#is_posi = [new_labels[i, :, :][new_labels[i, :, :] > -1].sum() > 0 for i in range(len(new_labels))]
+is_posi = [(new_labels[i, :, :] > -1).sum() > 0 for i in range(len(new_labels))]
 
 pseudo_sequences = pseudo_sequences[is_posi, :]
 pseudo_masks = pseudo_masks[is_posi, :]
@@ -187,27 +195,6 @@ pseudo_type_ids = pseudo_type_ids[is_posi, :]
 pseudo_labels = new_labels[is_posi, :, :]
 
 print(pseudo_labels.shape)
-
-lst = []
-for idx in tqdm(range(pseudo_labels.shape[0])):
-    mask = ((pseudo_labels[idx, :, :] > 0).sum(1) > 0).astype(int)
-    back_mask = (np.hstack([np.zeros(1), mask[:-1]]) - mask > 0).astype(int) * -1
-    front_mask = (np.hstack([mask[1:], np.zeros(1)]) - mask > 0).astype(int) * -1
-    both_mask = front_mask + back_mask
-    both_mask = np.stack([both_mask for _ in range(GCF.N_FOLDS)]).T
-    lst.append(pseudo_labels[idx, :, :] + both_mask)
-pseudo_labels = np.stack(lst)
-print(pseudo_labels.shape)
-
-lst = []
-for idx in tqdm(range(labels.shape[0])):
-    mask = (labels[idx, :] > 0).astype(int)
-    back_mask = (np.hstack([np.zeros(1), mask[:-1]]) - mask > 0).astype(int) * -1
-    front_mask = (np.hstack([mask[1:], np.zeros(1)]) - mask > 0).astype(int) * -1
-    both_mask = front_mask + back_mask
-    lst.append(labels[idx, :] + both_mask)
-labels = np.stack(lst)
-print(labels.shape)
 
 class NBMEDataset(Dataset):
     def __init__(self, sequences, mask, type_ids, target):
@@ -238,8 +225,10 @@ class NBMEModel(nn.Module):
         super(NBMEModel, self).__init__()
         self.transformer = AutoModel.from_pretrained(
             GCF.MODEL_NAME, 
-            output_hidden_states=True
+            config=GCF.CONFIG,
+            #output_hidden_states=True
         )
+        #self.lstm = nn.LSTM(GCF.CONFIG.hidden_size, GCF.CONFIG.hidden_size, batch_first=True, bidirectional=True)
         self.fc_dropout = nn.Dropout(0.2)
         self.classifier = nn.Linear(GCF.CONFIG.hidden_size, 1)
         
@@ -265,6 +254,7 @@ class NBMEModel(nn.Module):
             token_type_ids=token_type_ids,
         )
         h = outputs['last_hidden_state']
+        #h, _ = self.lstm(h, None)
         h = self.fc_dropout(h)
         h = self.classifier(h)
         h = h.squeeze(-1)
@@ -501,9 +491,9 @@ def postprocessing(predicts, pn_histories):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    #if fold in [0]:
-    #    print(f'### skip Fold-{fold} ###')
-    #    continue
+    if fold in [2]:
+        print(f'### skip Fold-{fold} ###')
+        continue
     print(f'### start Fold-{fold} ###')
     set_seed()
     
@@ -569,9 +559,9 @@ for fold in range(GCF.N_FOLDS):
     
     train_losses, train_lrs, train_grads = [], [], []
     for epoch in range(GCF.N_EPOCHS):
-        #if is_load and epoch < 2:
-        #    print(f'skip epoch-{epoch}')
-        #    continue
+        if is_load and epoch < -1:
+            print(f'skip epoch-{epoch}')
+            continue
         _losses, _lrs, _grads = train_loop(model, train_dloader, optimizer, scheduler)
         valid_loss, valid_predicts = valid_loop(model, valid_dloader)
         
@@ -589,9 +579,9 @@ for fold in range(GCF.N_FOLDS):
         train_losses += _losses
         train_lrs += _lrs
         train_grads += _grads
-        oof[pn_num_folds == fold, :] = valid_predicts
         if best_score < f1score:
             print('save best model')
+            oof[pn_num_folds == fold, :] = valid_predicts
             best_score = f1score
             if is_load:
                 torch.save(model.state_dict(), f"{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model_rerun.bin")
@@ -649,7 +639,7 @@ for fold in range(GCF.N_FOLDS):
     model.to(device)
     model.eval()
 
-    if fold in [0, 1]:
+    if fold in [-1]:
         model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model_rerun.bin'))
     else:
         model.load_state_dict(torch.load(f'{GCF.OUTPUT_DIR}/nbme_f{fold}_best_model.bin'))
