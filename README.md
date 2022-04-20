@@ -35,7 +35,7 @@
 |near_mask|[train61]||||f0,1は改善したけど残りは微妙|
 |near_mask_org|[train62]|||||
 |||||||
-|v1_30_ratio||[infer63]||||
+|v1_30_ratio||[infer63]|0.8868|||
 |fp_fn_mask|[train64]|[infer64]||||
 
 
