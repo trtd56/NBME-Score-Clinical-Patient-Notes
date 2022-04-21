@@ -19,7 +19,6 @@
 |v1_30_ratio||[infer63]|0.8868|0.885|0.885台ではMAX|
 |fp_fn_mask|[train64]|[infer64]||||
 
-
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
@@ -30,6 +29,11 @@
 [train64]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/506a3bae787f21146407746a5060876f29562dd0
 [infer64]:xxx
 
+## todo
+- v1_30_ratioのfold1,4をparameter tuning
+- v6_samplingでfp_fn_mask
+- fpのみmask
+- fnのみmask
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
