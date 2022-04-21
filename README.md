@@ -70,29 +70,6 @@
 [train64]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/506a3bae787f21146407746a5060876f29562dd0
 [infer64]:xxx
 
-## todo 
-- v3のf3
-- v2 fc dropoutあり
-- 0.2, 0.1も0としてラベル付け
-- ↑に加えて0.8, 0.9を1としてラベル付け
-- QAの順番入れ替え
-- f1: v1,2,4
-- f2: v1,3,4
-- f4: v1,2,4
-- f3: v1,x,x,... (f2と揃えてみる？)
-
-## Best Model
-- f0: v1~3 -> 0.8910563644114874
-- f1: v2 only -> 0.8840555718269684
-- f2: v4 only -> 0.8881317582677787
-- f3: relabel1 -> 0.8876611896838602
-- f4: v1~2 -> 0.8856293463598622
-
-CV 0.8873068461099913
-LB 0.884
-
-https://www.kaggle.com/code/takamichitoda/nbme-cv-check?scriptVersionId=93230329
-https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93230319
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
