@@ -17,7 +17,8 @@
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8900|0.887||
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886||
 |v1_30_ratio||[infer63]|0.8868|0.885|0.885台ではMAX|
-|fp_fn_mask|[train64]|[infer64]||||
+|fp_fn_mask|[train64]|[infer64]|0.8915|||
+|v1_warmup_01||[infer65]|||f0,2,3はfp_fn_mask|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
@@ -28,6 +29,8 @@
 [infer63]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93580935
 [train64]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/506a3bae787f21146407746a5060876f29562dd0
 [infer64]:xxx
+[infer65]:xxx
+
 
 ## todo
 - v1_30_ratioのfold1,4をparameter tuning
