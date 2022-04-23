@@ -40,8 +40,6 @@
 - v1_30_ratioのfold1,4をparameter tuning
   - warmup=0.1はよさげ
 - v6_samplingでfp_fn_mask
-- fpのみmask
-- fnのみmask
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
