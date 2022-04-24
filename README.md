@@ -18,7 +18,7 @@
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886||
 |v1_30_ratio||[infer63]|0.8868|0.885|0.885台ではMAX|
 |fp_fn_mask|[train64]|[infer64]|0.8915|0.882||
-|v1_warmup_01||[infer65]|||f0,2,3はfp_fn_mask|
+|v1_warmup_01||[infer65]|0.8873|0.885|f0,2,3はv1_30_ratio|
 |fp_mask||[infer66]||||
 |fn_mask||[infer67]||||
 
