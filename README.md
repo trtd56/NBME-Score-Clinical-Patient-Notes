@@ -19,7 +19,7 @@
 |v1_30_ratio||[infer63]|0.8868|0.885|0.885台ではMAX|
 |fp_fn_mask|[train64]|[infer64]|0.8915|0.882||
 |v1_warmup_01||[infer65]|0.8873|0.885|f0,2,3はv1_30_ratio|
-|fp_mask||[infer66]|0.8885|||
+|fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
