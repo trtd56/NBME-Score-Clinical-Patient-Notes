@@ -33,7 +33,7 @@
 [train64]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/506a3bae787f21146407746a5060876f29562dd0
 [infer64]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93678090
 [infer65]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93835976
-[infer66]:xxx
+[infer66]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93918045
 [infer67]:xxx
 
 ## todo
