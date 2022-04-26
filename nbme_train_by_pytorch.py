@@ -75,6 +75,7 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from torch.utils.data import Dataset, DataLoader
+from torch.utils.checkpoint import checkpoint
 from transformers.models.deberta_v2 import DebertaV2TokenizerFast
 from sklearn.model_selection import StratifiedKFold
 
@@ -84,32 +85,37 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'fp_fn_mask'
+    EXP_NAME = 'g_checkpoint'
  
     PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed/deberta-v3-large"
+    #PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed/deberta-v2-xlarge"
+    #PREPROCESSING_DIR = "./drive/MyDrive/Study/NBME/data/preprocessed/roberta-large"
     PSEUDO_DIR = './drive/MyDrive/Study/NBME/data/pseudo'
     PSEUDO_DIR_V4 = './drive/MyDrive/Study/NBME/data/pseudo_relabel_mcdropout'
     OUTPUT_DIR = f"./drive/MyDrive/Study/NBME/data/output/{EXP_NAME}"
     
     MODEL_NAME = 'microsoft/deberta-v3-large'
     #MODEL_NAME = 'microsoft/deberta-v2-xlarge'
+    #MODEL_NAME = 'roberta-large'
     TOKENIZER = DebertaV2TokenizerFast.from_pretrained(MODEL_NAME)
+    #TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME)
     CONFIG = AutoConfig.from_pretrained(MODEL_NAME)
     SEQUENCE_LENGTH = 384
     #SEQUENCE_LENGTH = 340
+    #SEQUENCE_LENGTH = 450
     SEED = 0
     N_FOLDS = 5
-    BS = 4
+    BS = 8
     
     CONFIG.attention_probs_dropout_prob = 0.2
     CONFIG.hidden_dropout_prob = 0.2
     CONFIG.output_hidden_states = True
     
-    LR = 2e-5
+    LR = [2e-5, 2e-5, 2e-5, 2e-5, 2e-5]
     WEIGHT_DECAY = 0.01
-    ACCUMULATE = 2
+    ACCUMULATE = 1
     N_EPOCHS = 5
-    WARM_UP_RATIO = 0.05
+    WARM_UP_RATIO = [0.05, 0.05, 0.05, 0.05, 0.05]
     GRAD_CLIP = 10000.0
 
     PSEUDO_VERSION = [1]
@@ -131,8 +137,10 @@ def set_seed(seed=GCF.SEED):
 sequences = np.load(open(f"{GCF.PREPROCESSING_DIR}/sequences.npy",'rb'))
 masks = np.load(open(f"{GCF.PREPROCESSING_DIR}/masks.npy",'rb'))
 type_ids = np.load(open(f"{GCF.PREPROCESSING_DIR}/token_ids.npy",'rb'))
-#labels = np.load(open(f"{GCF.PREPROCESSING_DIR}/labels.npy",'rb'))
-labels = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5.npy",'rb'))
+labels = np.load(open(f"{GCF.PREPROCESSING_DIR}/labels.npy",'rb'))
+#labels = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5.npy",'rb'))
+#labels = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5_fp.npy",'rb'))
+#labels = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5_fn.npy",'rb'))
 
 train_df = pd.read_csv(f"{GCF.PREPROCESSING_DIR}/train_preprocessed.csv")
 pn_num_folds = train_df['fold']
@@ -233,6 +241,7 @@ class NBMEModel(nn.Module):
         self.classifier = nn.Linear(GCF.CONFIG.hidden_size, 1)
         
         self._init_weights(self.classifier)
+        self.transformer.gradient_checkpointing_enable()
     
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
@@ -247,7 +256,7 @@ class NBMEModel(nn.Module):
             module.bias.data.zero_()
             module.weight.data.fill_(1.0)
             
-    def forward(self, input_ids, attention_mask, token_type_ids, target=None, pseudo=None):
+    def forward(self, input_ids, attention_mask, token_type_ids=None, target=None, pseudo=None):
         outputs = self.transformer(
             input_ids,
             attention_mask=attention_mask,
@@ -258,6 +267,7 @@ class NBMEModel(nn.Module):
         h = self.fc_dropout(h)
         h = self.classifier(h)
         h = h.squeeze(-1)
+
         if target is not None:
             loss = nn.BCEWithLogitsLoss(reduction="none")(h, target)
             if pseudo is not None:
@@ -308,7 +318,11 @@ def valid_loop(model, valid_dloader):
     model.eval()
     for idx, d in tqdm(enumerate(valid_dloader), total=len(valid_dloader)):
         with torch.no_grad():
-            loss, pred = model(d['sequences'].to(device), d['mask'].to(device), d['type_ids'].to(device), d['target'].to(device))
+            loss, pred = model(
+                d['sequences'].to(device),
+                d['mask'].to(device),
+                d['type_ids'].to(device),
+                d['target'].to(device))
             losses.append(loss.item())
             predicts.append(pred.cpu().sigmoid())
     predicts = torch.vstack(predicts)
@@ -453,16 +467,16 @@ def get_score(y_true, y_pred):
     score = span_micro_f1(y_true, y_pred)
     return score
 
-def get_optimizer_params(model):
+def get_optimizer_params(model, fold):
     param_optimizer = list(model.named_parameters())
     no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
     optimizer_parameters = [
         {'params': [p for n, p in model.transformer.named_parameters() if not any(nd in n for nd in no_decay)],
-         'lr': GCF.LR, 'weight_decay': GCF.WEIGHT_DECAY},
+         'lr': GCF.LR[fold], 'weight_decay': GCF.WEIGHT_DECAY},
         {'params': [p for n, p in model.transformer.named_parameters() if any(nd in n for nd in no_decay)],
-         'lr': GCF.LR, 'weight_decay': 0.0},
+         'lr': GCF.LR[fold], 'weight_decay': 0.0},
         {'params': [p for n, p in model.named_parameters() if "transformer" not in n],
-         'lr': GCF.LR, 'weight_decay': 0.0}
+         'lr': GCF.LR[fold], 'weight_decay': 0.0}
     ]
     return optimizer_parameters
 
@@ -491,12 +505,16 @@ def postprocessing(predicts, pn_histories):
 all_scores = []
 oof = np.zeros(labels.shape)
 for fold in range(GCF.N_FOLDS):
-    if fold in [2]:
+    if fold in [-1]:
         print(f'### skip Fold-{fold} ###')
         continue
     print(f'### start Fold-{fold} ###')
     set_seed()
-    
+
+    #train_sequences = sequences[pn_num_folds != fold, :]
+    #train_masks = masks[pn_num_folds != fold, :]
+    #train_type_ids = type_ids[pn_num_folds != fold, :]
+    #train_labels = labels[pn_num_folds != fold, :]
     train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
     train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
     train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids])
@@ -518,9 +536,9 @@ for fold in range(GCF.N_FOLDS):
     model = NBMEModel()
     model.to(device)
 
-    optimizer = AdamW(get_optimizer_params(model), lr=GCF.LR, weight_decay=GCF.WEIGHT_DECAY)
+    optimizer = AdamW(get_optimizer_params(model, fold), lr=GCF.LR[fold], weight_decay=GCF.WEIGHT_DECAY)
     max_train_steps = GCF.N_EPOCHS * len(train_dloader) // GCF.ACCUMULATE
-    warmup_steps = int(max_train_steps * GCF.WARM_UP_RATIO)
+    warmup_steps = int(max_train_steps * GCF.WARM_UP_RATIO[fold])
     scheduler = get_cosine_schedule_with_warmup(
         optimizer,
         num_warmup_steps=warmup_steps,
@@ -538,18 +556,18 @@ for fold in range(GCF.N_FOLDS):
 
     if os.path.exists(f"{GCF.OUTPUT_DIR}/checkpoint.bin"):
         print('load prev model')
-        checkpoint = torch.load(f"{GCF.OUTPUT_DIR}/checkpoint.bin") 
-        model.load_state_dict(checkpoint["model"])
-        optimizer.load_state_dict(checkpoint["optimizer"])
-        scheduler.load_state_dict(checkpoint["scheduler"])
-        random.setstate(checkpoint["random"])
-        np.random.set_state(checkpoint["np_random"])
-        torch.set_rng_state(checkpoint["torch"])
-        torch.random.set_rng_state(checkpoint["torch_random"])
-        torch.cuda.set_rng_state(checkpoint["cuda_random"])
+        _checkpoint = torch.load(f"{GCF.OUTPUT_DIR}/checkpoint.bin") 
+        model.load_state_dict(_checkpoint["model"])
+        optimizer.load_state_dict(_checkpoint["optimizer"])
+        scheduler.load_state_dict(_checkpoint["scheduler"])
+        random.setstate(_checkpoint["random"])
+        np.random.set_state(_checkpoint["np_random"])
+        torch.set_rng_state(_checkpoint["torch"])
+        torch.random.set_rng_state(_checkpoint["torch_random"])
+        torch.cuda.set_rng_state(_checkpoint["cuda_random"])
         is_load = True
         best_score = 0
-        del checkpoint
+        del _checkpoint
     else:
         is_load = False
         best_score = 0
@@ -597,7 +615,7 @@ for fold in range(GCF.N_FOLDS):
                 "grad_norm": np.mean(_grads),
         })
 
-        checkpoint = {
+        _checkpoint = {
             "model": model.state_dict(),
             "optimizer": optimizer.state_dict(),
             "scheduler": scheduler.state_dict(),
@@ -607,14 +625,14 @@ for fold in range(GCF.N_FOLDS):
             "torch_random": torch.random.get_rng_state(),
             "cuda_random": torch.cuda.get_rng_state(),
         }
-        torch.save(checkpoint, f"{GCF.OUTPUT_DIR}/checkpoint.bin")
+        torch.save(_checkpoint, f"{GCF.OUTPUT_DIR}/checkpoint.bin")
             
     plt.plot(train_losses);plt.show()
     plt.plot(train_lrs);plt.show()
     plt.plot(train_grads);plt.show()
 
     os.remove(f"{GCF.OUTPUT_DIR}/checkpoint.bin")
-    del checkpoint
+    del _checkpoint
     torch.cuda.empty_cache()
     gc.collect()
     wandb.finish()
