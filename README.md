@@ -21,6 +21,7 @@
 |v1_warmup_01||[infer65]|0.8873|0.885|f0,2,3はv1_30_ratio|
 |fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]||||
+|g_checkpoint|[train68]|[infer68]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
@@ -35,6 +36,8 @@
 [infer65]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93835976
 [infer66]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93918045
 [infer67]:xxx
+[train68]:xxx
+[infer68]:xxx
 
 ## todo
 - v1_30_ratioのfold1,4をparameter tuning
