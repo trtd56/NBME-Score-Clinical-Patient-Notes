@@ -21,7 +21,7 @@
 |v1_warmup_01||[infer65]|0.8873|0.885|f0,2,3はv1_30_ratio|
 |fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]||||
-|g_checkpoint|[train68]|[infer68]||||
+|g_checkpoint|[train68]|[infer68]|||bs=32|
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
@@ -29,8 +29,7 @@
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
 [train35]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/db94a53a6337f0ba5df97235b2097065959db48a/src/nbme_train_by_pytorch.py
 [infer35.11]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90397794
-[infer63]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93580935
-
+[infer63]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93580935`
 [train64]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/506a3bae787f21146407746a5060876f29562dd0
 [infer64]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93678090
 [infer65]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93835976
