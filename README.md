@@ -60,6 +60,7 @@
 - pseudoなしで0.89いけるっぽい
   - ノイズに敏感に反応してしまうのが問題らしい？ 
 - 周辺lossをmask
+- now bestの確認
 
 
 ## past version
