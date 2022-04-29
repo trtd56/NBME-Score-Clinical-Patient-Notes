@@ -22,7 +22,7 @@
 |fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]|0.887|0.882||
 |g_checkpoint|[train68]||||bs=32|
-|fpfn_mask_org|[train69]|[infer69]||||
+|fpfn_mask_org|[train69]|[infer69]|0.8944|||
 |bs32_org|[train70]|[infer70]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
@@ -39,7 +39,7 @@
 [infer67]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94098938
 [train68]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/29fde2e3cd3e8ae52b561c37bd57a1813031b1e7
 [train69]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/bece9ec86119518685970bc6100d218d9116ddfd
-[infer69]:xxx
+[infer69]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94280402
 [train70]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/ec5261326853320a7e2485ca133954b2fa00d28d
 [infer70]:xxx
 
@@ -50,6 +50,20 @@
 - pseudoなしで0.89いけるっぽい
   - ノイズに敏感に反応してしまうのが問題らしい？ 
 - 周辺lossをmask
+
+```
+Fold 0
+0.8988961786818845
+Fold 1
+0.8895370501239929
+Fold 2
+0.8940552800928369
+Fold 3
+0.9006603351661361
+Fold 4
+0.8890974710151632
+CV 0.8944492630160026
+```
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
