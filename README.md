@@ -54,13 +54,10 @@
 [infer70]:xxx
 
 ## todo
-- v1_30_ratioのfold1,4をparameter tuning
-  - warmup=0.1はよさげ
-- v6_samplingでfp_fn_mask
-- pseudoなしで0.89いけるっぽい
-  - ノイズに敏感に反応してしまうのが問題らしい？ 
-- 周辺lossをmask
 - now bestの確認
+- fold-0のみ
+- leakしてそうなので、originモデルの予測でmask
+- now bestをパラメータ調整
 
 
 ## past version
