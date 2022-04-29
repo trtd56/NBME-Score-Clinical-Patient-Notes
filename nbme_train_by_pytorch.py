@@ -85,7 +85,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'fpfn_mask_org'
+    EXP_NAME = 'bs32_org'
     MODEL_NAME = 'microsoft/deberta-v3-large'
     #MODEL_NAME = 'roberta-large'
 
@@ -109,8 +109,8 @@ class GCF:
     
     SEED = 0
     N_FOLDS = 5
-    BS = 64 // 16
-    ACCUMULATE = 2 // 1
+    BS = 32
+    ACCUMULATE = 1
     WEIGHT_DECAY = 0.01
     N_EPOCHS = 5
     LR = [2e-5, 2e-5, 2e-5, 2e-5, 2e-5]
@@ -234,7 +234,7 @@ class NBMEModel(nn.Module):
         self.classifier = nn.Linear(GCF.CONFIG.hidden_size, 1)
         
         self._init_weights(self.classifier)
-        #self.transformer.gradient_checkpointing_enable()
+        self.transformer.gradient_checkpointing_enable()
     
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
