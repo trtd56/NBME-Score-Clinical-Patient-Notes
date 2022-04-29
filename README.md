@@ -21,7 +21,7 @@
 |v1_warmup_01||[infer65]|0.8873|0.885|f0,2,3はv1_30_ratio|
 |fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]|0.887|0.882||
-|g_checkpoint|[train68]|[infer68]|||bs=32|
+|g_checkpoint|[train68]||||bs=32|
 |fpfn_mask_org|[train69]|[infer69]||||
 |bs32_org|[train70]|[infer70]||||
 
