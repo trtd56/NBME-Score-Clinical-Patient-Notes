@@ -22,11 +22,11 @@
 |fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]|0.887|0.882||
 |g_checkpoint|[train68]||||bs=32|
-|fpfn_mask_org|[train69]|[infer69]|0.8944|||
-|fpfn_mask_org|[train69]|[infer69.1]|0.8944||vote min 1|
-|fpfn_mask_org|[train69]|[infer69.2]|0.8944||vote min 2|
-|fpfn_mask_org|[train69]|[infer69.3]|0.8944||vote min 3|
-|fpfn_mask_org|[train69]|[infer69.4]|0.8944||vote min 4|
+|fpfn_mask_org|[train69]|[infer69]|0.8944|0.880||
+|fpfn_mask_org|[train69]|[infer69.1]|0.8944|0.872|vote min 1|
+|fpfn_mask_org|[train69]|[infer69.2]|0.8944|0.880|vote min 2|
+|fpfn_mask_org|[train69]|[infer69.3]|0.8944|0.880|vote min 3|
+|fpfn_mask_org|[train69]|[infer69.4]|0.8944|0.877|vote min 4|
 |fpfn_mask_org|[train69]|[infer69.5]|0.8944||vote min 5|
 |bs32_org|[train70]|[infer70]||||
 
