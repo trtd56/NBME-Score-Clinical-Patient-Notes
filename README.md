@@ -26,6 +26,8 @@
 |fpfn_mask_org|[train69]|[infer69.1]|0.8944||vote min 1|
 |fpfn_mask_org|[train69]|[infer69.2]|0.8944||vote min 2|
 |fpfn_mask_org|[train69]|[infer69.3]|0.8944||vote min 3|
+|fpfn_mask_org|[train69]|[infer69.4]|0.8944||vote min 4|
+|fpfn_mask_org|[train69]|[infer69.5]|0.8944||vote min 5|
 |bs32_org|[train70]|[infer70]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
@@ -46,6 +48,8 @@
 [infer69.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281250
 [infer69.2]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281296
 [infer69.3]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281510
+[infer69.4]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281771
+[infer69.5]:xxx
 [train70]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/ec5261326853320a7e2485ca133954b2fa00d28d
 [infer70]:xxx
 
