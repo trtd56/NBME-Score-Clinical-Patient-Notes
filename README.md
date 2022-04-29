@@ -22,6 +22,8 @@
 |fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]|0.887|0.882||
 |g_checkpoint|[train68]|[infer68]|||bs=32|
+|fpfn_mask_org|[train69]|[infer69]||||
+|fpfn_mask_org|[train70]|[infer70]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
@@ -36,7 +38,10 @@
 [infer66]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93918045
 [infer67]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94098938
 [train68]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/29fde2e3cd3e8ae52b561c37bd57a1813031b1e7
-[infer68]:xxx
+[train69]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/bece9ec86119518685970bc6100d218d9116ddfd
+[infer69]:xxx
+[train70]:xxx
+[infer70]:xxx
 
 ## todo
 - v1_30_ratioのfold1,4をparameter tuning
