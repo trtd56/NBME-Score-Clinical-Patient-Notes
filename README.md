@@ -23,7 +23,7 @@
 |fn_mask||[infer67]|0.887|0.882||
 |g_checkpoint|[train68]|[infer68]|||bs=32|
 |fpfn_mask_org|[train69]|[infer69]||||
-|fpfn_mask_org|[train70]|[infer70]||||
+|bs32_org|[train70]|[infer70]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
@@ -40,7 +40,7 @@
 [train68]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/29fde2e3cd3e8ae52b561c37bd57a1813031b1e7
 [train69]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/bece9ec86119518685970bc6100d218d9116ddfd
 [infer69]:xxx
-[train70]:xxx
+[train70]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/ec5261326853320a7e2485ca133954b2fa00d28d
 [infer70]:xxx
 
 ## todo
