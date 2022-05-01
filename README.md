@@ -33,6 +33,8 @@
 |fpfn_mask_org|[train69]|[infer69.7]|0.8944|0.875|fold-1|
 |bs32_org|[train70]|[infer70]|0.8895|||
 |org_mask|[train71]|[infer71]|0.8953|||
+|org_mask|[train71]|[infer71.1]|||thr=0.45|
+|org_mask|[train71]|[infer71.2]|||thr=0.4|
 |best_tune|[train72]|[infer72]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
@@ -62,6 +64,8 @@
 [infer70]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94444354
 [train71]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/a0b2cbc5015acbd98a521955f39add6b0cdd72d8
 [infer71]:xxx
+[infer71.1]:xxx
+[infer71.2]:xxx
 [train72]:xxx
 [infer72]:xxx
 
