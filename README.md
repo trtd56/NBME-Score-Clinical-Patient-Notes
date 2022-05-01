@@ -66,7 +66,7 @@
 [infer71]:xxx
 [infer71.1]:xxx
 [infer71.2]:xxx
-[train72]:xxx
+[train72]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/1dfdc84ce2a535a8a854ba984390c6e5e604cb56
 [infer72]:xxx
 
 
