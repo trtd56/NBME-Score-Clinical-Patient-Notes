@@ -85,7 +85,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'bs32_org'
+    EXP_NAME = 'org_mask'
     MODEL_NAME = 'microsoft/deberta-v3-large'
     #MODEL_NAME = 'roberta-large'
 
@@ -109,8 +109,8 @@ class GCF:
     
     SEED = 0
     N_FOLDS = 5
-    BS = 32
-    ACCUMULATE = 1
+    BS = 4
+    ACCUMULATE = 2
     WEIGHT_DECAY = 0.01
     N_EPOCHS = 5
     LR = [2e-5, 2e-5, 2e-5, 2e-5, 2e-5]
@@ -133,11 +133,14 @@ def set_seed(seed=GCF.SEED):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
+!ls ./drive/MyDrive/Study/NBME/data/fp_fn_mask
+
 sequences = np.load(open(f"{GCF.PREPROCESSING_DIR}/sequences.npy",'rb'))
 masks = np.load(open(f"{GCF.PREPROCESSING_DIR}/masks.npy",'rb'))
 type_ids = np.load(open(f"{GCF.PREPROCESSING_DIR}/token_ids.npy",'rb'))
 labels = np.load(open(f"{GCF.PREPROCESSING_DIR}/labels.npy",'rb'))
-labels_mask = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5.npy",'rb'))
+#labels_mask = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5.npy",'rb'))
+labels_mask = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/deberta_v3.npy",'rb'))
 #labels[labels != labels_mask] = 0.5
 labels = labels_mask
 
@@ -234,7 +237,7 @@ class NBMEModel(nn.Module):
         self.classifier = nn.Linear(GCF.CONFIG.hidden_size, 1)
         
         self._init_weights(self.classifier)
-        self.transformer.gradient_checkpointing_enable()
+        #self.transformer.gradient_checkpointing_enable()
     
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
