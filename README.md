@@ -15,20 +15,30 @@
 |--|--|--|--|--|--|
 |deberta_v3|[train27]|[infer27]|0.8815|0.883||
 |pseudo_mcdrop|[train29]|[infer29.1]|0.8900|0.887||
+|pseudo_mcdrop|[train29]|[infer29.2]|0.8900||fold-0|
 |v6_sampling|[train35]|[infer35.11]|0.8997|0.886||
 |v1_30_ratio||[infer63]|0.8868|0.885|0.885台ではMAX|
 |fp_fn_mask|[train64]|[infer64]|0.8915|0.882||
 |v1_warmup_01||[infer65]|0.8873|0.885|f0,2,3はv1_30_ratio|
 |fp_mask||[infer66]|0.8885|0.885||
 |fn_mask||[infer67]|0.887|0.882||
-|g_checkpoint|[train68]|[infer68]|||bs=32|
-|fpfn_mask_org|[train69]|[infer69]||||
-|fpfn_mask_org|[train70]|[infer70]||||
+|g_checkpoint|[train68]||||bs=32|
+|fpfn_mask_org|[train69]|[infer69]|0.8944|0.880||
+|fpfn_mask_org|[train69]|[infer69.1]|0.8944|0.872|vote min 1|
+|fpfn_mask_org|[train69]|[infer69.2]|0.8944|0.880|vote min 2|
+|fpfn_mask_org|[train69]|[infer69.3]|0.8944|0.880|vote min 3|
+|fpfn_mask_org|[train69]|[infer69.4]|0.8944|0.877|vote min 4|
+|fpfn_mask_org|[train69]|[infer69.5]|0.8944||vote min 5|
+|fpfn_mask_org|[train69]|[infer69.6]|0.8944|0.876|fold-0|
+|fpfn_mask_org|[train69]|[infer69.7]|0.8944|0.875|fold-1|
+|bs32_org|[train70]|[infer70]||||
+
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
 [train29]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/e5ecba1da4c146c100cec6b0c7f69ff27ef1cee4/src/nbme_train_by_pytorch.py
 [infer29.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch/data?scriptVersionId=90405444
+[infer29.2]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94391883
 [train35]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/db94a53a6337f0ba5df97235b2097065959db48a/src/nbme_train_by_pytorch.py
 [infer35.11]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=90397794
 [infer63]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=93580935`
@@ -39,17 +49,21 @@
 [infer67]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94098938
 [train68]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/29fde2e3cd3e8ae52b561c37bd57a1813031b1e7
 [train69]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/bece9ec86119518685970bc6100d218d9116ddfd
-[infer69]:xxx
-[train70]:xxx
-[infer70]:xxx
+[infer69]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94280402
+[infer69.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281250
+[infer69.2]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281296
+[infer69.3]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281510
+[infer69.4]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281771
+[infer69.5]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94281829
+[infer69.6]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94368929
+[infer69.7]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94369192
+[train70]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/ec5261326853320a7e2485ca133954b2fa00d28d
+[infer70]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94444354
 
 ## todo
-- v1_30_ratioのfold1,4をparameter tuning
-  - warmup=0.1はよさげ
-- v6_samplingでfp_fn_mask
-- pseudoなしで0.89いけるっぽい
-  - ノイズに敏感に反応してしまうのが問題らしい？ 
-- 周辺lossをmask
+- leakしてそうなので、originモデルの予測でmask
+- now bestをパラメータ調整
+
 
 ## past version
 - [02/14](https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/cc0ec36cf5afa1e8278340ac774806f4b3d43591/docs/experiment.md): train19まで
