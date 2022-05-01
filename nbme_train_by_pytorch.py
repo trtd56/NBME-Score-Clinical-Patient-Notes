@@ -85,7 +85,7 @@ scaler = torch.cuda.amp.GradScaler()
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class GCF:
-    EXP_NAME = 'org_mask'
+    EXP_NAME = 'best_tune'
     MODEL_NAME = 'microsoft/deberta-v3-large'
     #MODEL_NAME = 'roberta-large'
 
@@ -133,16 +133,14 @@ def set_seed(seed=GCF.SEED):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-!ls ./drive/MyDrive/Study/NBME/data/fp_fn_mask
-
 sequences = np.load(open(f"{GCF.PREPROCESSING_DIR}/sequences.npy",'rb'))
 masks = np.load(open(f"{GCF.PREPROCESSING_DIR}/masks.npy",'rb'))
 type_ids = np.load(open(f"{GCF.PREPROCESSING_DIR}/token_ids.npy",'rb'))
 labels = np.load(open(f"{GCF.PREPROCESSING_DIR}/labels.npy",'rb'))
 #labels_mask = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/v1_warmup5.npy",'rb'))
-labels_mask = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/deberta_v3.npy",'rb'))
+#labels_mask = np.load(open(f"./drive/MyDrive/Study/NBME/data/fp_fn_mask/deberta_v3.npy",'rb'))
 #labels[labels != labels_mask] = 0.5
-labels = labels_mask
+#labels = labels_mask
 
 train_df = pd.read_csv(f"{GCF.PREPROCESSING_DIR}/train_preprocessed.csv")
 pn_num_folds = train_df['fold']
@@ -201,6 +199,40 @@ pseudo_type_ids = pseudo_type_ids[is_posi, :]
 pseudo_labels = new_labels[is_posi, :, :]
 
 print(pseudo_labels.shape)'''
+
+!ls {GCF.PSEUDO_DIR}
+
+pseudo_sequences = np.load(open(f"{GCF.PSEUDO_DIR}/sequences_pseudo_v1.npy",'rb'))
+pseudo_masks = np.load(open(f"{GCF.PSEUDO_DIR}/masks_pseudo_v1.npy",'rb'))
+pseudo_type_ids = np.load(open(f"{GCF.PSEUDO_DIR}/token_ids_pseudo_v1.npy",'rb'))
+pseudo_labels = np.load(open(f"{GCF.PSEUDO_DIR}/labels_pseudo_v1.npy",'rb'))
+labels_check_mc_dropout = np.load(open(f'{GCF.PSEUDO_DIR}/labels_check_mc_dropout_v1.npy','rb'))
+
+print(pseudo_labels.shape)
+
+def pseudo_to_target(pred):
+    if pred == 1:
+        return 1
+    elif pred == 0:
+        return 0
+    else:
+        return -1
+
+new_labels = []
+for p, l in zip(labels_check_mc_dropout, pseudo_labels):
+    new_label = np.array([-1 if i == -1 else pseudo_to_target(j) for i, j in zip(l, p)])
+    new_labels.append(new_label)
+new_labels = np.stack(new_labels)
+new_labels.shape
+
+is_posi = [l[l != -1].sum() > 0 for l in new_labels]
+
+pseudo_sequences = pseudo_sequences[is_posi, :]
+pseudo_masks = pseudo_masks[is_posi, :]
+pseudo_type_ids = pseudo_type_ids[is_posi, :]
+pseudo_labels = new_labels[is_posi, :]
+
+print(pseudo_labels.shape)
 
 class NBMEDataset(Dataset):
     def __init__(self, sequences, mask, type_ids, target):
@@ -506,14 +538,15 @@ for fold in range(GCF.N_FOLDS):
     print(f'### start Fold-{fold} ###')
     set_seed()
 
-    train_sequences = sequences[pn_num_folds != fold, :]
-    train_masks = masks[pn_num_folds != fold, :]
-    train_type_ids = type_ids[pn_num_folds != fold, :]
-    train_labels = labels[pn_num_folds != fold, :]
-    #train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
-    #train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
-    #train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids])
+    #train_sequences = sequences[pn_num_folds != fold, :]
+    #train_masks = masks[pn_num_folds != fold, :]
+    #train_type_ids = type_ids[pn_num_folds != fold, :]
+    #train_labels = labels[pn_num_folds != fold, :]
+    train_sequences = np.vstack([sequences[pn_num_folds != fold, :], pseudo_sequences])
+    train_masks = np.vstack([masks[pn_num_folds != fold, :], pseudo_masks])
+    train_type_ids = np.vstack([type_ids[pn_num_folds != fold, :], pseudo_type_ids])
     #train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels[:, :, fold]])
+    train_labels = np.vstack([labels[pn_num_folds != fold, :], pseudo_labels])
 
     valid_sequences = sequences[pn_num_folds == fold, :]
     valid_masks = masks[pn_num_folds == fold, :]
