@@ -58,11 +58,9 @@
 [infer69.6]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94368929
 [infer69.7]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94369192
 [train70]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/ec5261326853320a7e2485ca133954b2fa00d28d
-[infer70]:xxx
+[infer70]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94444354
 
 ## todo
-- now bestの確認
-- fold-0のみ
 - leakしてそうなので、originモデルの予測でmask
 - now bestをパラメータ調整
 
