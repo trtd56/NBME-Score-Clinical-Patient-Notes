@@ -88,9 +88,8 @@ BEST: 0.8954874877510696
 [train70]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/ec5261326853320a7e2485ca133954b2fa00d28d
 [infer70]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94444354
 [train71]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/a0b2cbc5015acbd98a521955f39add6b0cdd72d8
-[infer71]:xxx
-[infer71.1]:xxx
-[infer71.2]:xxx
+[infer71]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94449446
+[infer71.1]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=94449491
 [train72]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/tree/1dfdc84ce2a535a8a854ba984390c6e5e604cb56
 [infer72]:xxx
 
