@@ -33,8 +33,7 @@
 |fpfn_mask_org|[train69]|[infer69.7]|0.8944|0.875|fold-1|
 |bs32_org|[train70]|[infer70]|0.8895|||
 |org_mask|[train71]|[infer71]|0.8953|||
-|org_mask|[train71]|[infer71.1]|||thr=0.45|
-|org_mask|[train71]|[infer71.2]|||thr=0.4|
+|org_mask|[train71]|[infer71.1]|0.8955||thr=0.3117460497755147|
 |best_tune|[train72]|[infer72]||||
 
 ### org_mask thr
@@ -57,7 +56,11 @@
   -> 0.8951999512230477
 0.6
   -> 0.8950334807152546
+BEST: 0.8954874877510696
 ```
+![image](https://user-images.githubusercontent.com/5457315/166129409-3c2342db-13c7-44a5-9691-0a4e06e2770f.png)
+<img width="1552" alt="スクリーンショット 2022-05-01 11 19 18" src="https://user-images.githubusercontent.com/5457315/166129427-322fe923-b23c-41c1-a6cd-107668d8b764.png">
+
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
 [infer27]:https://www.kaggle.com/code/takamichitoda/nbme-infer-by-pytorch?scriptVersionId=91502169
