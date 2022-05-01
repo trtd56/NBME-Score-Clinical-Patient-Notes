@@ -31,7 +31,7 @@
 |fpfn_mask_org|[train69]|[infer69.5]|0.8944||vote min 5|
 |fpfn_mask_org|[train69]|[infer69.6]|0.8944|0.876|fold-0|
 |fpfn_mask_org|[train69]|[infer69.7]|0.8944|0.875|fold-1|
-|bs32_org|[train70]|[infer70]|0.8895|||
+|bs32_org|[train70]|[infer70]|0.8895|0.875||
 |org_mask|[train71]|[infer71]|0.8953|||
 |org_mask|[train71]|[infer71.1]|0.8955||thr=0.3117460497755147|
 |best_tune|[train72]|[infer72]||||
