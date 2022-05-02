@@ -34,7 +34,7 @@
 |bs32_org|[train70]|[infer70]|0.8895|0.875||
 |org_mask|[train71]|[infer71]|0.8953|0.879||
 |org_mask|[train71]|[infer71.1]|0.8955|0.879|thr=0.3117460497755147|
-|best_tune|[train72]|[infer72]|0.8917|||
+|best_tune|[train72]|[infer72]|0.8917|0.883||
 |fp_05||[infer73]||||
 
 [train27]:https://github.com/trtd56/NBME-Score-Clinical-Patient-Notes/blob/9d06cacd1faaf58d9a8190b51018f0acf5e64774/src/nbme_train_by_pytorch.py
